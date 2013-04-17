@@ -29,8 +29,10 @@ public class TimerService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (intent == null) {
+			Log.v("TimerService onStartCommand intent == null");
 			return START_NOT_STICKY;
 		}
+		Log.v(intent.toString());
 		String actionType = intent.getAction();
 		if(actionType.equals(PomodoroClock.KILL_NOTIF)) {
 			if(mTicker != null) mTicker.cancel();
@@ -39,6 +41,7 @@ public class TimerService extends Service {
 		}else if(actionType.equals(PomodoroClock.ACTION_RUN_BACKGROUND)) {
 		}else if(actionType.equals(PomodoroClock.SHOW_NOTIF)) {
 			updateNotification = true;
+			
 			clock = intent.getParcelableExtra(PomodoroClock.EXTRA_POMODORO);
 			clock.mTimeLeft = clock.mExpectedEndTime - TimeUtils.getTimeNow(); 
 			Log.v("TimerService:" + clock.toString());
@@ -48,7 +51,7 @@ public class TimerService extends Service {
 			mTicker = new Ticker(clock.mTimeLeft, 500);
 			mTicker.start();
 		}
-		return START_STICKY;
+		return START_REDELIVER_INTENT;
 	}
 	
 	private void setNotification(long left) {
@@ -72,6 +75,7 @@ public class TimerService extends Service {
 				.setSmallIcon(R.drawable.stat_notify_alarm)
 				.setPriority(Notification.PRIORITY_MAX).build();
 		mNotificationManager.notify(CLOCK_NOTIFICATION_ID, notification);
+		startForeground(CLOCK_NOTIFICATION_ID, notification);
 	}
 	
 
