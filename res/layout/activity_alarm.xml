@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="@color/normal_background"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@android:attr/textAppearanceLarge" />
+
+    <com.twocities.pomodoro.widget.DigitalClock
+        android:id="@+id/digital_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/digital_clock_minute"
+            style="@style/big_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/screen_alarm_text_color" />
+
+        <TextView
+            android:id="@+id/digital_clock_second"
+            style="@style/big_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/screen_alarm_text_color" />
+    </com.twocities.pomodoro.widget.DigitalClock>
+
+</LinearLayout>

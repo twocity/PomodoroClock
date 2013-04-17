@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:id="@+id/digital_clock_minute"
+        style="@style/big_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:textColor="@color/screen_alarm_text_color"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/digital_clock_second"
+        style="@style/big_thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:ellipsize="none"
+        android:textColor="@color/screen_alarm_text_color"
+        android:singleLine="true" />
+
+</LinearLayout>
