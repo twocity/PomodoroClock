@@ -38,13 +38,18 @@ public class TimerService extends Service {
 			if(mTicker != null) mTicker.cancel();
 			updateNotification = false;
 			mNotificationManager.cancel(CLOCK_NOTIFICATION_ID);
+			this.stopSelf();
 		}else if(actionType.equals(PomodoroClock.ACTION_RUN_BACKGROUND)) {
 		}else if(actionType.equals(PomodoroClock.SHOW_NOTIF)) {
 			updateNotification = true;
 			
 			clock = intent.getParcelableExtra(PomodoroClock.EXTRA_POMODORO);
 			clock.mTimeLeft = clock.mExpectedEndTime - TimeUtils.getTimeNow(); 
-			Log.v("TimerService:" + clock.toString());
+			if(clock.mTimeLeft <= 0) {
+				updateNotification = false;
+				mNotificationManager.cancel(CLOCK_NOTIFICATION_ID);
+				this.stopSelf();
+			}
 			if(mTicker != null) {
 				mTicker.cancel();
 			}

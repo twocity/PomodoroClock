@@ -37,5 +37,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+    
+    <!-- menu drawer item style -->
+    <style name="menudrawer_item">
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:background">@android:style/</item>
+    </style>
 
 </resources>

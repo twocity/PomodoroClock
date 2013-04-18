@@ -19,4 +19,11 @@
     <string name="have_break">"Have a break"</string>
     <string name="complete">Complete</string>
     <string name="quick_start_hint">"add an item to start"</string>
+    <string name="create_task_hint">"add a task"</string>
+    
+    <!-- menu drawer -->
+    <string name="today_title">"Today"</string>
+    <string name="future_title">"Future"</string>
+    <string name="analysis_title">Analysis</string>
+    <string name="setting_title">"Settings"</string>
 </resources>

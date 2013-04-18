@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/mdMenu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <EditText
+        layout="@android:layout/simple_dropdown_item_1line"
+        android:id="@+id/edit_add_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/create_task_hint"
+        android:imeOptions="actionDone" />
+
+    <TextView
+        style="@style/menudrawer_item"
+        android:id="@+id/text_today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/today_title" />
+
+    <TextView
+        style="@style/menudrawer_item"
+        android:id="@+id/text_future"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/future_title" />
+
+    <TextView
+        style="@style/menudrawer_item"
+        android:id="@+id/text_analysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/analysis_title" />
+
+    <TextView
+        style="@style/menudrawer_item"
+        android:id="@+id/text_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_title" />
+
+</LinearLayout>

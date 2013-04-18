@@ -12,7 +12,7 @@ public class StartActivity extends Activity {
 		setContentView(R.layout.activity_start);
 		
 		// TODO fade away
-		Intent intent = new Intent(this, PomodoroActivity.class);
+		Intent intent = new Intent(this, HomeActivity.class);
 		this.startActivity(intent);
 		this.finish();
 	}

@@ -16,7 +16,7 @@ public class PomodoroClock implements Parcelable {
 	public static final String CLOCK_LENGTH = "pomodoro_clock_length";
 	public static final String SHOW_NOTIF = "action_show_notification";
 	public static final String KILL_NOTIF = "action_kill_notification";
-	public static final long DEFAULT_LENGTH = 25 * 60 * 1000;
+	public static final long DEFAULT_LENGTH = 25* 60 * 1000;
 
 	public static final String KEY_TIME_LEFT = "key_time_left";
 
