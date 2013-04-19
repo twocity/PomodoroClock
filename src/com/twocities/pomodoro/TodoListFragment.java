@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class TodoListFragment extends ListFragment {
+public abstract class TodoListFragment extends ListFragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -20,16 +19,41 @@ public class TodoListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		setListAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, TODOLIST));
+//		setListAdapter(new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_list_item_1, TODOLIST));
 	}
+	
 	
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
     }
     
-    private static final String[] TODOLIST = 
+    public static final String[] TODOLIST = 
     {
+            "Add Setting Screen to DidaClient",   
+            "fix bug #34512",
+            "Change ListView background",       
+            "try to add ActionBarSherlock",
+            "write blog",
+            "drink coffee",
+            "Add Setting Screen to DidaClient",   
+            "fix bug #34512",
+            "Change ListView background",       
+            "try to add ActionBarSherlock",
+            "write blog",
+            "drink coffee",
+            "Add Setting Screen to DidaClient",   
+            "fix bug #34512",
+            "Change ListView background",       
+            "try to add ActionBarSherlock",
+            "write blog",
+            "drink coffee",
+            "Add Setting Screen to DidaClient",   
+            "fix bug #34512",
+            "Change ListView background",       
+            "try to add ActionBarSherlock",
+            "write blog",
+            "drink coffee",
             "Add Setting Screen to DidaClient",   
             "fix bug #34512",
             "Change ListView background",       

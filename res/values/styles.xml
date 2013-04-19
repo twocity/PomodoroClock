@@ -20,6 +20,8 @@
     <style name="AlertFullScreenTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar">
     </style>
     
+    <style name="Widget" parent="@android:style/Widget.Holo"></style>
+    
     <style name="big_bold">
         <item name="android:textSize">@dimen/big_font_size</item>
         <item name="android:textStyle">bold</item>
@@ -39,10 +41,19 @@
     </style>
     
     <!-- menu drawer item style -->
-    <style name="menudrawer_item">
+    <style name="menudrawer_item" parent="Widget">
         <item name="android:clickable">true</item>
-        <item name="android:textSize">32sp</item>
-        <item name="android:background">@android:style/</item>
+        <item name="android:onClick">onLeftMenuSelected</item>
+        <item name="android:background">@drawable/abs__item_background_holo_light</item>
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">32dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 </resources>

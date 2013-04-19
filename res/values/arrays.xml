@@ -29,4 +29,11 @@
         <item>2</item>  
     </string-array>
     
+    <!-- future todo list filter -->
+    <string-array name="future_list_filter">
+        <item>Tomorrow</item>
+        <item>This Week</item>
+        <item>Later</item>
+    </string-array>
+    
 </resources>

@@ -7,26 +7,11 @@
     android:orientation="vertical" >
 
     <include layout="@layout/layout_menudrawer" />
-
-    <LinearLayout
-        android:id="@id/mdContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="sample_layout" />
-
-        <TextView
-            android:id="@+id/contentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    
+    <FrameLayout android:id="@+id/content"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       > 
+    </FrameLayout>
 
 </net.simonvt.menudrawer.LeftDrawer>
