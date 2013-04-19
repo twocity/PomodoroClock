@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="menuDrawerStyle">@style/Widget.Styled.MenuDrawer</item>
+    </style>
+
+    <style name="Widget.Styled.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/actionbar_background</item>
+    </style>
+    
+    <style name="Widget.Styled.MenuDrawer" parent="@style/Widget.MenuDrawer">
+        <item name="mdMenuBackground">@color/menudrawer_background</item>
+        <item name="mdContentBackground">?android:attr/windowBackground</item>
+        <item name="mdDropShadowColor">@color/menudrawer_fade_background</item>
+    </style>
+
+    <style name="ScreensaverActivityTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen"></style>
+
+    <style name="AlertFullScreenTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar"></style>
+
+</resources>

@@ -15,8 +15,13 @@
 -->
 
 <resources>
-	<color name="screen_alarm_background">#3B3F3A</color>
+	<color name="screen_alarm_background">#29313B</color><!-- 3B3F3A -->
 	<color name="screen_alarm_text_color">#00CE9B</color>
 	<color name="normal_background">#ffffff</color>
 	<color name="alarm_normal">#000000</color>
+	
+	<!-- actionbar -->
+	<color name="actionbar_background">#F2EDE8</color><!-- F2EDE8 -->
+	<color name="menudrawer_background">#29313B</color><!-- 525961 -->
+	<color name="menudrawer_fade_background">#88000000</color>
 </resources>
