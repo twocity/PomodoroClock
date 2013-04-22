@@ -2,6 +2,10 @@
 
     <style name="Widget" parent="@android:style/Widget.Holo"></style>
 
+    <style name="Widget.MenuDrawer">
+        <item name="android:background">@color/menudrawer_background</item>
+    </style>
+
     <style name="big_bold">
         <item name="android:textSize">@dimen/big_font_size</item>
         <item name="android:textStyle">bold</item>
@@ -23,17 +27,44 @@
     <!-- menu drawer item style -->
     <style name="menudrawer_item" parent="Widget">
         <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/list_selector_holo_light</item>
         <item name="android:onClick">onLeftMenuSelected</item>
-        <item name="android:background">@drawable/abs__item_background_holo_light</item>
         <item name="android:textAppearance">?android:attr/textAppearance</item>
-        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColor">@color/menudrawer_item_text</item>
         <item name="android:textSize">18sp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">32dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
         <item name="android:drawablePadding">16dp</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <!-- text clock style -->
+    <style name="textclock" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_clock</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">8dip</item>
+    </style>
+    <style name="textclock_clock" parent="textclock" >
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="textclock_date" parent="textclock" >
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <!-- red button -->
+    <style name="redbutton">
+        <item name="android:background">@drawable/btn_red_holo_light</item>
+    </style>
+    <style name="newtask" parent="redbutton">
+        <item name="android:layout_margin">5dip</item>
+        <item name="android:background">@drawable/list_selector_holo_light</item>
+        <item name="android:text">@string/create_new_task</item>
     </style>
 
 </resources>

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,15 +19,19 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+//		setContentView(R.layout.activity_home);
 		setupActionBar();
 		initViews();
 		switchContent(new TodayTodoList());
 	}
 	
 	private void initViews() {
-		mMenuDrawer = (MenuDrawer) findViewById(R.id.drawer);
-		mMenuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_NONE);
+        mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.MENU_DRAG_WINDOW);
+        mMenuDrawer.setContentView(R.layout.activity_home);
+        mMenuDrawer.setMenuView(R.layout.layout_menudrawer);
+        mMenuDrawer.setDropShadowEnabled(false);
+//        mMenuDrawer.setDropShadowColor(Color.parseColor("#88000000"));
+//        mMenuDrawer.setDropShadowSize(20);
 	}
 	
 	private void setupActionBar() {

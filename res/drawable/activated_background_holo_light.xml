@@ -14,19 +14,7 @@
      limitations under the License.
 -->
 
-<resources>
-	<color name="screen_alarm_background">#29313B</color><!-- 3B3F3A -->
-	<color name="screen_alarm_text_color">#00CE9B</color>
-	<color name="normal_background">#FFFFFF</color>
-	<color name="alarm_normal">#000000</color>
-	<color name="text_clock">#ffffff</color><!-- #728C54 -->
-	
-	<!-- actionbar -->
-	<color name="pressed_pomodoro">#CC33B5E5</color>
-	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->
-	<color name="menudrawer_background">#F9F9F9</color><!-- 525961 -->
-	<color name="menudrawer_fade_background">#ECECEC</color>
-	
-	<!-- textcolor -->
-	<color name="menudrawer_item_text">#5D5D5D</color>
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:drawable="@drawable/list_activated_holo" />
+    <item android:drawable="@android:color/transparent" />
+</selector>

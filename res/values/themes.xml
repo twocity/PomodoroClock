@@ -1,25 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light"></style>
+    <style name="Theme.Pomodoro" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_pomodoro</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Pomodoro</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Pomodoro</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Pomodoro</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Pomodoro</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Pomodoro</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_pomodoro</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_pomodoro</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Pomodoro</item>
 
-    <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
-        <item name="menuDrawerStyle">@style/Widget.Styled.MenuDrawer</item>
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Pomodoro.Widget</item>
+        <!-- list -->
+        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_light</item>
+        <!-- spinner -->
+        <item name="android:spinnerItemStyle">@style/SpinnerItem.Pomodoro</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem.Pomodoro</item>
     </style>
 
-    <style name="Widget.Styled.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">@color/actionbar_background</item>
+    <style name="SpinnerItem.Pomodoro" parent="@android:style/TextAppearance.Holo.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
     </style>
     
-    <style name="Widget.Styled.MenuDrawer" parent="@style/Widget.MenuDrawer">
-        <item name="mdMenuBackground">@color/menudrawer_background</item>
-        <item name="mdContentBackground">?android:attr/windowBackground</item>
-        <item name="mdDropShadowColor">@color/menudrawer_fade_background</item>
+    <style name="SpinnerDropDownItem.Pomodoro" parent="@android:style/TextAppearance.Holo.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:width">200dip</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <style name="ActionBar.Solid.Pomodoro" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_pomodoro</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_pomodoro</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_pomodoro</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Pomodoro</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Pomodoro" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_pomodoro</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Pomodoro</item>
+    </style>
+
+    <style name="PopupMenu.Pomodoro" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_pomodoro</item>
+    </style>
+
+    <style name="DropDownListView.Pomodoro" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_pomodoro</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Pomodoro" parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_pomodoro</item>
+    </style>
+
+    <style name="DropDownNav.Pomodoro" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_pomodoro</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_pomodoro</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_pomodoro</item>
+    </style>
+
+    <style name="ProgressBar.Pomodoro" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_pomodoro</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Pomodoro" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_pomodoro</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Pomodoro.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Pomodoro</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Pomodoro</item>
     </style>
 
     <style name="ScreensaverActivityTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen"></style>

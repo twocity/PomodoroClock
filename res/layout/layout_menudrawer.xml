@@ -3,43 +3,92 @@
     android:id="@id/mdMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    >
+    android:orientation="vertical" >
 
-    <EditText
-        layout="@android:layout/simple_dropdown_item_1line"
-        android:id="@+id/edit_add_task"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/create_task_hint"
-        android:imeOptions="actionDone" />
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/ab_solid_pomodoro"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
-    <TextView
-        style="@style/menudrawer_item"
-        android:id="@+id/text_today"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/today_title" />
+        <TextClock
+            style="@style/textclock_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format24Hour="k:mm" />
 
-    <TextView
-        style="@style/menudrawer_item"
-        android:id="@+id/text_future"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/future_title" />
+        <TextClock
+            style="@style/textclock_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format24Hour=" MM/dd EEEE" />
+    </LinearLayout>
 
-    <TextView
-        style="@style/menudrawer_item"
-        android:id="@+id/text_analysis"
+    <ScrollView
+        style="@style/Widget.MenuDrawer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/analysis_title" />
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
 
-    <TextView
-        style="@style/menudrawer_item"
-        android:id="@+id/text_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/setting_title" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                style="@style/newtask"
+                android:id="@+id/button_add_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/text_today"
+                style="@style/menudrawer_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/today_title" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:scaleType="fitXY"
+                android:src="@android:drawable/divider_horizontal_bright" />
+
+            <TextView
+                android:id="@+id/text_future"
+                style="@style/menudrawer_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/future_title" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:scaleType="fitXY"
+                android:src="@android:drawable/divider_horizontal_bright" />
+
+            <TextView
+                android:id="@+id/text_analysis"
+                style="@style/menudrawer_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/analysis_title" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:scaleType="fitXY"
+                android:src="@android:drawable/divider_horizontal_bright" />
+
+            <TextView
+                android:id="@+id/text_settings"
+                style="@style/menudrawer_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_title" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

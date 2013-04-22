@@ -5,6 +5,10 @@
     <string name="action_settings">设置</string>
     <string name="introducation">"番茄工具"</string>
     
+    <string name="styled_12_hour_clock">h:mmaa MM dd</string>
+    <string name="styled_24_hour_clock">k:mm MM dd</string>
+    
+    
     <!-- pomodoro activity -->
     <string name="start_pomodoro_clock">"开始一个番茄"</string>
     
@@ -22,6 +26,7 @@
     <string name="create_task_hint">"add a task"</string>
     
     <!-- menu drawer -->
+    <string name="create_new_task">New Task</string>
     <string name="today_title">"Today"</string>
     <string name="future_title">"Future"</string>
     <string name="analysis_title">Analysis</string>
