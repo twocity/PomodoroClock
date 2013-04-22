@@ -62,9 +62,18 @@
         <item name="android:background">@drawable/btn_red_holo_light</item>
     </style>
     <style name="newtask" parent="redbutton">
-        <item name="android:layout_margin">5dip</item>
-        <item name="android:background">@drawable/list_selector_holo_light</item>
+        <item name="android:layout_margin">15dip</item>
+        <item name="android:background">@drawable/create_task_background</item>
         <item name="android:text">@string/create_new_task</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <!-- todo list item style -->
+    <style name="todolist" >
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">5dip</item>
+        <item name="android:padding">10dip</item>
+        <item name="android:cacheColorHint">#00000000</item>
     </style>
 
 </resources>

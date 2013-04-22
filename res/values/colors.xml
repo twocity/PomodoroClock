@@ -21,6 +21,11 @@
 	<color name="alarm_normal">#000000</color>
 	<color name="text_clock">#ffffff</color><!-- #728C54 -->
 	
+	<!-- main clolor -->
+	<color name="main_background">#54728C</color>
+	<color name="main_complementary_background_light">#8c8a54</color>
+	<color name="main_complementary_background_dark">#6c6b41</color>
+	<color name="content_background">#eeeeee</color>
 	<!-- actionbar -->
 	<color name="pressed_pomodoro">#CC33B5E5</color>
 	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->
