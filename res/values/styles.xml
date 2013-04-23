@@ -75,5 +75,20 @@
         <item name="android:padding">10dip</item>
         <item name="android:cacheColorHint">#00000000</item>
     </style>
+    
+    <!-- todo list item text style -->
+    <style name="todo_title">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/menudrawer_item_text</item>
+        <item name="android:textSize">@dimen/todo_item_title_text_size</item>
+    </style>
+    <style name="todo_description">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:textColor">@color/menudrawer_item_text</item>
+        <item name="android:textSize">@dimen/todo_item_description_text_size</item>
+    </style>
 
 </resources>
