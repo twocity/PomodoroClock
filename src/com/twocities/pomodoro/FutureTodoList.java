@@ -1,5 +1,11 @@
 package com.twocities.pomodoro;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.twocities.pomodoro.adapters.TodoListAdapter;
+import com.twocities.pomodoro.data.Tasks;
+
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.os.Bundle;
@@ -14,8 +20,13 @@ public class FutureTodoList extends TodoListFragment implements
 
 		setupActionBar();
 
-		setListAdapter(new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, TODOLIST));
+		List<Tasks> list = new ArrayList<Tasks>();
+		for(int i = 0; i<20; i++) {
+			Tasks item = new Tasks();
+			list.add(item);
+		}
+		TodoListAdapter adapter = new TodoListAdapter(getActivity(), getActivity().getLayoutInflater(), list);
+		setAdapter(adapter);
 	}
 
 	private void setupActionBar() {

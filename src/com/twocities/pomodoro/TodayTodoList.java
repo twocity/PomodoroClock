@@ -1,5 +1,8 @@
 package com.twocities.pomodoro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,14 +10,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.twocities.pomodoro.adapters.TodoListAdapter;
 import com.twocities.pomodoro.data.PomodoroClock;
+import com.twocities.pomodoro.data.Tasks;
 
 public class TodayTodoList extends TodoListFragment {
 	private EditText mQuickStart;
@@ -38,14 +41,14 @@ public class TodayTodoList extends TodoListFragment {
 			}
 		});
 
-		ListView listView = getListView();
-		listView.addHeaderView(mQuickStart);
-
-		setListAdapter(new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, TODOLIST));
-		
 		setupActionBar();
-
+		List<Tasks> list = new ArrayList<Tasks>();
+		for(int i = 0; i<20; i++) {
+			Tasks item = new Tasks();
+			list.add(item);
+		}
+		TodoListAdapter adapter = new TodoListAdapter(getActivity(), getActivity().getLayoutInflater(), list);
+		setAdapter(adapter);
 	}
 	
 	private void setupActionBar() {

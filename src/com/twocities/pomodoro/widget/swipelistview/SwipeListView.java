@@ -108,7 +108,7 @@ public class SwipeListView extends ListView {
     /**
      * Internal listener for common swipe events
      */
-    private BaseSwipeListViewListener swipeListViewListener;
+    private SwipeListViewListener swipeListViewListener;
 
     /**
      * Internal touch listener
@@ -344,7 +344,7 @@ public class SwipeListView extends ListView {
      *
      * @param swipeListViewListener Listener
      */
-    public void setSwipeListViewListener(BaseSwipeListViewListener swipeListViewListener) {
+    public void setSwipeListViewListener(SwipeListViewListener swipeListViewListener) {
         this.swipeListViewListener = swipeListViewListener;
     }
 
