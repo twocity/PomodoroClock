@@ -44,7 +44,7 @@ public class TodayTodoList extends TodoListFragment {
 		setupActionBar();
 		List<Tasks> list = new ArrayList<Tasks>();
 		for(int i = 0; i<20; i++) {
-			Tasks item = new Tasks();
+			Tasks item = new Tasks("title" + i, "description" + i);
 			list.add(item);
 		}
 		TodoListAdapter adapter = new TodoListAdapter(getActivity(), getActivity().getLayoutInflater(), list);

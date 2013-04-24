@@ -39,6 +39,14 @@ public class TodoListAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return 0;
 	}
+	
+	public void remove(int position) {
+		if(position < 0 || position >= getCount()) {
+			return;
+		}
+		mList.remove(position);
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

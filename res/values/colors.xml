@@ -26,6 +26,8 @@
 	<color name="main_complementary_background_light">#8c8a54</color>
 	<color name="main_complementary_background_dark">#6c6b41</color>
 	<color name="content_background">#eeeeee</color>
+	<color name="swipe_back_item_background_done">#33B5E5</color>
+	<color name="swipe_back_item_background_del">#FF4444</color>
 	<!-- actionbar -->
 	<color name="pressed_pomodoro">#CC33B5E5</color>
 	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->

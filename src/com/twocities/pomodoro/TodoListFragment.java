@@ -9,16 +9,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
 import com.twocities.pomodoro.Utils.Log;
+import com.twocities.pomodoro.adapters.TodoListAdapter;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListView;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListViewListener;
 
 public class TodoListFragment extends Fragment implements
 		SwipeListViewListener, OnItemClickListener, OnItemLongClickListener,
 		OnItemSelectedListener {
-	private ListAdapter mAdapter;
+	private TodoListAdapter mAdapter;
 	private SwipeListView mListView;
 	private boolean mListShown;
 
@@ -35,8 +37,8 @@ public class TodoListFragment extends Fragment implements
 		super.onActivityCreated(savedInstanceState);
 	}
 	
-	public void setAdapter(ListAdapter adapter) {
-		mAdapter = adapter;
+	public void setAdapter(BaseAdapter adapter) {
+		mAdapter = (TodoListAdapter) adapter;
 		mListView.setAdapter(adapter);
 		setListShown();
 	}
@@ -49,25 +51,7 @@ public class TodoListFragment extends Fragment implements
 	private void ensureList() {
 		mListView.setSwipeListViewListener(this);
 		mListView.setSwipeOpenOnLongPress(false);
-//		mListView.setOnItemClickListener(this);
-//		mListView.setOnItemLongClickListener(this);
-//		mListView.setOnItemSelectedListener(this);
 	}
-
-	public static final String[] TODOLIST = {
-			"Add Setting Screen to DidaClient", "fix bug #34512",
-			"Change ListView background", "try to add ActionBarSherlock",
-			"write blog", "drink coffee", "Add Setting Screen to DidaClient",
-			"fix bug #34512", "Change ListView background",
-			"try to add ActionBarSherlock", "write blog", "drink coffee",
-			"Add Setting Screen to DidaClient", "fix bug #34512",
-			"Change ListView background", "try to add ActionBarSherlock",
-			"write blog", "drink coffee", "Add Setting Screen to DidaClient",
-			"fix bug #34512", "Change ListView background",
-			"try to add ActionBarSherlock", "write blog", "drink coffee",
-			"Add Setting Screen to DidaClient", "fix bug #34512",
-			"Change ListView background", "try to add ActionBarSherlock",
-			"write blog", "drink coffee" };
 
 	@Override
 	public void onOpened(int position, boolean toRight) {
@@ -76,7 +60,6 @@ public class TodoListFragment extends Fragment implements
 
 	@Override
 	public void onClosed(int position, boolean fromRight) {
-		// TODO Auto-generated method stub
 		Log.v("onClosed");
 
 	}
@@ -127,7 +110,10 @@ public class TodoListFragment extends Fragment implements
 	public void onDismiss(int[] reverseSortedPositions) {
 		// TODO Auto-generated method stub
 		Log.v("onDismiss");
-
+        for (int position : reverseSortedPositions) {
+            mAdapter.remove(position);
+        }
+        mAdapter.notifyDataSetChanged();
 	}
 
 	@Override

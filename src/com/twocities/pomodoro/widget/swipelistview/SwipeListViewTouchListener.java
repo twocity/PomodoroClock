@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.twocities.pomodoro.R;
 import com.twocities.pomodoro.view.ViewPropertyAnimator;
 import com.twocities.pomodoro.widget.ViewHelper;
 
@@ -317,6 +318,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             generateRevealAnimate(view, swap, swapRight, position);
         }
         if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_DISMISS) {
+        	generateDismissAnimate(view, swap, swapRight, position);
             generateDismissAnimate(parentView, swap, swapRight, position);
         }
     }
@@ -611,6 +613,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         }
                         swipeListView.onStartOpen(downPosition, swipeCurrentAction, swipingRight);
                     }
+                    if (swipingRight) {
+                    	backView.setBackgroundResource(R.color.swipe_back_item_background_done);
+                    } else {
+                    	backView.setBackgroundResource(R.color.swipe_back_item_background_del);
+                    }
                     swipeListView.requestDisallowInterceptTouchEvent(true);
                     MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
                     cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
@@ -639,11 +646,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     public void move(float deltaX) {
         swipeListView.onMove(downPosition, deltaX);
         if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_DISMISS) {
-        	ViewHelper.setTranslationX(parentView, deltaX);
-        	ViewHelper.setAlpha(parentView, Math.max(0f, Math.min(1f,
-                    1f - 2f * Math.abs(deltaX) / viewWidth)));
-        } else {
         	ViewHelper.setTranslationX(frontView, deltaX);
+//        	ViewHelper.setAlpha(parentView, Math.max(0f, Math.min(1f,
+//                    1.2f - 2f * Math.abs(deltaX) / viewWidth)));
+        } else {
+        	ViewHelper.setTranslationX(frontView, Math.min(deltaX, viewWidth));
         }
     }
 
