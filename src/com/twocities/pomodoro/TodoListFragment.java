@@ -74,7 +74,6 @@ public class TodoListFragment extends Fragment implements
 	@Override
 	public void onMove(int position, float x) {
 		// TODO Auto-generated method stub
-		Log.v("onMove");
 
 	}
 

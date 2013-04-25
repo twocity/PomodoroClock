@@ -12,19 +12,21 @@
         android:background="@color/swipe_back_item_background_done"
         android:tag="back" >
 
-        <ImageView
+        <ImageView android:id="@+id/todo_left_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/action_done" />
 
-        <ImageView
+        <ImageView android:id="@+id/todo_right_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/action_discard" />
     </RelativeLayout>
