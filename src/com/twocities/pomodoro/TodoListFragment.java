@@ -1,6 +1,9 @@
 package com.twocities.pomodoro;
 
 import android.app.Fragment;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +13,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 
 import com.twocities.pomodoro.Utils.Log;
 import com.twocities.pomodoro.adapters.TodoListAdapter;
@@ -19,6 +21,7 @@ import com.twocities.pomodoro.widget.swipelistview.SwipeListViewListener;
 
 public class TodoListFragment extends Fragment implements
 		SwipeListViewListener, OnItemClickListener, OnItemLongClickListener,
+		LoaderCallbacks<Cursor>,
 		OnItemSelectedListener {
 	private TodoListAdapter mAdapter;
 	private SwipeListView mListView;
@@ -66,49 +69,38 @@ public class TodoListFragment extends Fragment implements
 
 	@Override
 	public void onListChanged() {
-		// TODO Auto-generated method stub
 		Log.v("onListChanged");
 
 	}
 
 	@Override
 	public void onMove(int position, float x) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onStartOpen(int position, int action, boolean right) {
-		// TODO Auto-generated method stub
 		Log.v("onStartOpen");
 
 	}
 
 	@Override
 	public void onStartClose(int position, boolean right) {
-		// TODO Auto-generated method stub
-		Log.v("onStartClose");
 
 	}
 
 	@Override
 	public void onClickFrontView(int position) {
-		// TODO Auto-generated method stub
-		Log.v("onClickFrontView");
 
 	}
 
 	@Override
 	public void onClickBackView(int position) {
-		// TODO Auto-generated method stub
-		Log.v("onClickBackView");
 
 	}
 
 	@Override
 	public void onDismiss(int[] reverseSortedPositions) {
-		// TODO Auto-generated method stub
-		Log.v("onDismiss");
         for (int position : reverseSortedPositions) {
             mAdapter.remove(position);
         }
@@ -117,34 +109,42 @@ public class TodoListFragment extends Fragment implements
 
 	@Override
 	public int onChangeSwipeMode(int position) {
-		// TODO Auto-generated method stub
 		return SwipeListView.SWIPE_MODE_DEFAULT;
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
 	}
 }
