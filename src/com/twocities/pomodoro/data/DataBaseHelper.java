@@ -8,18 +8,19 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.twocities.pomodoro.Utils.Log;
+import com.twocities.pomodoro.provider.TaskConstract;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 	private static final String NAME = "pomodoro.db";
 	private static final int VERSION = 1;
 	public static final String TASKS_TABLE = "task";
 	private static final String CREATE_TASKS_TABLE = "CREATE TABLE "
-			+ TASKS_TABLE + " ( " + DataConstract.TaskColumns.TASK_ID
-			+ " LONG PRIMARY KEY," + DataConstract.TaskColumns.TITLE
-			+ " TEXT, " + DataConstract.TaskColumns.DESCRIPTION + " TEXT, "
-			+ DataConstract.TaskColumns.TAGS + " TEXT, "
-			+ DataConstract.TaskColumns.START_DATE + " LONG, "
-			+ DataConstract.TaskColumns.DUE_DATE + " LONG);";
+			+ TASKS_TABLE + " ( " + TaskConstract.Columns._ID
+			+ " LONG PRIMARY KEY," + TaskConstract.Columns.TITLE
+			+ " TEXT, " + TaskConstract.Columns.DESCRIPTION + " TEXT, "
+			+ TaskConstract.Columns.TAGS + " TEXT, "
+			+ TaskConstract.Columns.START_DATE + " LONG, "
+			+ TaskConstract.Columns.DUE_DATE + " LONG);";
 
 	public DataBaseHelper(final Context context) {
 		super(context, NAME, null, VERSION);

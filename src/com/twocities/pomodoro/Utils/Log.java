@@ -30,14 +30,31 @@ public class Log {
      test code, etc. */
     static final boolean LOGV = true;
 
+    public static void v(String TAG, String logMe) {
+    	if(LOGV) {
+    		android.util.Log.v(TAG, logMe);
+    	}
+    }
     public static void v(String logMe) {
     	if(LOGV)
     		android.util.Log.v(LOGTAG, /* SystemClock.uptimeMillis() + " " + */ logMe);
+    }
+    
+    public static void i(String TAG, String logMe) {
+    	if(LOGV) {
+    		android.util.Log.i(TAG, logMe);
+    	}
     }
 
     public static void i(String logMe) {
     	if(LOGV)
     		android.util.Log.i(LOGTAG, logMe);
+    }
+    
+    public static void e(String TAG, String logMe) {
+    	if(LOGV) {
+    		android.util.Log.e(TAG, logMe);
+    	}
     }
 
     public static void e(String logMe) {
@@ -48,6 +65,12 @@ public class Log {
     public static void e(String logMe, Exception ex) {
     	if(LOGV)
     		android.util.Log.e(LOGTAG, logMe, ex);
+    }
+    
+    public static void w(String TAG, String logMe) {
+    	if(LOGV) {
+    		android.util.Log.w(TAG, logMe);
+    	}
     }
 
     public static void w(String logMe) {
