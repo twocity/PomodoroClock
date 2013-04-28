@@ -57,6 +57,17 @@ public final class TaskConstract {
      */
 	public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
 			+ AUTHORITY + PATH_TASKS_ID + "/#");
+	
+	/**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of tasks.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.com.twocities.pomodoro.provider.task";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} sub-directory of a single
+     * task.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.com.twocities.pomodoro.provider.task";
 
 	public static final class Columns implements BaseColumns {
 

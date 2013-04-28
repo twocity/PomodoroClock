@@ -29,34 +29,36 @@ public class TaskProvider extends ContentProvider {
 
 	// The incoming URI matches the Note ID URI pattern
 	private static final int TASK_ID = 2;
-	
-	 /**
-     * A UriMatcher instance
-     */
-    private static final UriMatcher sUriMatcher;
-
-    // Handle to a new DatabaseHelper.
-    private DataBaseHelper mOpenHelper;
 
 	/**
-     * A block that instantiates and sets static objects
-     */
-    static {
+	 * A UriMatcher instance
+	 */
+	private static final UriMatcher sUriMatcher;
 
-        /*
-         * Creates and initializes the URI matcher
-         */
-        // Create a new instance
-        sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+	// Handle to a new DatabaseHelper.
+	private DataBaseHelper mOpenHelper;
 
-        // Add a pattern that routes URIs terminated with "tasks" to a TASKS operation
-        sUriMatcher.addURI(TaskConstract.AUTHORITY, "tasks", TASKS);
+	/**
+	 * A block that instantiates and sets static objects
+	 */
+	static {
 
-        // Add a pattern that routes URIs terminated with "tasks" plus an integer
-        // to a task ID operation
-        sUriMatcher.addURI(TaskConstract.AUTHORITY, "tasks/#", TASK_ID);
-    }
-    
+		/*
+		 * Creates and initializes the URI matcher
+		 */
+		// Create a new instance
+		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+		// Add a pattern that routes URIs terminated with "tasks" to a TASKS
+		// operation
+		sUriMatcher.addURI(TaskConstract.AUTHORITY, "tasks", TASKS);
+
+		// Add a pattern that routes URIs terminated with "tasks" plus an
+		// integer
+		// to a task ID operation
+		sUriMatcher.addURI(TaskConstract.AUTHORITY, "tasks/#", TASK_ID);
+	}
+
 	@Override
 	public boolean onCreate() {
 		Log.v(TAG, "@onCreate()");
@@ -68,20 +70,30 @@ public class TaskProvider extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 		switch (sUriMatcher.match(uri)) {
-			case TASKS:
-				return mOpenHelper.queryEvent();
-			case TASK_ID :
-				break;
-			default:
-				throw new IllegalArgumentException("Unknown URI " + uri);
+		case TASKS:
+			return mOpenHelper.queryEvent();
+		case TASK_ID:
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
 		return null;
 	}
 
+	/**
+	 * This is called when a client calls
+	 * {@link android.content.ContentResolver#getType(Uri)}
+	 */
 	@Override
 	public String getType(Uri uri) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (sUriMatcher.match(uri)) {
+		case TASKS:
+			return TaskConstract.CONTENT_TYPE;
+		case TASK_ID:
+			return TaskConstract.CONTENT_ITEM_TYPE;
+		default:
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
 	}
 
 	@Override
