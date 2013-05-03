@@ -1,40 +1,33 @@
 package com.twocities.pomodoro;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
+import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.SimpleCursorAdapter;
 
-import com.twocities.pomodoro.Utils.AsyncLoader;
-import com.twocities.pomodoro.Utils.Log;
-import com.twocities.pomodoro.adapters.TodoListAdapter;
-import com.twocities.pomodoro.data.DataBaseHelper;
-import com.twocities.pomodoro.data.Tasks;
+import com.twocities.pomodoro.provider.TaskConstract;
+import com.twocities.pomodoro.provider.TaskProvider;
 
 public class FutureTodoList extends TodoListFragment implements
 		OnNavigationListener {
 	
-	private DataBaseHelper mHelper;
 
+	private SimpleCursorAdapter adapter;
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		setupActionBar();
 		
-		mHelper = new DataBaseHelper(getActivity().getApplicationContext());
 		getLoaderManager().initLoader(0, null, this);
 		
-		List<Tasks> list = new ArrayList<Tasks>();
-		for(int i = 0; i<20; i++) {
-			Tasks item = new Tasks();
-			list.add(item);
-		}
-		TodoListAdapter adapter = new TodoListAdapter(getActivity(), getActivity().getLayoutInflater(), list);
+		adapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_list_item_2, null,
+                new String[] { TaskConstract.Columns.TITLE, TaskConstract.Columns.DESCRIPTION },
+                new int[] { android.R.id.text1, android.R.id.text2 }, 0);
 		setAdapter(adapter);
 	}
 
@@ -49,28 +42,19 @@ public class FutureTodoList extends TodoListFragment implements
 	
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		mHelper.queryEvent(null, null, null, null, null, null);
-		return new AsyncLoader<Cursor>(getActivity()) {
-
-			@Override
-			public Cursor loadData() throws Exception {
-				return mHelper.queryEvent();
-			}
-		};
+		CursorLoader cursorLoader = new CursorLoader(getActivity(),
+		        TaskConstract.CONTENT_URI, null, null, null, null);
+		    return cursorLoader;
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		while (data.moveToNext()) {
-			String title = data.getString(1);
-			String description = data.getString(2);
-			Log.v("\ntitle: " + title);
-			Log.v("\ndescription: " + description);
-		}
+		adapter.swapCursor(data);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
 	}
 
 	@Override

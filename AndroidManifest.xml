@@ -61,6 +61,13 @@
         <receiver
             android:name="com.twocities.pomodoro.AlarmReceiver"
             android:process=":remote" />
+
+        <provider
+            android:name="com.twocities.pomodoro.provider.TaskProvider"
+            android:authorities="com.twocities.pomodoro.provider.Tasks"
+            android:exported="false" >
+            <grant-uri-permission android:pathPattern=".*" />
+        </provider>
     </application>
 
 </manifest>

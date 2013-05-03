@@ -13,7 +13,7 @@ import com.twocities.pomodoro.provider.TaskConstract;
 public class DataBaseHelper extends SQLiteOpenHelper {
 	private static final String NAME = "pomodoro.db";
 	private static final int VERSION = 1;
-	public static final String TASKS_TABLE = "task";
+	public static final String TASKS_TABLE = TaskConstract.Columns.TASKS_TABLE;
 	private static final String CREATE_TASKS_TABLE = "CREATE TABLE "
 			+ TASKS_TABLE + " ( " + TaskConstract.Columns._ID
 			+ " LONG PRIMARY KEY," + TaskConstract.Columns.TITLE
@@ -65,7 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	 * 
 	 * @return readable database or null if it failed to create/open
 	 */
-	protected SQLiteDatabase getReadable() {
+	public SQLiteDatabase getReadable() {
 		try {
 			return getReadableDatabase();
 		} catch (SQLiteException e1) {
@@ -83,7 +83,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	 * 
 	 * @return writable database or null if it failed to create/open
 	 */
-	protected SQLiteDatabase getWritable() {
+	public SQLiteDatabase getWritable() {
 		try {
 			return getWritableDatabase();
 		} catch (SQLiteException e1) {

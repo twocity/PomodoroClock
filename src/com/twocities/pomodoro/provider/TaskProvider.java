@@ -1,9 +1,13 @@
 package com.twocities.pomodoro.provider;
 
+import java.util.HashMap;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.twocities.pomodoro.Utils.Log;
@@ -15,10 +19,15 @@ public class TaskProvider extends ContentProvider {
 	/**
 	 * Standard projection for a normal task
 	 */
-	private static final String[] READ_TASK_PROJECTION = new String[] {
+	public static final String[] READ_TASK_PROJECTION = new String[] {
 			TaskConstract.Columns._ID, TaskConstract.Columns.TITLE,
 			TaskConstract.Columns.DESCRIPTION, TaskConstract.Columns.TAGS,
 			TaskConstract.Columns.START_DATE, TaskConstract.Columns.DUE_DATE };
+
+	/**
+	 * A projection map used to select columns from the database
+	 */
+	private static HashMap<String, String> sTasksProjectionMap;
 
 	/*
 	 * Constants used by the Uri matcher to choose an action based on the
@@ -57,6 +66,26 @@ public class TaskProvider extends ContentProvider {
 		// integer
 		// to a task ID operation
 		sUriMatcher.addURI(TaskConstract.AUTHORITY, "tasks/#", TASK_ID);
+
+		/*
+		 * Creates and initializes a projection map that returns all columns
+		 */
+
+		// Creates a new projection map instance. The map returns a column name
+		// given a string. The two are usually equal.
+		sTasksProjectionMap = new HashMap<String, String>();
+
+		// Maps the string "_ID" to the column name "_ID"
+		sTasksProjectionMap.put(TaskConstract.Columns._ID,
+				TaskConstract.Columns._ID);
+
+		// Maps "title" to "title"
+		sTasksProjectionMap.put(TaskConstract.Columns.TITLE,
+				TaskConstract.Columns.TITLE);
+
+		// Maps "description" to "description"
+		sTasksProjectionMap.put(TaskConstract.Columns.DESCRIPTION,
+				TaskConstract.Columns.DESCRIPTION);
 	}
 
 	@Override
@@ -69,15 +98,44 @@ public class TaskProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
+
+		// Constructs a new query builder and sets its table name
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TaskConstract.Columns.TASKS_TABLE);
+
 		switch (sUriMatcher.match(uri)) {
 		case TASKS:
-			return mOpenHelper.queryEvent();
+			qb.setProjectionMap(sTasksProjectionMap);
+			break;
 		case TASK_ID:
+			qb.appendWhere(TaskConstract.Columns._ID + "="
+					+ uri.getLastPathSegment());
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		return null;
+
+		SQLiteDatabase db = mOpenHelper.getReadable();
+
+		/*
+		 * Performs the query. If no problems occur trying to read the database,
+		 * then a Cursor object is returned; otherwise, the cursor variable
+		 * contains null. If no records were selected, then the Cursor object is
+		 * empty, and Cursor.getCount() returns 0.
+		 */
+		Cursor c = qb.query(db, // The database to query
+				projection, // The columns to return from the query
+				selection, // The columns for the where clause
+				selectionArgs, // The values for the where clause
+				null, // don't group the rows
+				null, // don't filter by row groups
+				sortOrder // The sort order
+				);
+
+		// Tells the Cursor what URI to watch, so it knows when its source data
+		// changes
+		c.setNotificationUri(getContext().getContentResolver(), uri);
+		return c;
 	}
 
 	/**
