@@ -2,33 +2,26 @@ package com.twocities.pomodoro;
 
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.SimpleCursorAdapter;
+import android.widget.CursorAdapter;
 
-import com.twocities.pomodoro.provider.TaskConstract;
-import com.twocities.pomodoro.provider.TaskProvider;
+import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 
 public class FutureTodoList extends TodoListFragment implements
 		OnNavigationListener {
 	
 
-	private SimpleCursorAdapter adapter;
+	private TodoCursorAdapter adapter;
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		setupActionBar();
 		
-		getLoaderManager().initLoader(0, null, this);
+//		getLoaderManager().initLoader(0, null, this);
 		
-		adapter = new SimpleCursorAdapter(getActivity(),
-                android.R.layout.simple_list_item_2, null,
-                new String[] { TaskConstract.Columns.TITLE, TaskConstract.Columns.DESCRIPTION },
-                new int[] { android.R.id.text1, android.R.id.text2 }, 0);
-		setAdapter(adapter);
+		adapter = new TodoCursorAdapter(getActivity(), R.layout.layout_swipe_todo_item, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		setListAdapter(adapter);
 	}
 
 	private void setupActionBar() {
@@ -40,22 +33,19 @@ public class FutureTodoList extends TodoListFragment implements
 		actionBar.setDisplayShowTitleEnabled(false);
 	}
 	
-	@Override
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-		        TaskConstract.CONTENT_URI, null, null, null, null);
-		    return cursorLoader;
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		adapter.swapCursor(data);
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> loader) {
-		adapter.swapCursor(null);
-	}
+//	@Override
+//	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//	}
+//
+//	@Override
+//	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+//		adapter.swapCursor(data);
+//	}
+//
+//	@Override
+//	public void onLoaderReset(Loader<Cursor> loader) {
+//		adapter.swapCursor(null);
+//	}
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {

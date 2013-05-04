@@ -29,11 +29,18 @@ public class DataBaseInit {
 		protected Void doInBackground(DataBaseHelper... params) {
 			long now = TimeUtils.getTimeNow();
 			DataBaseHelper helper = params[0];
+			ContentValues first = new ContentValues();
+			first.put(TaskConstract.Columns.TITLE, "Hello World");
+			first.put(TaskConstract.Columns.DESCRIPTION, "Welcome to use this wanderfull tool");
+			first.put(TaskConstract.Columns.TAGS, "tag0000 ");
+			first.put(TaskConstract.Columns.START_DATE, now);
+			first.put(TaskConstract.Columns.DUE_DATE, now + 10000);
+			helper.insertEvent(first);
 			for (int i=0; i<20; ++i) {
 				ContentValues values = new ContentValues();
 				values.put(TaskConstract.Columns.TITLE, "new title " + i);
 				values.put(TaskConstract.Columns.DESCRIPTION, "new description " + i);
-				values.put(TaskConstract.Columns.TAGS, "tag " + 1);
+				values.put(TaskConstract.Columns.TAGS, "tag " + i);
 				values.put(TaskConstract.Columns.START_DATE, now);
 				values.put(TaskConstract.Columns.DUE_DATE, now + 10000);
 				helper.insertEvent(values);

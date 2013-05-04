@@ -86,6 +86,18 @@ public class TaskProvider extends ContentProvider {
 		// Maps "description" to "description"
 		sTasksProjectionMap.put(TaskConstract.Columns.DESCRIPTION,
 				TaskConstract.Columns.DESCRIPTION);
+		
+		// Maps "tags" to "tags"
+		sTasksProjectionMap.put(TaskConstract.Columns.TAGS,
+				TaskConstract.Columns.TAGS);
+		
+		// Maps "start date" to "start date"
+		sTasksProjectionMap.put(TaskConstract.Columns.START_DATE,
+				TaskConstract.Columns.START_DATE);
+		
+		// Maps "due date" to "due date"
+		sTasksProjectionMap.put(TaskConstract.Columns.DUE_DATE,
+				TaskConstract.Columns.DUE_DATE);
 	}
 
 	@Override
@@ -105,7 +117,7 @@ public class TaskProvider extends ContentProvider {
 
 		switch (sUriMatcher.match(uri)) {
 		case TASKS:
-			qb.setProjectionMap(sTasksProjectionMap);
+//			qb.setProjectionMap(sTasksProjectionMap);
 			break;
 		case TASK_ID:
 			qb.appendWhere(TaskConstract.Columns._ID + "="

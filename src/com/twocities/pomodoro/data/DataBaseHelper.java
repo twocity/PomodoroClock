@@ -15,9 +15,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	private static final int VERSION = 1;
 	public static final String TASKS_TABLE = TaskConstract.Columns.TASKS_TABLE;
 	private static final String CREATE_TASKS_TABLE = "CREATE TABLE "
-			+ TASKS_TABLE + " ( " + TaskConstract.Columns._ID
-			+ " LONG PRIMARY KEY," + TaskConstract.Columns.TITLE
-			+ " TEXT, " + TaskConstract.Columns.DESCRIPTION + " TEXT, "
+			+ TASKS_TABLE + " ( " 
+			+ TaskConstract.Columns._ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," 
+			+ TaskConstract.Columns.TITLE + " TEXT, " 
+			+ TaskConstract.Columns.DESCRIPTION + " TEXT, "
 			+ TaskConstract.Columns.TAGS + " TEXT, "
 			+ TaskConstract.Columns.START_DATE + " LONG, "
 			+ TaskConstract.Columns.DUE_DATE + " LONG);";

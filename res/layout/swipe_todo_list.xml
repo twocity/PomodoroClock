@@ -1,34 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.twocities.pomodoro.widget.swipelistview.SwipeListView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@id/swipe_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/content_background" >
-
-    <com.twocities.pomodoro.widget.swipelistview.SwipeListView
-        xmlns:swipe="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe_todo_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:listSelector="@drawable/list_selector_holo_light"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        swipe:swipeOffsetLeft="96dp"
-        swipe:swipeOffsetRight="96dp"
-        swipe:swipeActionLeft="dismiss"
-        swipe:swipeActionRight="dismiss"
-        swipe:swipeBackView="@+id/back"
-        swipe:swipeCloseAllItemsWhenMoveList="true"
-        swipe:swipeFrontView="@+id/front"
-        swipe:swipeMode="both" 
-        swipeOpenOnLongPress="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"/>
-
-    <TextView
-        android:id="@id/android:empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:text="No data" />
-
-</FrameLayout>
+    android:drawSelectorOnTop="false"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="10dp"
+    android:listSelector="@drawable/list_selector_holo_light"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    
+    swipeOpenOnLongPress="false"
+    swipe:swipeActionLeft="dismiss"
+    swipe:swipeActionRight="dismiss"
+    swipe:swipeBackView="@+id/back"
+    swipe:swipeCloseAllItemsWhenMoveList="true"
+    swipe:swipeFrontView="@+id/front"
+    swipe:swipeMode="both"
+    swipe:swipeOffsetLeft="96dp"
+    swipe:swipeOffsetRight="96dp" />
