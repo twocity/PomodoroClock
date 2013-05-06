@@ -30,6 +30,7 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
         mMenuDrawer.setContentView(R.layout.activity_home);
         mMenuDrawer.setMenuView(R.layout.layout_menudrawer);
         mMenuDrawer.setDropShadowEnabled(false);
+        mMenuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_NONE);
 //        mMenuDrawer.setDropShadowColor(Color.parseColor("#88000000"));
 //        mMenuDrawer.setDropShadowSize(20);
 	}

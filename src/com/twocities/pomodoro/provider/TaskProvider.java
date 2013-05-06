@@ -21,8 +21,8 @@ public class TaskProvider extends ContentProvider {
 	 */
 	public static final String[] READ_TASK_PROJECTION = new String[] {
 			TaskConstract.Columns._ID, TaskConstract.Columns.TITLE,
-			TaskConstract.Columns.DESCRIPTION, TaskConstract.Columns.TAGS,
-			TaskConstract.Columns.START_DATE, TaskConstract.Columns.DUE_DATE };
+			TaskConstract.Columns.DESCRIPTION, 
+			TaskConstract.Columns.REMINDER_TIME, TaskConstract.Columns.DUE_TIME };
 
 	/**
 	 * A projection map used to select columns from the database
@@ -86,18 +86,7 @@ public class TaskProvider extends ContentProvider {
 		// Maps "description" to "description"
 		sTasksProjectionMap.put(TaskConstract.Columns.DESCRIPTION,
 				TaskConstract.Columns.DESCRIPTION);
-		
-		// Maps "tags" to "tags"
-		sTasksProjectionMap.put(TaskConstract.Columns.TAGS,
-				TaskConstract.Columns.TAGS);
-		
-		// Maps "start date" to "start date"
-		sTasksProjectionMap.put(TaskConstract.Columns.START_DATE,
-				TaskConstract.Columns.START_DATE);
-		
-		// Maps "due date" to "due date"
-		sTasksProjectionMap.put(TaskConstract.Columns.DUE_DATE,
-				TaskConstract.Columns.DUE_DATE);
+
 	}
 
 	@Override

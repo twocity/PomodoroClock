@@ -6,22 +6,31 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.twocities.pomodoro.Utils.TimeUtils;
 import com.twocities.pomodoro.data.PomodoroClock;
+import com.twocities.pomodoro.provider.TaskConstract;
 
 public class TodayTodoList extends TodoListFragment {
 	private EditText mQuickStart;
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		mQuickStart = (EditText) getActivity().getLayoutInflater().inflate(
-				R.layout.layout_add_pomodoro_edit, null);
+	public View onCreateView(LayoutInflater inflater, ViewGroup containder, Bundle savedInstaceState) {
+		return inflater.inflate(R.layout.fragment_today, containder, false);
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mQuickStart = (EditText) view.findViewById(R.id.quick_add_pomodoro);
 
 		mQuickStart.setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -35,8 +44,19 @@ public class TodayTodoList extends TodoListFragment {
 				return false;
 			}
 		});
-
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		setupActionBar();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		mQuickStart.clearFocus();
+		mQuickStart.setText("");
 	}
 
 	private void setupActionBar() {
@@ -66,4 +86,22 @@ public class TodayTodoList extends TodoListFragment {
 			this.startActivity(i);
 		}
 	}
+	
+	@Override
+	protected String getSelection() {
+		return " ( " 
+				+ TaskConstract.Columns.REMINDER_TIME
+				+ ">=" + "?"
+				+ " AND "
+				+ TaskConstract.Columns.REMINDER_TIME
+				+ "<=" + "?"
+				+ " ) ";
+	}
+	
+	
+	@Override
+	protected String[] getSelectionArgs() {
+		return TimeUtils.rangeOfToday();
+	}
+	
 }

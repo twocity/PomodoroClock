@@ -4,21 +4,16 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.CursorAdapter;
 
 import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 import com.twocities.pomodoro.provider.TaskConstract;
 
-public class TodoListFragment extends SwipeListFragment implements
+public abstract class TodoListFragment extends SwipeListFragment implements
 		LoaderCallbacks<Cursor> {
 
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		View v = inflater.inflate(R.layout.swipe_todo_list, null);
-//		return v;
-//	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,7 +35,11 @@ public class TodoListFragment extends SwipeListFragment implements
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-		        TaskConstract.CONTENT_URI, null, null, null, null);
+		        getUri(), 
+		        getProjection(),
+		        getSelection(),
+		        getSelectionArgs(),
+		        getSortOrder());
 		    return cursorLoader;
 	}
 
@@ -52,5 +51,25 @@ public class TodoListFragment extends SwipeListFragment implements
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		getListAdapter().swapCursor(null);
+	}
+	
+	protected Uri getUri() {
+		return TaskConstract.CONTENT_URI;
+	}
+	
+	protected String[] getProjection() {
+		return null;
+	}
+	
+	protected String getSelection() {
+		return null;
+	}
+	
+	protected String[] getSelectionArgs() {
+		return null;
+	}
+	
+	protected String getSortOrder() {
+		return null;
 	}
 }

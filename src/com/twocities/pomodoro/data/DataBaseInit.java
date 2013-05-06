@@ -2,7 +2,9 @@ package com.twocities.pomodoro.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.twocities.pomodoro.Utils.TimeUtils;
 import com.twocities.pomodoro.provider.TaskConstract;
@@ -15,10 +17,14 @@ public class DataBaseInit {
 	}
 
 	public static void Init(Context context) {
+		isInit = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getBoolean("is_init", false);
 		if (isInit) {
 			return;
 		}
 		isInit = true;
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).edit();
+		editor.putBoolean("is_init", true);
+		editor.commit();
 		DataBaseHelper helper = new DataBaseHelper(context);
 		new InitTask().execute(helper);
 	}
@@ -28,23 +34,41 @@ public class DataBaseInit {
 		@Override
 		protected Void doInBackground(DataBaseHelper... params) {
 			long now = TimeUtils.getTimeNow();
+			long dayLength = 24 * 60 * 60 * 1000;
 			DataBaseHelper helper = params[0];
-			ContentValues first = new ContentValues();
-			first.put(TaskConstract.Columns.TITLE, "Hello World");
-			first.put(TaskConstract.Columns.DESCRIPTION, "Welcome to use this wanderfull tool");
-			first.put(TaskConstract.Columns.TAGS, "tag0000 ");
-			first.put(TaskConstract.Columns.START_DATE, now);
-			first.put(TaskConstract.Columns.DUE_DATE, now + 10000);
-			helper.insertEvent(first);
-			for (int i=0; i<20; ++i) {
-				ContentValues values = new ContentValues();
-				values.put(TaskConstract.Columns.TITLE, "new title " + i);
-				values.put(TaskConstract.Columns.DESCRIPTION, "new description " + i);
-				values.put(TaskConstract.Columns.TAGS, "tag " + i);
-				values.put(TaskConstract.Columns.START_DATE, now);
-				values.put(TaskConstract.Columns.DUE_DATE, now + 10000);
-				helper.insertEvent(values);
-			}
+			// yesterday
+			ContentValues yesterday = new ContentValues();
+			yesterday.put(TaskConstract.Columns.TITLE, "yesterday");
+			yesterday.put(TaskConstract.Columns.DESCRIPTION, "This ia Task of yestoday");
+			yesterday.put(TaskConstract.Columns.CREATE_TIME, now - dayLength - 60*1000);
+			yesterday.put(TaskConstract.Columns.REMINDER_TIME, now - dayLength);
+			yesterday.put(TaskConstract.Columns.DUE_TIME, now + 3000);
+			yesterday.put(TaskConstract.Columns.FLAG_DONE, 0);
+			yesterday.put(TaskConstract.Columns.FLAG_DEL, 0);
+			yesterday.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
+			helper.insertEvent(yesterday);
+			// today
+			ContentValues today = new ContentValues();
+			today.put(TaskConstract.Columns.TITLE, "today");
+			today.put(TaskConstract.Columns.DESCRIPTION, "This ia Task of today");
+			today.put(TaskConstract.Columns.CREATE_TIME, now - dayLength - 60*1000);
+			today.put(TaskConstract.Columns.REMINDER_TIME, now );
+			today.put(TaskConstract.Columns.DUE_TIME, now + 3000);
+			today.put(TaskConstract.Columns.FLAG_DONE, 0);
+			today.put(TaskConstract.Columns.FLAG_DEL, 0);
+			today.put(TaskConstract.Columns.FLAG_EMERGENCY, 1);
+			helper.insertEvent(today);
+			// tomorrow
+			ContentValues tomorrow = new ContentValues();
+			tomorrow.put(TaskConstract.Columns.TITLE, "tomorrow");
+			tomorrow.put(TaskConstract.Columns.DESCRIPTION, "This ia Task of tomorrow");
+			tomorrow.put(TaskConstract.Columns.CREATE_TIME, now - dayLength - 60*1000);
+			tomorrow.put(TaskConstract.Columns.REMINDER_TIME, now + dayLength );
+			tomorrow.put(TaskConstract.Columns.DUE_TIME, now + dayLength + 3000);
+			tomorrow.put(TaskConstract.Columns.FLAG_DONE, 0);
+			tomorrow.put(TaskConstract.Columns.FLAG_DEL, 0);
+			tomorrow.put(TaskConstract.Columns.FLAG_EMERGENCY, 1);
+			helper.insertEvent(tomorrow);
 			return null;
 		}
 	}

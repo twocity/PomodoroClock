@@ -100,27 +100,63 @@ public final class TaskConstract {
 		 */
 		public static final String DESCRIPTION = "description";
 
+		// TODO
 		/**
 		 * Column name for the tags of the task
 		 * <p>
 		 * Type: TEXT
 		 * <p>
 		 */
-		public static final String TAGS = "tags";
-
+//		public static final String TAGS = "tags";
+		
+		/**
+		 * Column name for the create time of the task
+		 * <p>
+		 * Type: INTEGER (long)
+		 * <p>
+		 */
+		public static final String CREATE_TIME = "create_time";
 		/**
 		 * Column name for the start time of the task
 		 * <p>
 		 * Type: INTEGER (long)
 		 */
-		public static final String START_DATE = "start_date";
+		public static final String REMINDER_TIME = "reminder_time";
 
 		/**
 		 * Column name for the due time of the task(in milliseconds)
 		 * <p>
 		 * Type: INTEGER (long)
 		 */
-		public static final String DUE_DATE = "due_data";
+		public static final String DUE_TIME = "due_time";
+		
+		/**
+		 * Column name for the complete time of the task(in milliseconds)
+		 * <p>
+		 * Type: INTEGER (long)
+		 */
+		public static final String COMPLETE_TIME = "complete_time";
+		
+		/**
+		 * Column name for the done flag  of the task(in milliseconds)
+		 * <p>
+		 * Type: INTEGER (0/1)
+		 */
+		public static final String FLAG_DONE = "flag_done";
+		
+		/**
+		 * Column name for the delete flag of the task(in milliseconds)
+		 * <p>
+		 * Type: INTEGER (0/1)
+		 */
+		public static final String FLAG_DEL = "flag_delete";
+		
+		/**
+		 * Column name for the emergency flag of the task(in milliseconds)
+		 * <p>
+		 * Type: INTEGER (0/1)
+		 */
+		public static final String FLAG_EMERGENCY = "flag_emergency";
 
 		/**
 		 * These save calls to cursor.getColumnIndexOrThrow() THEY MUST BE KEPT
@@ -129,8 +165,12 @@ public final class TaskConstract {
 		public static final int TASK_ID_INDEX = 0;
 		public static final int TASK_TITLE_INDEX = 1;
 		public static final int TASK_DESCRIPTION_INDEX = 2;
-		public static final int TASK_TAGS_INDEX = 3;
-		public static final int TASK_STIME_INDEX = 4;
-		public static final int TASK_DTIME_INDEX = 5;
+		public static final int TASK_CREATE_TIME_INDEX = 3;
+		public static final int TASK_REMINDER_TIME_INDEX = 4;
+		public static final int TASK_DUE_TIME_INDEX = 5;
+		public static final int TASK_COMPLETE_TIME_INDEX = 6;
+		public static final int TASK_FLAG_DONE_INDEX = 7;
+		public static final int TASK_FLAG_DEL_INDEX = 8;
+		public static final int TASK_FLAG_EMER_INDEX = 9;
 	}
 }

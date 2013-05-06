@@ -18,11 +18,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 			+ TASKS_TABLE + " ( " 
 			+ TaskConstract.Columns._ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," 
-			+ TaskConstract.Columns.TITLE + " TEXT, " 
+			+ TaskConstract.Columns.TITLE + " TEXT NOT NULL, " 
 			+ TaskConstract.Columns.DESCRIPTION + " TEXT, "
-			+ TaskConstract.Columns.TAGS + " TEXT, "
-			+ TaskConstract.Columns.START_DATE + " LONG, "
-			+ TaskConstract.Columns.DUE_DATE + " LONG);";
+			+ TaskConstract.Columns.CREATE_TIME + " INTEGER, "
+			+ TaskConstract.Columns.REMINDER_TIME + " INTEGER, "
+			+ TaskConstract.Columns.DUE_TIME + " INTEGER, "
+			+ TaskConstract.Columns.COMPLETE_TIME + " INTEGER, "
+			+ TaskConstract.Columns.FLAG_DONE + " INTEGER, "
+			+ TaskConstract.Columns.FLAG_DEL + " INTEGER, "
+			+ TaskConstract.Columns.FLAG_EMERGENCY + " INTEGER"
+			+ ");";
 
 	public DataBaseHelper(final Context context) {
 		super(context, NAME, null, VERSION);

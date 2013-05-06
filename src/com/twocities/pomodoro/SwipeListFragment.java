@@ -7,15 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twocities.pomodoro.adapters.SwipeAdapter;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListView;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListViewListener;
 
-public class SwipeListFragment extends Fragment implements 
+public abstract class SwipeListFragment extends Fragment implements OnItemClickListener,
 							SwipeListViewListener {
 	final private Handler mHandler = new Handler();
 
@@ -252,7 +255,7 @@ public class SwipeListFragment extends Fragment implements
 			mList.setEmptyView(mStandardEmptyView);
 		}
 		mListShown = true;
-		// mList.setOnItemClickListener(mOnClickListener);
+		 mList.setOnItemClickListener(this);
 		mList.setSwipeListViewListener(this);
 		mList.setSwipeOpenOnLongPress(false);
 		if (mAdapter != null) {
@@ -267,6 +270,11 @@ public class SwipeListFragment extends Fragment implements
 			}
 		}
 		mHandler.post(mRequestFocus);
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Toast.makeText(getActivity(), "item click", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
