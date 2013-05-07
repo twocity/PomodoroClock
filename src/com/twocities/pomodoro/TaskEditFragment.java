@@ -22,4 +22,5 @@ public class TaskEditFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		Bundle task = getArguments();
 	}
+	
 }
