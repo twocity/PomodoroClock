@@ -31,4 +31,11 @@
     <string name="future_title">"Future"</string>
     <string name="analysis_title">Analysis</string>
     <string name="setting_title">"Settings"</string>
+    
+    <!-- tasks  -->
+    <string name="title_default">title</string>
+    <string name="description_default">description</string>
+    <string name="start_pomodoro">"Start Pomodoro"</string>
+    <string name="save_label">DONE</string>
+    <string name="discard_label">CANCEL</string>
 </resources>

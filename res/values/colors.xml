@@ -29,7 +29,7 @@
 	<color name="swipe_back_item_background_done">#33B5E5</color>
 	<color name="swipe_back_item_background_del">#FF4444</color>
 	<!-- actionbar -->
-	<color name="pressed_pomodoro">#CC33B5E5</color>
+	<color name="pressed_pomodoro">#33B5E5</color><!-- CC33B5E5 -->
 	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->
 	<color name="menudrawer_background">#F9F9F9</color><!-- 525961 -->
 	<color name="menudrawer_fade_background">#ECECEC</color>

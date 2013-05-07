@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,13 +39,30 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 	
-	private void switchContent(Fragment fragment) {
+	public void switchContent(Fragment fragment) {
 		mMenuDrawer.closeMenu();
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		ft.replace(R.id.content, fragment);
 		ft.commit();
 	}
+	
+	public void switchContent(Fragment fragment, boolean addToBackStack) {
+		mMenuDrawer.closeMenu();
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.replace(R.id.content, fragment);
+		if (addToBackStack) {
+			ft.addToBackStack(null);
+		}
+		ft.commit();
+	}
+
+	public void createTask(View v) {
+		Intent intent = new Intent(this, TaskEditActivity.class);
+		this.startActivity(intent);
+	}
+	
 	
 	public void onLeftMenuSelected(View v) {
 		switch (v.getId()) {

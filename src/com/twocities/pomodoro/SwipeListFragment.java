@@ -274,7 +274,6 @@ public abstract class SwipeListFragment extends Fragment implements OnItemClickL
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Toast.makeText(getActivity(), "item click", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

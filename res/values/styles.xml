@@ -39,7 +39,7 @@
         <item name="android:drawablePadding">16dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    
+
     <!-- text clock style -->
     <style name="textclock" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
         <item name="android:textColor">@color/text_clock</item>
@@ -47,35 +47,38 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">8dip</item>
     </style>
-    <style name="textclock_clock" parent="textclock" >
+
+    <style name="textclock_clock" parent="textclock">
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-    <style name="textclock_date" parent="textclock" >
+
+    <style name="textclock_date" parent="textclock">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-    
+
     <!-- red button -->
     <style name="redbutton">
         <item name="android:background">@drawable/btn_red_holo_light</item>
     </style>
+
     <style name="newtask" parent="redbutton">
         <item name="android:layout_margin">15dip</item>
         <item name="android:background">@drawable/create_task_background</item>
         <item name="android:text">@string/create_new_task</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
     <!-- todo list item style -->
-    <style name="todolist" >
+    <style name="todolist">
         <item name="android:divider">@android:color/transparent</item>
         <item name="android:dividerHeight">5dip</item>
         <item name="android:padding">10dip</item>
         <item name="android:cacheColorHint">#00000000</item>
     </style>
-    
+
     <!-- todo list item text style -->
     <style name="todo_title">
         <item name="android:gravity">left|center_vertical</item>
@@ -84,11 +87,53 @@
         <item name="android:textColor">@color/menudrawer_item_text</item>
         <item name="android:textSize">@dimen/todo_item_title_text_size</item>
     </style>
+
     <style name="todo_description">
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:padding">3dp</item>
         <item name="android:textColor">@color/menudrawer_item_text</item>
         <item name="android:textSize">@dimen/todo_item_description_text_size</item>
+    </style>
+
+    <!-- task detail style -->
+    <style name="task_detail_title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="task_detail_description">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+    
+    <!-- parent="@android:style/Widget.Holo.Light.ActionButton" -->
+
+   <style name="EditEventCustomActionButton"  parent="@android:style/Widget.Holo.Light.ActionButton">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:focusable">true</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="EditEventCustomActionButtonImage">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="EditEventCustomActionButtonText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/actionMenuTextAppearance</item>
+        <item name="android:textColor">?android:attr/actionMenuTextColor</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:padding">4dp</item>
     </style>
 
 </resources>
