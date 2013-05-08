@@ -37,4 +37,6 @@
         android:layout_height="wrap_content"
         android:onClick="setDate"
         />
+    
+    <include layout="@layout/layout_edit_task_actionbar"/>
 </LinearLayout>

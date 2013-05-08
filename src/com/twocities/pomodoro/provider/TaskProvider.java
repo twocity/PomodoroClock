@@ -3,9 +3,11 @@ package com.twocities.pomodoro.provider;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -157,8 +159,23 @@ public class TaskProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		// TODO Auto-generated method stub
-		return null;
+		if (sUriMatcher.match(uri) != TASKS) {
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		SQLiteDatabase db = mOpenHelper.getWritable();
+		long rowId = db.insert(TaskConstract.Columns.TASKS_TABLE, null, values);
+		
+		if (rowId > 0) {
+            // Creates a URI with the note ID pattern and the new row ID appended to it.
+            Uri noteUri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE, rowId);
+
+            // Notifies observers registered against this provider that the data changed.
+            getContext().getContentResolver().notifyChange(noteUri, null);
+            return noteUri;
+        }
+
+        // If the insert didn't succeed, then the rowID is <= 0. Throws an exception.
+        throw new SQLException("Failed to insert row into " + uri);
 	}
 
 	@Override
