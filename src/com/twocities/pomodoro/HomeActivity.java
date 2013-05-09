@@ -87,6 +87,7 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
 		}
 	}
 	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()) {

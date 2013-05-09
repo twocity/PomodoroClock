@@ -21,7 +21,6 @@ import com.twocities.pomodoro.settings.SettingActivity;
 
 public class PomodoroActivity extends Activity{
 	private EditText mQuickStart;
-	private TodayTodoList mListFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){

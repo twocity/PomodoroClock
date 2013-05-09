@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
-import com.twocities.pomodoro.Utils.TimeUtils;
 import com.twocities.pomodoro.provider.TaskConstract;
 
 public class DataBaseInit {

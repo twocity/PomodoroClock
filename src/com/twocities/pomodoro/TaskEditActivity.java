@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.twocities.pomodoro.Utils.TimeUtils;
+import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
 
 public class TaskEditActivity extends Activity {
@@ -27,6 +28,13 @@ public class TaskEditActivity extends Activity {
 	private Button startDateButton;
 	private Button dueDateButton;
 
+	private Task mTask;
+	
+	/**
+	 * true means create a new task, otherwise updating the current task
+	 */
+	private boolean flagCreate = true;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,8 +42,16 @@ public class TaskEditActivity extends Activity {
 
 		setupActionBar();
 		initViews();
+		mTask = getIntent().getParcelableExtra(Task.EXTRA_TASK_DATA);
+		if (mTask != null) {
+			flagCreate = false;
+			initData(mTask);
+		}
 	}
 
+	/**
+	 * Create or edit task
+	 */
 	private void newTask() {
 		String title = titleEdit.getText().toString();
 		String descriString = descriptionEdit.getText().toString();
@@ -49,7 +65,7 @@ public class TaskEditActivity extends Activity {
 		ContentValues values = new ContentValues();
 		values.put(TaskConstract.Columns.TITLE, title);
 		values.put(TaskConstract.Columns.DESCRIPTION, descriString);
-		
+
 		Object startObj = startDateButton.getTag();
 		if (startObj != null) {
 			long start = (Long) startDateButton.getTag();
@@ -64,9 +80,19 @@ public class TaskEditActivity extends Activity {
 		newTask(values);
 	}
 
+	/**
+	 * Insert or update a task
+	 * 
+	 * @param values
+	 */
 	private void newTask(ContentValues values) {
-		getContentResolver().insert(TaskConstract.CONTENT_URI, values);
+		if (flagCreate) {
+			getContentResolver().insert(TaskConstract.CONTENT_URI, values);
+		} else {
+			// update current task
+		}
 	}
+	
 
 	/**
 	 * init views
@@ -98,6 +124,14 @@ public class TaskEditActivity extends Activity {
 		});
 	}
 
+	private void initData(Task task) {
+		titleEdit.setText(task.getTitle());
+		descriptionEdit.setText(task.getDescription());
+	}
+
+	/**
+	 * Set custom view to actionbar
+	 */
 	private void setupActionBar() {
 		getActionBar().setDisplayShowCustomEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
@@ -105,6 +139,11 @@ public class TaskEditActivity extends Activity {
 		getActionBar().setCustomView(R.layout.layout_edit_task_actionbar);
 	}
 
+	/**
+	 * Pick a date
+	 * 
+	 * @param v
+	 */
 	public void setDate(View v) {
 		switch (v.getId()) {
 		case R.id.task_start_date:
@@ -127,7 +166,7 @@ public class TaskEditActivity extends Activity {
 	private void setDateMessage(Button button, int year, int monthOfYear,
 			int dayOfMonth) {
 		StringBuffer date = new StringBuffer();
-		date.append(year).append("/").append(monthOfYear+1).append("/")
+		date.append(year).append("/").append(monthOfYear + 1).append("/")
 				.append(dayOfMonth);
 		button.setText(date.toString());
 		Calendar now = Calendar.getInstance();
