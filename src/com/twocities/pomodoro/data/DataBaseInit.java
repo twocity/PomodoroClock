@@ -1,5 +1,8 @@
 package com.twocities.pomodoro.data;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,7 +36,7 @@ public class DataBaseInit {
 
 		@Override
 		protected Void doInBackground(DataBaseHelper... params) {
-			long now = TimeUtils.getTimeNow();
+			long now = Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis();
 			long dayLength = 24 * 60 * 60 * 1000;
 			DataBaseHelper helper = params[0];
 			// yesterday

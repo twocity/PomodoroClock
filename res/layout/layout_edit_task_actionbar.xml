@@ -27,7 +27,6 @@
 
     <LinearLayout
         android:id="@+id/action_cancel"
-        android:onClick="taskAction"
         style="@style/EditEventCustomActionButton" >
 
         <ImageView
@@ -43,7 +42,6 @@
 
     <LinearLayout
         android:id="@+id/action_done"
-        android:onClick="taskAction"
         style="@style/EditEventCustomActionButton" >
 
         <ImageView

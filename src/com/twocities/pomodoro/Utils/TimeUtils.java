@@ -1,6 +1,7 @@
 package com.twocities.pomodoro.Utils;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class TimeUtils {
 	
@@ -20,14 +21,30 @@ public class TimeUtils {
     
     public static String[] rangeOfToday() {
     	Calendar now = Calendar.getInstance();
-    	now.set(Calendar.HOUR_OF_DAY, 0);
-    	now.set(Calendar.MINUTE, 0);
-    	now.set(Calendar.SECOND, 0);
+    	now.setTimeZone(TimeZone.getDefault());
+    	
     	String[] result = new String[2];
-    	result[0] = String.valueOf(now.getTimeInMillis());
-    	now.set(Calendar.HOUR_OF_DAY, 24);
-    	result[1] = String.valueOf(now.getTimeInMillis());
+    	long start = getStartOfDay(now);
+    	long end = getEndOfDay(now);
+    	result[0] = String.valueOf(start);
+    	result[1] = String.valueOf(end);
     	return result;
+    }
+    
+    private static long getStartOfDay(Calendar calendar) {
+    	calendar.set(Calendar.HOUR_OF_DAY, 0);
+    	calendar.set(Calendar.MINUTE, 0);
+    	calendar.set(Calendar.SECOND, 0);
+    	calendar.set(Calendar.MILLISECOND, 0);
+    	return calendar.getTimeInMillis();
+    }
+    
+    private static long getEndOfDay(Calendar calendar) {
+    	calendar.set(Calendar.HOUR_OF_DAY, 23);
+    	calendar.set(Calendar.MINUTE, 59);
+    	calendar.set(Calendar.SECOND, 59);
+    	calendar.set(Calendar.MILLISECOND, 999);
+    	return calendar.getTimeInMillis();
     }
     
     public static String[] rangeOfTomorrow() {

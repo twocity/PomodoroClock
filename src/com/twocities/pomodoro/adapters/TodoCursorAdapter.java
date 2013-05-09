@@ -1,11 +1,15 @@
 package com.twocities.pomodoro.adapters;
 
+import java.util.Calendar;
+
 import android.content.Context;
 import android.database.Cursor;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
 
 import com.twocities.pomodoro.R;
+import com.twocities.pomodoro.Utils.Log;
 import com.twocities.pomodoro.provider.TaskConstract;
 
 public class TodoCursorAdapter extends SwipeAdapter {
@@ -24,5 +28,13 @@ public class TodoCursorAdapter extends SwipeAdapter {
 		
 		titleView.setText(title);
 		descriptionView.setText(description);
+		
+		long start = cursor.getLong(TaskConstract.Columns.TASK_REMINDER_TIME_INDEX);
+//		long end = cursor.getLong(TaskConstract.Columns.TASK_DUE_TIME_INDEX);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(start);
+		String startFormat = String.valueOf(DateFormat.format("yyyy-MM-dd hhhh:mmmm", calendar.getTime()));
+		Log.v(startFormat);
+		
 	}
 }

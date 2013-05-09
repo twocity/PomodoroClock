@@ -8,16 +8,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dip"
-        android:orientation="vertical" 
-        >
+        android:orientation="vertical"
+        android:padding="15dip" >
 
         <EditText
             android:id="@+id/task_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:imeOptions="actionNext"
-            android:hint="@string/title_default"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/title_default"
+            android:imeOptions="actionNext" />
 
         <EditText
             android:id="@+id/task_description"
@@ -27,16 +26,16 @@
             android:hint="@string/description_default" />
     </LinearLayout>
 
-    <Button android:id="@+id/task_start_date"
+    <Button
+        android:id="@+id/task_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="setDate"/>
-    
-    <Button android:id="@+id/task_due_date"
+        android:onClick="setDate" />
+
+    <Button
+        android:id="@+id/task_due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="setDate"
-        />
-    
-    <include layout="@layout/layout_edit_task_actionbar"/>
+        android:onClick="setDate" />
+
 </LinearLayout>
