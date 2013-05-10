@@ -22,22 +22,28 @@
 	<color name="text_clock">#ffffff</color><!-- #728C54 -->
 	
 	<!-- main clolor -->
-	<color name="main_background">#54728C</color>
-	<color name="main_complementary_background_light">#8c8a54</color>
-	<color name="main_complementary_background_dark">#6c6b41</color>
+	<color name="main_background">#61b637</color>
+	<color name="main_complementary_background_light">#61b637</color>
+	<color name="main_complementary_background_dark">#4c8f2b</color>
 	<color name="content_background">#eeeeee</color>
 	<color name="swipe_back_item_background_done">#33B5E5</color>
 	<color name="swipe_back_item_background_del">#FF4444</color>
 	<!-- actionbar -->
-	<color name="pressed_pomodoro">#33B5E5</color><!-- CC33B5E5 -->
+	<color name="pressed_pomodoro">#CC81BDA2</color><!-- CC33B5E5 -->
 	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->
-	<color name="menudrawer_background">#45454a</color><!-- 525961 -->
+	<color name="menudrawer_background">#243138</color><!-- 525961 45454a-->
 	<color name="menudrawer_fade_background">#ECECEC</color>
+	
+	<!-- create task -->
+	<color name="create_task_light">#FF4444</color>
+	<color name="create_task_dark">#ff2b2b</color>
+	
+	<color name="evernote_green">#61b637</color>
 	
 	<!-- textcolor 5d5d5d-->
 	<color name="menudrawer_item_text">#5d5d5d</color>
-	<!-- color test #a286c8, #fdbb4d-->
-	<color name="light">#00cdb1</color>
-	<!-- title actionbar -->
-	<color name="titlebar_text_color">#adcbd9</color>
+	<!-- color test #a286c8, #72b62d-->
+	<color name="light">#539e7c</color>
+	<!-- menudrawer title color -->
+	<color name="menudrawer_text_color">#adcbd9</color><!-- adcbd9 -->
 </resources>

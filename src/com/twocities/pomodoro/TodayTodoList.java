@@ -69,7 +69,7 @@ public class TodayTodoList extends TodoListFragment {
 		ActionBar actionBar = getActivity().getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle("TODAY");
+		actionBar.setTitle("Today");
 	}
 
 	// TODO add more thing to TaskFragment

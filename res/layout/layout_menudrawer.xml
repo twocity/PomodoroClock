@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@drawable/ab_solid_pomodoro"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:visibility="gone">
 
         <TextClock
             style="@style/textclock_clock"
@@ -23,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:format24Hour=" MM/dd EEEE" />
-    </LinearLayout>
+    </LinearLayout>
+    -->
 
     <ScrollView
         style="@style/Widget.MenuDrawer"
@@ -35,14 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <Button
-                style="@style/newtask"
-                android:id="@+id/button_add_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="createTask"
-                />
 
             <TextView
                 android:id="@+id/text_today"
@@ -89,6 +84,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_title" />
+
+            <Button
+                android:id="@+id/button_add_task"
+                style="@style/newtask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="createTask" />
         </LinearLayout>
     </ScrollView>
 

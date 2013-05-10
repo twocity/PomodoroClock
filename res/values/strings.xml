@@ -28,8 +28,8 @@
     <!-- menu drawer -->
     <string name="create_new_task">New Task</string>
     <string name="today_title">"Today"</string>
-    <string name="future_title">"Future"</string>
-    <string name="analysis_title">Analysis</string>
+    <string name="future_title">"Next"</string>
+    <string name="analysis_title">Complete</string>
     <string name="setting_title">"Settings"</string>
     
     <!-- tasks  -->
