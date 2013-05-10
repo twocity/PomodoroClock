@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.Pomodoro" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    <style name="Theme.Pomodoro" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_pomodoro</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Pomodoro</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Pomodoro</item>
@@ -41,6 +41,13 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_pomodoro</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_pomodoro</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Pomodoro</item>
+    </style>
+    <!-- 
+        <item name="android:titleTextStyle">@style/titleStyle</item>
+     -->
+    
+    <style name="titleStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">@color/titlebar_text_color</item>
     </style>
 
     <style name="ActionBar.Transparent.Pomodoro" parent="@android:style/Widget.Holo.ActionBar">

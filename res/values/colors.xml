@@ -31,9 +31,13 @@
 	<!-- actionbar -->
 	<color name="pressed_pomodoro">#33B5E5</color><!-- CC33B5E5 -->
 	<color name="actionbar_background">#54728C</color><!-- F2EDE8 -->
-	<color name="menudrawer_background">#F9F9F9</color><!-- 525961 -->
+	<color name="menudrawer_background">#45454a</color><!-- 525961 -->
 	<color name="menudrawer_fade_background">#ECECEC</color>
 	
-	<!-- textcolor -->
-	<color name="menudrawer_item_text">#5D5D5D</color>
+	<!-- textcolor 5d5d5d-->
+	<color name="menudrawer_item_text">#5d5d5d</color>
+	<!-- color test #a286c8, #fdbb4d-->
+	<color name="light">#00cdb1</color>
+	<!-- title actionbar -->
+	<color name="titlebar_text_color">#adcbd9</color>
 </resources>

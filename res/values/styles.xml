@@ -30,7 +30,7 @@
         <item name="android:background">@drawable/list_selector_holo_light</item>
         <item name="android:onClick">onLeftMenuSelected</item>
         <item name="android:textAppearance">?android:attr/textAppearance</item>
-        <item name="android:textColor">@color/menudrawer_item_text</item>
+        <item name="android:textColor">@color/titlebar_text_color</item>
         <item name="android:textSize">18sp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">32dp</item>
