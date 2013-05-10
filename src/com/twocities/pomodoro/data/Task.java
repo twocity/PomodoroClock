@@ -1,10 +1,11 @@
 package com.twocities.pomodoro.data;
 
-import com.twocities.pomodoro.provider.TaskConstract;
-
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.twocities.pomodoro.provider.TaskConstract;
 
 public class Task implements Parcelable {
 	public static final String EXTRA_TASK_DATA = "extra_task_data";
@@ -15,8 +16,19 @@ public class Task implements Parcelable {
 	private long reminderTime;
 	private long dueTime;
 	private long completeTime;
+	/**
+	 * 1 means done
+	 */
 	private int flagDone;
+	
+	/**
+	 * 1 means deleted
+	 */
 	private int flagDel;
+	
+	/**
+	 * 1 means is emergency
+	 */
 	private int flagEmergency;
 
 	public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -37,6 +49,16 @@ public class Task implements Parcelable {
 	}
 
 	public Task() {
+		this._id = -1;
+		this.title = null;
+		this.description = null;
+		this.createTime = 0;
+		this.reminderTime = 0;
+		this.dueTime = 0;
+		this.completeTime = 0;
+		this.flagDone = 0;
+		this.flagDel = 0;
+		this.flagEmergency = 0;
 	}
 
 	public Task(Parcel p) {
@@ -76,7 +98,7 @@ public class Task implements Parcelable {
 		if (cursor == null || cursor.getCount() == 0) {
 			return null;
 		}
-		task.set_id(cursor.getInt(TaskConstract.Columns.TASK_ID_INDEX));
+		task.setId(cursor.getInt(TaskConstract.Columns.TASK_ID_INDEX));
 		task.setTitle(cursor.getString(TaskConstract.Columns.TASK_TITLE_INDEX));
 		task.setDescription(cursor.getString(TaskConstract.Columns.TASK_DESCRIPTION_INDEX));
 		task.setCreateTime(cursor.getLong(TaskConstract.Columns.TASK_CREATE_TIME_INDEX));
@@ -88,12 +110,17 @@ public class Task implements Parcelable {
 		task.setFlagEmergency(cursor.getInt(TaskConstract.Columns.TASK_FLAG_EMER_INDEX));
 		return task;
 	}
+	
+	public ContentValues createContentValues() {
+		ContentValues values = new ContentValues();
+		return values;
+	}
 
-	public int get_id() {
+	public int getId() {
 		return _id;
 	}
 
-	public void set_id(int _id) {
+	public void setId(int _id) {
 		this._id = _id;
 	}
 

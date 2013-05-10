@@ -118,13 +118,15 @@ public class TodayTodoList extends TodoListFragment {
 
 	@Override
 	protected String getSelection() {
-		return " ( " + TaskConstract.Columns.REMINDER_TIME + ">=" + "?"
-				+ " AND " + TaskConstract.Columns.REMINDER_TIME + "<=" + "?"
+		return " ( " + TaskConstract.Columns.REMINDER_TIME + " >= " + "?"
+				+ " AND " + TaskConstract.Columns.REMINDER_TIME + " <= " + "?"
+				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
 				+ " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
+		String[] selectionArgs = new String[]{};
 		return TimeUtils.rangeOfToday();
 	}
 

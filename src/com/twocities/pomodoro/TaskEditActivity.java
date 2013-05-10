@@ -8,7 +8,10 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,23 +31,19 @@ public class TaskEditActivity extends Activity {
 	private Button startDateButton;
 	private Button dueDateButton;
 
-	private Task mTask;
-	
-	/**
-	 * true means create a new task, otherwise updating the current task
-	 */
-	private boolean flagCreate = true;
+	private Task mTask = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_task_edit);
-
 		setupActionBar();
 		initViews();
+
+		handleIntentAction(getIntent());
+
 		mTask = getIntent().getParcelableExtra(Task.EXTRA_TASK_DATA);
 		if (mTask != null) {
-			flagCreate = false;
 			initData(mTask);
 		}
 	}
@@ -53,6 +52,7 @@ public class TaskEditActivity extends Activity {
 	 * Create or edit task
 	 */
 	private void newTask() {
+		Task newTask = new Task();
 		String title = titleEdit.getText().toString();
 		String descriString = descriptionEdit.getText().toString();
 
@@ -62,6 +62,9 @@ public class TaskEditActivity extends Activity {
 			return;
 		}
 
+		newTask.setTitle(title);
+		newTask.setDescription(descriString);
+
 		ContentValues values = new ContentValues();
 		values.put(TaskConstract.Columns.TITLE, title);
 		values.put(TaskConstract.Columns.DESCRIPTION, descriString);
@@ -70,14 +73,18 @@ public class TaskEditActivity extends Activity {
 		if (startObj != null) {
 			long start = (Long) startDateButton.getTag();
 			values.put(TaskConstract.Columns.REMINDER_TIME, start);
+			newTask.setReminderTime(start);
 		}
 		Object endObj = dueDateButton.getTag();
 		if (endObj != null) {
 			long due = (Long) dueDateButton.getTag();
 			values.put(TaskConstract.Columns.DUE_TIME, due);
+			newTask.setDueTime(due);
 		}
-		values.put(TaskConstract.Columns.CREATE_TIME, TimeUtils.getTimeNow());
-		newTask(values);
+		long createTime = TimeUtils.getTimeNow();
+		values.put(TaskConstract.Columns.CREATE_TIME, createTime);
+		newTask.setCreateTime(createTime);
+		newTask(newTask, values);
 	}
 
 	/**
@@ -85,14 +92,25 @@ public class TaskEditActivity extends Activity {
 	 * 
 	 * @param values
 	 */
-	private void newTask(ContentValues values) {
-		if (flagCreate) {
-			getContentResolver().insert(TaskConstract.CONTENT_URI, values);
-		} else {
+	private void newTask(Task newTask, ContentValues values) {
+		if (mTask != null) {
 			// update current task
+			int id = mTask.getId();
+			Uri uri = ContentUris.withAppendedId(
+					TaskConstract.CONTENT_ID_URI_BASE, id);
+			getContentResolver().update(uri, values, null, null);
+			setResultData(newTask);
+		} else {
+			getContentResolver().insert(TaskConstract.CONTENT_URI, values);
 		}
+
 	}
-	
+
+	private void setResultData(Task task) {
+		Intent data = new Intent();
+		data.putExtra(Task.EXTRA_TASK_DATA, task);
+		setResult(RESULT_OK, data);
+	}
 
 	/**
 	 * init views
@@ -110,6 +128,7 @@ public class TaskEditActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				TaskEditActivity.this.setResult(RESULT_CANCELED);
 				finish();
 			}
 		});
@@ -122,6 +141,28 @@ public class TaskEditActivity extends Activity {
 				finish();
 			}
 		});
+	}
+
+	private void handleIntentAction(Intent intent) {
+		String action = intent.getAction();
+		String type = intent.getType();
+
+		if (Intent.ACTION_SEND.equals(action) && type != null) {
+			if ("text/plain".equals(type)) {
+				String title = intent.getStringExtra(Intent.EXTRA_TITLE);
+				String description = intent.getStringExtra(Intent.EXTRA_TEXT);
+				if (title != null) {
+					titleEdit.setText(title);
+					title = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+					if (title != null) {
+						titleEdit.setText(title);
+					}
+				}
+				if (description != null) {
+					descriptionEdit.setText(description);
+				}
+			}
+		}
 	}
 
 	private void initData(Task task) {

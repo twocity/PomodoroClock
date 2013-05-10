@@ -43,4 +43,5 @@
     <string name="edit">edit</string>
     <string name="delete">delete</string>
     <string name="share">share</string>
+    <string name="chooser_title">"Share via"</string>
 </resources>

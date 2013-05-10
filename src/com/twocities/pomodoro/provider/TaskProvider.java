@@ -184,11 +184,46 @@ public class TaskProvider extends ContentProvider {
 		return 0;
 	}
 
+    /**
+     * This is called when a client calls
+     * {@link android.content.ContentResolver#update(Uri,ContentValues,String,String[])}
+     * Updates records in the database. The column names specified by the keys in the values map
+     * are updated with new data specified by the values in the map. If the incoming URI matches the
+     * note ID URI pattern, then the method updates the one record specified by the ID in the URI;
+     * otherwise, it updates a set of records. The record or records must match the input
+     * selection criteria specified by where and whereArgs.
+     * If rows were updated, then listeners are notified of the change.
+     *
+     * @param uri The URI pattern to match and update.
+     * @param values A map of column names (keys) and new values (values).
+     * @param where An SQL "WHERE" clause that selects records based on their column values. If this
+     * is null, then all records that match the URI pattern are selected.
+     * @param whereArgs An array of selection criteria. If the "where" param contains value
+     * placeholders ("?"), then each placeholder is replaced by the corresponding element in the
+     * array.
+     * @return The number of rows updated.
+     * @throws IllegalArgumentException if the incoming URI pattern is invalid.
+     */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		// TODO Auto-generated method stub
-		return 0;
+		SQLiteDatabase db = mOpenHelper.getWritable();
+		
+		if (sUriMatcher.match(uri) != TASK_ID) {
+			throw new IllegalArgumentException("Unknow Uri " + uri);
+		}
+		String taskId = uri.getLastPathSegment();
+		String finalSelection = 
+				TaskConstract.Columns._ID +
+				" = " +
+				taskId;
+		if (selection != null) {
+			finalSelection = finalSelection + " AND " + selection;
+		}
+		
+		int count = db.update(TaskConstract.Columns.TASKS_TABLE, values, finalSelection, selectionArgs);
+		getContext().getContentResolver().notifyChange(uri, null);
+		return count;
 	}
 
 }
