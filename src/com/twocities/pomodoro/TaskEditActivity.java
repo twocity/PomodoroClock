@@ -52,7 +52,9 @@ public class TaskEditActivity extends Activity {
 	 * Create or edit task
 	 */
 	private void newTask() {
-		Task newTask = new Task();
+
+		ContentValues values = new ContentValues();
+
 		String title = titleEdit.getText().toString();
 		String descriString = descriptionEdit.getText().toString();
 
@@ -62,29 +64,44 @@ public class TaskEditActivity extends Activity {
 			return;
 		}
 
-		newTask.setTitle(title);
-		newTask.setDescription(descriString);
-
-		ContentValues values = new ContentValues();
+		// set title and description
 		values.put(TaskConstract.Columns.TITLE, title);
 		values.put(TaskConstract.Columns.DESCRIPTION, descriString);
 
+		// set reminder time
 		Object startObj = startDateButton.getTag();
 		if (startObj != null) {
 			long start = (Long) startDateButton.getTag();
 			values.put(TaskConstract.Columns.REMINDER_TIME, start);
-			newTask.setReminderTime(start);
+			if (mTask != null) {
+				mTask.setReminderTime(start);
+			}
 		}
+		
+		// set due time
 		Object endObj = dueDateButton.getTag();
 		if (endObj != null) {
 			long due = (Long) dueDateButton.getTag();
 			values.put(TaskConstract.Columns.DUE_TIME, due);
-			newTask.setDueTime(due);
+			if (mTask != null) {
+				mTask.setDueTime(due);
+			}
 		}
-		long createTime = TimeUtils.getTimeNow();
-		values.put(TaskConstract.Columns.CREATE_TIME, createTime);
-		newTask.setCreateTime(createTime);
-		newTask(newTask, values);
+
+		if (mTask == null) {
+			// create a new task
+			long createTime = TimeUtils.getTimeNow();
+			values.put(TaskConstract.Columns.CREATE_TIME, createTime);
+			values.put(TaskConstract.Columns.FLAG_DONE, 0);
+			values.put(TaskConstract.Columns.FLAG_DEL, 0);
+			values.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
+		} else {
+			// update current task
+			mTask.setTitle(title);
+			mTask.setDescription(descriString);
+			// TODO update flag of emergency
+		}
+		newTask(values);
 	}
 
 	/**
@@ -92,18 +109,17 @@ public class TaskEditActivity extends Activity {
 	 * 
 	 * @param values
 	 */
-	private void newTask(Task newTask, ContentValues values) {
+	private void newTask(ContentValues values) {
 		if (mTask != null) {
 			// update current task
 			int id = mTask.getId();
 			Uri uri = ContentUris.withAppendedId(
 					TaskConstract.CONTENT_ID_URI_BASE, id);
 			getContentResolver().update(uri, values, null, null);
-			setResultData(newTask);
+			setResultData(mTask);
 		} else {
 			getContentResolver().insert(TaskConstract.CONTENT_URI, values);
 		}
-
 	}
 
 	private void setResultData(Task task) {

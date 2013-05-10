@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
@@ -100,6 +101,8 @@ public class TaskFragment extends Fragment {
 				id);
 		getActivity().getContentResolver()
 				.update(uri, updateValues, null, null);
+		Toast.makeText(getActivity(), "deleted", Toast.LENGTH_SHORT).show();
+		getFragmentManager().popBackStackImmediate();
 	}
 
 	/**

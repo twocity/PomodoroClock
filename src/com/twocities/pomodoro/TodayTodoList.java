@@ -126,8 +126,12 @@ public class TodayTodoList extends TodoListFragment {
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[]{};
-		return TimeUtils.rangeOfToday();
+		String[] selectionArgs = new String[3];
+		String[] timeSelection = TimeUtils.rangeOfToday();
+		selectionArgs[0] = timeSelection[0];
+		selectionArgs[1] = timeSelection[1];
+		selectionArgs[2] = String.valueOf(1);
+		return selectionArgs;
 	}
 
 }

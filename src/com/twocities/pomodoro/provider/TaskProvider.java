@@ -162,6 +162,7 @@ public class TaskProvider extends ContentProvider {
 		if (sUriMatcher.match(uri) != TASKS) {
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
+//		values.con
 		SQLiteDatabase db = mOpenHelper.getWritable();
 		long rowId = db.insert(TaskConstract.Columns.TASKS_TABLE, null, values);
 		
