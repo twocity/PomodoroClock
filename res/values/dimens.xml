@@ -6,7 +6,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="timer_padding_left">16dip</dimen>
 
-    <dimen name="todo_item_title_text_size">18dp</dimen>
-    <dimen name="todo_item_description_text_size">14dp</dimen>
+    <dimen name="todo_item_title_text_size">18dip</dimen>
+    <dimen name="todo_item_description_text_size">14dip</dimen>
+    <dimen name="slide_item_padding_side">8dip</dimen>
 
 </resources>

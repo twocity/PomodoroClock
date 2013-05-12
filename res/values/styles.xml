@@ -25,22 +25,23 @@
     </style>
 
     <!-- menu drawer item style -->
-    <style name="menudrawer_item" parent="Widget">
+    <style name="menudrawer_item" >
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/list_selector_holo_light</item>
+        <item name="android:background">@drawable/menudrawer_item_selector</item>
         <item name="android:onClick">onLeftMenuSelected</item>
         <item name="android:textAppearance">?android:attr/textAppearance</item>
-        <item name="android:textColor">@color/menudrawer_text_color</item>
+        <item name="android:textColor">@color/menudrawer_item_text</item>
         <item name="android:textSize">19sp</item>
-        <item name="android:paddingLeft">24dp</item>
-        <item name="android:paddingRight">32dp</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">40dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
         <item name="android:drawablePadding">16dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        
     </style>
+    <!-- <item name="android:fontFamily">sans-serif</item> -->
 
     <!-- text clock style -->
     <style name="textclock" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
@@ -86,14 +87,14 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:padding">3dp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/menudrawer_item_text</item>
+        <item name="android:textColor">@color/todo_title</item>
         <item name="android:textSize">@dimen/todo_item_title_text_size</item>
     </style>
 
     <style name="todo_description">
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:padding">3dp</item>
-        <item name="android:textColor">@color/menudrawer_item_text</item>
+        <item name="android:textColor">@color/todo_title</item>
         <item name="android:textSize">@dimen/todo_item_description_text_size</item>
     </style>
 
