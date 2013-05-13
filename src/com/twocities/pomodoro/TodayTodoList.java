@@ -121,16 +121,18 @@ public class TodayTodoList extends TodoListFragment {
 		return " ( " + TaskConstract.Columns.REMINDER_TIME + " >= " + "?"
 				+ " AND " + TaskConstract.Columns.REMINDER_TIME + " <= " + "?"
 				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
+				+ " AND " + TaskConstract.Columns.FLAG_DONE + " != " + "?"
 				+ " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[3];
+		String[] selectionArgs = new String[4];
 		String[] timeSelection = TimeUtils.rangeOfToday();
 		selectionArgs[0] = timeSelection[0];
 		selectionArgs[1] = timeSelection[1];
 		selectionArgs[2] = String.valueOf(1);
+		selectionArgs[3] = String.valueOf(1);
 		return selectionArgs;
 	}
 

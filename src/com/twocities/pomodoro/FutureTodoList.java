@@ -59,13 +59,15 @@ public class FutureTodoList extends TodoListFragment implements
 	@Override
 	protected String getSelection() {
 		return " ( " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
+				+ " AND " + TaskConstract.Columns.FLAG_DONE + " != " + "?"
 				+ " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[1];
+		String[] selectionArgs = new String[2];
 		selectionArgs[0] = String.valueOf(1);
+		selectionArgs[1] = String.valueOf(1);
 		return selectionArgs;
 	}
 }

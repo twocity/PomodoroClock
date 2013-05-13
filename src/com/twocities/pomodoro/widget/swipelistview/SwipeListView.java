@@ -450,33 +450,33 @@ public class SwipeListView extends ListView {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        int action = MotionEventCompat.getActionMasked(ev);
-        final float x = ev.getX();
-        final float y = ev.getY();
-
-        if (touchState == TOUCH_STATE_SCROLLING_X) {
-            return touchListener.onTouch(this, ev);
-        }
-
-        switch (action) {
-            case MotionEvent.ACTION_MOVE:
-                checkInMoving(x, y);
-                return touchState == TOUCH_STATE_SCROLLING_Y;
-            case MotionEvent.ACTION_DOWN:
-                touchListener.onTouch(this, ev);
-                touchState = TOUCH_STATE_REST;
-                lastMotionX = x;
-                lastMotionY = y;
-                return false;
-            case MotionEvent.ACTION_CANCEL:
-                touchState = TOUCH_STATE_REST;
-                break;
-            case MotionEvent.ACTION_UP:
-                touchListener.onTouch(this, ev);
-                return touchState == TOUCH_STATE_SCROLLING_Y;
-            default:
-                break;
-        }
+//        int action = MotionEventCompat.getActionMasked(ev);
+//        final float x = ev.getX();
+//        final float y = ev.getY();
+//
+//        if (touchState == TOUCH_STATE_SCROLLING_X) {
+//            return touchListener.onTouch(this, ev);
+//        }
+//
+//        switch (action) {
+//            case MotionEvent.ACTION_MOVE:
+//                checkInMoving(x, y);
+//                return touchState == TOUCH_STATE_SCROLLING_Y;
+//            case MotionEvent.ACTION_DOWN:
+//                touchListener.onTouch(this, ev);
+//                touchState = TOUCH_STATE_REST;
+//                lastMotionX = x;
+//                lastMotionY = y;
+//                return false;
+//            case MotionEvent.ACTION_CANCEL:
+//                touchState = TOUCH_STATE_REST;
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                touchListener.onTouch(this, ev);
+//                return touchState == TOUCH_STATE_SCROLLING_Y;
+//            default:
+//                break;
+//        }
 
         return super.onInterceptTouchEvent(ev);
     }
