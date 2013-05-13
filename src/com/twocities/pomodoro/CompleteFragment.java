@@ -1,38 +1,18 @@
 package com.twocities.pomodoro;
 
-import com.twocities.pomodoro.provider.TaskConstract;
-
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-public class FutureTodoList extends TodoListFragment implements
-		OnNavigationListener {
+import com.twocities.pomodoro.provider.TaskConstract;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup containder,
-			Bundle savedInstaceState) {
-		return inflater.inflate(R.layout.fragment_future, containder, false);
-	}
+public class CompleteFragment extends TodoListFragment implements
+		OnNavigationListener {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setupActionBar();
-
-		getActivity().findViewById(R.id.add_task).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						addTask();
-					}
-				});
 	}
 
 	private void setupActionBar() {
@@ -46,10 +26,6 @@ public class FutureTodoList extends TodoListFragment implements
 		actionBar.setDisplayShowTitleEnabled(false);
 	}
 
-	private void addTask() {
-		Intent intent = new Intent(getActivity(), TaskEditActivity.class);
-		this.startActivity(intent);
-	}
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
@@ -58,7 +34,7 @@ public class FutureTodoList extends TodoListFragment implements
 	
 	@Override
 	protected String getSelection() {
-		return " ( " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
+		return " ( " + TaskConstract.Columns.FLAG_DONE + " = " + "?"
 				+ " ) ";
 	}
 

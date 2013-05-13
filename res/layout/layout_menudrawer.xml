@@ -25,7 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:format24Hour=" MM/dd EEEE" />
-    </LinearLayout>-->
+    </LinearLayout>
+    -->
+
     <ScrollView
         style="@style/Widget.MenuDrawer"
         android:layout_width="match_parent"
@@ -74,7 +76,14 @@
                 style="@style/menudrawer_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/analysis_title" />
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text_complete"
+                style="@style/menudrawer_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/complete_title" />
 
             <ImageView
                 android:layout_width="match_parent"

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextClock;
 
 import com.twocities.pomodoro.settings.SettingActivity;
 
@@ -79,6 +78,10 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
 		case R.id.text_analysis:
 			mMenuDrawer.setActiveView(v);
 			switchContent(new AnalysisFragment());
+			break;
+		case R.id.text_complete:
+			mMenuDrawer.setActiveView(v);
+			switchContent(new CompleteFragment());
 			break;
 		case R.id.text_settings:
 			Intent i = new Intent(this, SettingActivity.class);
