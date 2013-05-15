@@ -73,27 +73,27 @@ public class TodayTodoList extends TodoListFragment {
 	}
 
 	// TODO add more thing to TaskFragment
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Activity home = getActivity();
-		if (home instanceof HomeActivity) {
-			TaskFragment fragment = new TaskFragment();
-			if (parent.getAdapter() instanceof TodoCursorAdapter) {
-				TodoCursorAdapter adapter = (TodoCursorAdapter) parent
-						.getAdapter();
-				Cursor cursor = (Cursor) adapter.getItem(position);
-				Task task = Task.CreateFromCursor(cursor);
-				if (task == null) {
-					return;
-				}
-				Bundle bundle = new Bundle();
-				bundle.putParcelable(Task.EXTRA_TASK_DATA, task);
-				fragment.setArguments(bundle);
-				((HomeActivity) home).switchContent(fragment, true);
-			}
-		}
-	}
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position,
+//			long id) {
+//		Activity home = getActivity();
+//		if (home instanceof HomeActivity) {
+//			TaskFragment fragment = new TaskFragment();
+//			if (parent.getAdapter() instanceof TodoCursorAdapter) {
+//				TodoCursorAdapter adapter = (TodoCursorAdapter) parent
+//						.getAdapter();
+//				Cursor cursor = (Cursor) adapter.getItem(position);
+//				Task task = Task.CreateFromCursor(cursor);
+//				if (task == null) {
+//					return;
+//				}
+//				Bundle bundle = new Bundle();
+//				bundle.putParcelable(Task.EXTRA_TASK_DATA, task);
+//				fragment.setArguments(bundle);
+//				((HomeActivity) home).switchContent(fragment, true);
+//			}
+//		}
+//	}
 
 	private void startClock(String title) {
 		SharedPreferences perfs = PreferenceManager

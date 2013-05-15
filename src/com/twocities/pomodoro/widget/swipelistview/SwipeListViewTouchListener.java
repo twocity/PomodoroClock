@@ -136,12 +136,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	 */
 	private void setFrontView(View frontView) {
 		this.frontView = frontView;
-//		frontView.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				swipeListView.onClickFrontView(downPosition);
-//			}
-//		});
+		frontView.setClickable(true);
+		frontView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				swipeListView.onClickFrontView(downPosition);
+			}
+		});
 //		if (swipeOpenOnLongPress) {
 //			frontView.setOnLongClickListener(new View.OnLongClickListener() {
 //				@Override
@@ -567,6 +568,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 					downX = motionEvent.getRawX();
 					downPosition = swipeListView.getPositionForView(child);
 
+					// changed by twocities.
+					frontView.setClickable(true);
 //					frontView.setClickable(!opened.get(downPosition));
 //					frontView.setLongClickable(!opened.get(downPosition));
 
@@ -634,8 +637,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 //				frontView.setClickable(opened.get(downPosition));
 //				frontView.setLongClickable(opened.get(downPosition));
 //			}
-			frontView = null;
-			backView = null;
+			frontView.setClickable(true);
+//			frontView = null;
+//			backView = null;
 			this.downPosition = ListView.INVALID_POSITION;
 			swiping = false;
 			break;

@@ -23,6 +23,7 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		TodoCursorAdapter adapter = new TodoCursorAdapter(getActivity(), R.layout.layout_swipe_todo_item, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		getListView().setFastScrollEnabled(true);
 		setListAdapter(adapter);
 		getLoaderManager().initLoader(0, null, this);
 	}
@@ -35,27 +36,33 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 //        mAdapter.notifyDataSetChanged();
 	}
 	
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position,
+//			long id) {
+//		Activity home = getActivity();
+//		if (home instanceof HomeActivity) {
+//			TaskFragment fragment = new TaskFragment();
+//			if (parent.getAdapter() instanceof TodoCursorAdapter) {
+//				TodoCursorAdapter adapter = (TodoCursorAdapter) parent
+//						.getAdapter();
+//				Cursor cursor = (Cursor) adapter.getItem(position);
+//				Task task = Task.CreateFromCursor(cursor);
+//				if (task == null) {
+//					return;
+//				}
+//				Bundle bundle = new Bundle();
+//				bundle.putParcelable(Task.EXTRA_TASK_DATA, task);
+//				fragment.setArguments(bundle);
+//				((HomeActivity) home).switchContent(fragment, true);
+//			}
+//		}
+//	}
+	
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Activity home = getActivity();
-		if (home instanceof HomeActivity) {
-			TaskFragment fragment = new TaskFragment();
-			if (parent.getAdapter() instanceof TodoCursorAdapter) {
-				TodoCursorAdapter adapter = (TodoCursorAdapter) parent
-						.getAdapter();
-				Cursor cursor = (Cursor) adapter.getItem(position);
-				Task task = Task.CreateFromCursor(cursor);
-				if (task == null) {
-					return;
-				}
-				Bundle bundle = new Bundle();
-				bundle.putParcelable(Task.EXTRA_TASK_DATA, task);
-				fragment.setArguments(bundle);
-				((HomeActivity) home).switchContent(fragment, true);
-			}
-		}
+	public void onClickFrontView(int position) {
+
 	}
+
 
 
 	@Override

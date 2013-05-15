@@ -12,13 +12,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twocities.pomodoro.adapters.SwipeAdapter;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListView;
 import com.twocities.pomodoro.widget.swipelistview.SwipeListViewListener;
 
-public abstract class SwipeListFragment extends Fragment implements OnItemClickListener,
-							SwipeListViewListener {
+public abstract class SwipeListFragment extends Fragment implements
+		SwipeListViewListener {
 	final private Handler mHandler = new Handler();
 
 	final private Runnable mRequestFocus = new Runnable() {
@@ -226,8 +227,7 @@ public abstract class SwipeListFragment extends Fragment implements OnItemClickL
 		if (root == null) {
 			throw new IllegalStateException("Content view not yet created");
 		}
-		mStandardEmptyView = (TextView)root.findViewById(
-                R.id.swipe_empty);
+		mStandardEmptyView = (TextView) root.findViewById(R.id.swipe_empty);
 		if (mStandardEmptyView == null) {
 			mEmptyView = root.findViewById(android.R.id.empty);
 		} else {
@@ -254,7 +254,7 @@ public abstract class SwipeListFragment extends Fragment implements OnItemClickL
 			mList.setEmptyView(mStandardEmptyView);
 		}
 		mListShown = true;
-		 mList.setOnItemClickListener(this);
+//		mList.setOnItemClickListener(this);
 		mList.setSwipeListViewListener(this);
 		mList.setSwipeOpenOnLongPress(false);
 		if (mAdapter != null) {
@@ -270,54 +270,53 @@ public abstract class SwipeListFragment extends Fragment implements OnItemClickL
 		}
 		mHandler.post(mRequestFocus);
 	}
-	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	}
+
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position,
+//			long id) {
+//	}
 
 	@Override
 	public void onOpened(int position, boolean toRight) {
-		
+
 	}
 
 	@Override
 	public void onClosed(int position, boolean fromRight) {
-		
 	}
 
 	@Override
 	public void onListChanged() {
-		
+
 	}
 
 	@Override
 	public void onMove(int position, float x) {
-		
 	}
 
 	@Override
 	public void onStartOpen(int position, int action, boolean right) {
-		
+
 	}
 
 	@Override
 	public void onStartClose(int position, boolean right) {
-		
+
 	}
 
 	@Override
 	public void onClickFrontView(int position) {
-		
+
 	}
 
 	@Override
 	public void onClickBackView(int position) {
-		
+
 	}
 
 	@Override
 	public void onDismiss(int[] reverseSortedPositions) {
-		
+		Toast.makeText(getActivity(), "onDismiss", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
