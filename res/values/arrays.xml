@@ -31,9 +31,18 @@
     
     <!-- future todo list filter -->
     <string-array name="future_list_filter">
+        <item>All</item>
         <item>Tomorrow</item>
         <item>This Week</item>
         <item>Later</item>
+    </string-array>
+    
+    <!-- left drawer -->
+    <string-array name="menu_list">
+        <item>Today</item>
+        <item>Next</item>
+        <item>Complete</item>
+        <item>Settings</item>
     </string-array>
     
 </resources>

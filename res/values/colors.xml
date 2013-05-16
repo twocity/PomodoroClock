@@ -31,7 +31,7 @@
 	<!-- actionbar -->
 	<color name="pressed_pomodoro">#CC33B5E5</color><!-- CC33B5E5 -->
 	<color name="actionbar_background">#007de3</color><!-- F2EDE8 -->
-	<color name="menudrawer_background">#3f4241</color><!-- 525961 45454a, 243138,313942-->
+	<color name="menudrawer_background">#eeeeee</color><!-- 525961 45454a, 243138,313942-->
 	<color name="menudrawer_fade_background">#ECECEC</color>
 	
 	<!-- create task -->

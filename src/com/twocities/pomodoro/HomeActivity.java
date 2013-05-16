@@ -1,58 +1,88 @@
 package com.twocities.pomodoro;
 
-import net.simonvt.menudrawer.MenuDrawer;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.twocities.pomodoro.settings.SettingActivity;
+public class HomeActivity extends Activity {
+	private DrawerLayout mDrawerLayout;
+	private ListView mMenuList;
+	private ActionBarDrawerToggle mDrawerToggle;
 
-public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateChangeListener {
-	private MenuDrawer mMenuDrawer;
-	
+	private String[] mMenuTitles;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_home);
-		setupActionBar();
+		setContentView(R.layout.activity_home);
 		initViews();
-		switchContent(new TodayTodoList());
+		switchContent(new TodayTodoList(), 0);
 	}
-	
+
 	private void initViews() {
-        mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.MENU_DRAG_CONTENT);
-        mMenuDrawer.setContentView(R.layout.activity_home);
-        mMenuDrawer.setMenuView(R.layout.layout_menudrawer);
-        mMenuDrawer.setDropShadowEnabled(false);
-        mMenuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_NONE);
-//        mMenuDrawer.setDropShadowColor(Color.parseColor("#88000000"));
-//        mMenuDrawer.setDropShadowSize(20);
-//        TextClock c = new TextClock(this);
+		// enable ActionBar app icon to behave as action to toggle nav drawer
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		
+		mMenuTitles = getResources().getStringArray(R.array.menu_list);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mMenuList = (ListView) findViewById(R.id.left_drawer);
+		// set a custom shadow that overlays the main content when the drawer
+		// opens
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		// set up the drawer's list view with items and click listener
+		mMenuList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.drawer_list_item, mMenuTitles));
+		mMenuList.setOnItemClickListener(new MenuItemClickListener());
+
+		// ActionBarDrawerToggle ties together the the proper interactions
+		// between the sliding drawer and the action bar app icon
+		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
+		mDrawerLayout, /* DrawerLayout object */
+		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
+		0, /* "open drawer" description for accessibility */
+		0 /* "close drawer" description for accessibility */
+		) {
+			public void onDrawerClosed(View view) {
+				invalidateOptionsMenu(); // creates call to
+											// onPrepareOptionsMenu()
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				invalidateOptionsMenu(); // creates call to
+											// onPrepareOptionsMenu()
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
-	
-	private void setupActionBar() {
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-	}
-	
-	public void switchContent(Fragment fragment) {
-		mMenuDrawer.closeMenu();
+
+	public void switchContent(Fragment fragment, int position) {
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		ft.replace(R.id.content, fragment);
+		ft.replace(R.id.content_frame, fragment);
 		ft.commit();
+
+		// update selected item and title, then close the drawer
+		mMenuList.setItemChecked(position, true);
+		mDrawerLayout.closeDrawer(mMenuList);
 	}
-	
+
 	public void switchContent(Fragment fragment, boolean addToBackStack) {
-		mMenuDrawer.closeMenu();
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		ft.replace(R.id.content, fragment);
+		ft.replace(R.id.content_frame, fragment);
 		if (addToBackStack) {
 			ft.addToBackStack(null);
 		}
@@ -63,60 +93,71 @@ public class HomeActivity extends Activity implements MenuDrawer.OnDrawerStateCh
 		Intent intent = new Intent(this, TaskEditActivity.class);
 		this.startActivity(intent);
 	}
-	
-	
-	public void onLeftMenuSelected(View v) {
-		switch (v.getId()) {
-		case R.id.text_today:
-			switchContent(new TodayTodoList());
-			mMenuDrawer.setActiveView(v);
+
+	public void selectItem(int position) {
+		switch (position) {
+		case 0:
+			switchContent(new TodayTodoList(), position);
 			break;
-		case R.id.text_future:
-			mMenuDrawer.setActiveView(v);
-			switchContent(new FutureTodoList());
+		case 1:
+			switchContent(new FutureTodoList(), position);
 			break;
-		case R.id.text_analysis:
-			mMenuDrawer.setActiveView(v);
-			switchContent(new AnalysisFragment());
+		case 2:
+			switchContent(new CompleteFragment(), position);
 			break;
-		case R.id.text_complete:
-			mMenuDrawer.setActiveView(v);
-			switchContent(new CompleteFragment());
-			break;
-		case R.id.text_settings:
-			Intent i = new Intent(this, SettingActivity.class);
-			this.startActivity(i);
-			break;
+		case 3:
+			switchContent(new SettingsFragment(), position);
 		default:
 			break;
 		}
 	}
-	
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
-		switch(item.getItemId()) {
-			case android.R.id.home:
-				mMenuDrawer.toggleMenu();
-				return true;
-			default:
-				return false;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			return true;
+//		case R.id.action_settings:
+//			Intent i = new Intent(this, SettingActivity.class);
+//			this.startActivity(i);
+//			return true;
+		default:
+			return false;
 		}
 	}
-	
-    @Override
-    public void onBackPressed() {
-        final int drawerState = mMenuDrawer.getDrawerState();
-        if (drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
-            mMenuDrawer.closeMenu();
-            return;
-        }
 
-        super.onBackPressed();
-    }
+	/**
+	 * When using the ActionBarDrawerToggle, you must call it during
+	 * onPostCreate() and onConfigurationChanged()...
+	 */
 
 	@Override
-	public void onDrawerStateChange(int oldState, int newState) {
-		
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
 	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// Pass any configuration change to the drawer toggls
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public void onBackPressed() {
+	}
+
+	private class MenuItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			selectItem(position);
+		}
+	}
+
 }
