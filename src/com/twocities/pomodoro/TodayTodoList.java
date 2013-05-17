@@ -1,10 +1,8 @@
 package com.twocities.pomodoro;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
@@ -12,16 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.twocities.pomodoro.Utils.TimeUtils;
-import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 import com.twocities.pomodoro.data.PomodoroClock;
-import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
 
 public class TodayTodoList extends TodoListFragment {

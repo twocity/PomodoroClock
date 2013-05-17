@@ -7,19 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.twocities.pomodoro.adapters.SwipeAdapter;
-import com.twocities.pomodoro.widget.swipelistview.SwipeListView;
-import com.twocities.pomodoro.widget.swipelistview.SwipeListViewListener;
+import com.twocities.pomodoro.widget.swipeablelistview.SwipeDismissListViewTouchListener;
+import com.twocities.pomodoro.widget.swipeablelistview.SwipeDismissListViewTouchListener.OnDismissCallback;
 
-public abstract class SwipeListFragment extends Fragment implements
-		SwipeListViewListener {
+public class SwipeListFragment extends Fragment implements OnDismissCallback {
 	final private Handler mHandler = new Handler();
 
 	final private Runnable mRequestFocus = new Runnable() {
@@ -29,7 +25,7 @@ public abstract class SwipeListFragment extends Fragment implements
 	};
 
 	SwipeAdapter mAdapter;
-	SwipeListView mList;
+	ListView mList;
 	View mEmptyView;
 	TextView mStandardEmptyView;
 	View mProgressContainer;
@@ -236,12 +232,12 @@ public abstract class SwipeListFragment extends Fragment implements
 		mProgressContainer = root.findViewById(R.id.progressContainer);
 		mListContainer = root.findViewById(R.id.listContainer);
 		View rawListView = root.findViewById(R.id.swipe_list);
-		if (!(rawListView instanceof SwipeListView)) {
+		if (!(rawListView instanceof ListView)) {
 			throw new RuntimeException(
 					"Content has view with id attribute 'R.id.swipe_list' "
 							+ "that is not a ListView class");
 		}
-		mList = (SwipeListView) rawListView;
+		mList = (ListView) rawListView;
 		if (mList == null) {
 			throw new RuntimeException(
 					"Your content must have a ListView whose id attribute is "
@@ -254,9 +250,11 @@ public abstract class SwipeListFragment extends Fragment implements
 			mList.setEmptyView(mStandardEmptyView);
 		}
 		mListShown = true;
-//		mList.setOnItemClickListener(this);
-		mList.setSwipeListViewListener(this);
-		mList.setSwipeOpenOnLongPress(false);
+		SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(
+				mList, this);
+		mList.setOnTouchListener(touchListener);
+		mList.setOnScrollListener(touchListener.makeScrollListener());
+
 		if (mAdapter != null) {
 			SwipeAdapter adapter = mAdapter;
 			mAdapter = null;
@@ -271,57 +269,8 @@ public abstract class SwipeListFragment extends Fragment implements
 		mHandler.post(mRequestFocus);
 	}
 
-//	@Override
-//	public void onItemClick(AdapterView<?> parent, View view, int position,
-//			long id) {
-//	}
-
 	@Override
-	public void onOpened(int position, boolean toRight) {
+	public void onDismiss(ListView listView, int[] reverseSortedPositions) {
 
 	}
-
-	@Override
-	public void onClosed(int position, boolean fromRight) {
-	}
-
-	@Override
-	public void onListChanged() {
-
-	}
-
-	@Override
-	public void onMove(int position, float x) {
-	}
-
-	@Override
-	public void onStartOpen(int position, int action, boolean right) {
-
-	}
-
-	@Override
-	public void onStartClose(int position, boolean right) {
-
-	}
-
-	@Override
-	public void onClickFrontView(int position) {
-
-	}
-
-	@Override
-	public void onClickBackView(int position) {
-
-	}
-
-	@Override
-	public void onDismiss(int[] reverseSortedPositions) {
-		Toast.makeText(getActivity(), "onDismiss", Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public int onChangeSwipeMode(int position) {
-		return SwipeListView.SWIPE_MODE_DEFAULT;
-	}
-
 }

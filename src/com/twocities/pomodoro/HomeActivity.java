@@ -148,10 +148,6 @@ public class HomeActivity extends Activity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	@Override
-	public void onBackPressed() {
-	}
-
 	private class MenuItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
