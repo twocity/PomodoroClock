@@ -47,5 +47,5 @@
     
     <!-- undo -->
     <string name="undo_title">UNDO</string>
-    <string name="complete_task">Task Completed.</string>
+    <string name="complete_task">task complete</string>
 </resources>

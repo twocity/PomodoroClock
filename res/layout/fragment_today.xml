@@ -27,7 +27,7 @@
         android:id="@+id/undo_bar"
         style="@style/ToastBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="64dip"
+        android:layout_height="48dip"
         android:layout_gravity="bottom"
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="8dp"
