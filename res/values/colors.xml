@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!--
+     Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,38 +16,42 @@
 -->
 
 <resources>
-	<color name="screen_alarm_background">#29313B</color><!-- 3B3F3A -->
-	<color name="screen_alarm_text_color">#00CE9B</color>
-	<color name="normal_background">#FFFFFF</color>
-	<color name="alarm_normal">#000000</color>
-	<color name="text_clock">#ffffff</color><!-- #728C54 -->
-	
-	<!-- main clolor -->
-	<color name="main_background">#61b637</color>
-	<color name="main_complementary_background_light">#61b637</color>
-	<color name="main_complementary_background_dark">#4c8f2b</color>
-	<color name="content_background">#eeeeee</color>
-	<color name="swipe_back_item_background_done">#55b788</color><!-- 33b5e5 -->
-	<color name="swipe_back_item_background_del">#FF4444</color>
-	<!-- actionbar -->
-	<color name="pressed_pomodoro">#CC33B5E5</color><!-- CC33B5E5 -->
-	<color name="actionbar_background">#007de3</color><!-- F2EDE8 -->
-	<color name="menudrawer_background">#eeeeee</color><!-- 525961 45454a, 243138,313942-->
-	<color name="menudrawer_fade_background">#ECECEC</color>
-	
-	<!-- create task -->
-	<color name="create_task_light">#55b788</color>
-	<color name="create_task_dark">#48ab7c</color>
-	
-	<color name="todo_item_press">#33b5e5</color>
-	<color name="evernote_green">#61b637</color>
-	
-	<!-- textcolor 5d5d5d-->
-	<color name="todo_title">#5d5d5d</color>
-	<color name="menudrawer_item_text">#f2f2f2</color>
-	<!-- color test #a286c8, #72b62d-->
-	<color name="light">#3f9fe0</color>
-	<!-- menudrawer title color -->
-	<color name="menudrawer_text_color">#adcbd9</color><!-- adcbd9 -->
-	<color name="menudrawer_category_line">#4d4b47</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_white">#66ffffff</color>
+    <color name="screen_alarm_background">#29313B</color> <!-- 3B3F3A -->
+    <color name="screen_alarm_text_color">#00CE9B</color>
+    <color name="normal_background">#FFFFFF</color>
+    <color name="alarm_normal">#000000</color>
+    <color name="text_clock">#ffffff</color> <!-- #728C54 -->
+
+
+    <!-- main clolor -->
+    <color name="main_background">#61b637</color>
+    <color name="main_complementary_background_light">#61b637</color>
+    <color name="main_complementary_background_dark">#4c8f2b</color>
+    <color name="content_background">#eeeeee</color>
+    <color name="swipe_back_item_background_done">#55b788</color> <!-- 33b5e5 -->
+    <color name="swipe_back_item_background_del">#FF4444</color>
+    <!-- actionbar -->
+    <color name="pressed_pomodoro">#CC33B5E5</color> <!-- CC33B5E5 -->
+    <color name="actionbar_background">#007de3</color> <!-- F2EDE8 -->
+    <color name="menudrawer_background">#eeeeee</color> <!-- 525961 45454a, 243138,313942 -->
+    <color name="menudrawer_fade_background">#ECECEC</color>
+
+    <!-- create task -->
+    <color name="create_task_light">#55b788</color>
+    <color name="create_task_dark">#48ab7c</color>
+    <color name="todo_item_press">#33b5e5</color>
+    <color name="evernote_green">#61b637</color>
+
+    <!-- textcolor 5d5d5d -->
+    <color name="todo_title">#5d5d5d</color>
+    <color name="menudrawer_item_text">#f2f2f2</color>
+    <!-- color test #a286c8, #72b62d -->
+    <color name="light">#3f9fe0</color>
+    <!-- menudrawer title color -->
+    <color name="menudrawer_text_color">#adcbd9</color> <!-- adcbd9 -->
+    <color name="menudrawer_category_line">#4d4b47</color>
+
 </resources>

@@ -2,6 +2,8 @@ package com.twocities.pomodoro;
 
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -23,7 +25,7 @@ import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
 
-public  class TodoListFragment extends SwipeListFragment implements OnItemClickListener, OnItemLongClickListener,
+public class TodoListFragment extends SwipeListFragment implements OnItemClickListener, OnItemLongClickListener,
 		LoaderCallbacks<Cursor> {
 	protected Object mActionMode;
 
@@ -121,6 +123,24 @@ public  class TodoListFragment extends SwipeListFragment implements OnItemClickL
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		getListAdapter().swapCursor(null);
+	}
+	
+	@Override
+	public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+		if (getListAdapter() instanceof TodoCursorAdapter) {
+			TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
+			for (int position : reverseSortedPositions) {
+				long id = adapter.getItemId(position);
+				ContentValues values = new ContentValues();
+				values.put(TaskConstract.Columns.FLAG_DONE, 1);
+				Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+						id);
+				getActivity().getContentResolver()
+						.update(uri, values, null, null);
+			}
+			adapter.notifyDataSetChanged();
+		}
+
 	}
 	
 	protected Uri getUri() {

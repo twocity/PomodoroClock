@@ -12,6 +12,10 @@ public class CompleteFragment extends TodoListFragment implements
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		getListView().setOnTouchListener(null);
+		getListView().setOnScrollListener(null);
+		
 		setupActionBar();
 	}
 

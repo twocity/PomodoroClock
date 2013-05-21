@@ -35,6 +35,8 @@ public class TodoCursorAdapter extends SwipeAdapter {
 		calendar.setTimeInMillis(start);
 		String startFormat = String.valueOf(DateFormat.format("yyyy-MM-dd hhhh:mmmm", calendar.getTime()));
 		Log.v(startFormat);
-		
 	}
+	
+	
+	
 }

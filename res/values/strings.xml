@@ -44,4 +44,8 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="chooser_title">"Share via"</string>
+    
+    <!-- undo -->
+    <string name="undo_title">UNDO</string>
+    <string name="complete_task">Task Completed.</string>
 </resources>

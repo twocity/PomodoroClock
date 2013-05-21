@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/content_background"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/quick_add_pomodoro"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:hint="@string/quick_start_hint"
-        android:imeOptions="actionDone"
-        android:singleLine="true" >
-    </EditText>
+        android:layout_height="match_parent"
+        android:background="@color/content_background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
 
-    <include layout="@layout/swipe_list_content" />
+        <EditText
+            android:id="@+id/quick_add_pomodoro"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:hint="@string/quick_start_hint"
+            android:imeOptions="actionDone"
+            android:singleLine="true" >
+        </EditText>
 
-</LinearLayout>
+        <include layout="@layout/swipe_list_content" />
+    </LinearLayout>
+
+    <com.twocities.pomodoro.widget.ActionableToastBar
+        android:id="@+id/undo_bar"
+        style="@style/ToastBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+</FrameLayout>
