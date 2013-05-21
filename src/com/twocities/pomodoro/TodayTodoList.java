@@ -74,44 +74,50 @@ public class TodayTodoList extends TodoListFragment {
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle("Today");
 	}
-	
+
 	@Override
 	public void onDismiss(ListView listView, final int[] reverseSortedPositions) {
 		if (!(getListAdapter() instanceof TodoCursorAdapter)) {
 			return;
 		}
-		completeTask(reverseSortedPositions, true);
-		
-        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
-            @Override
-            public void onActionClicked() {
-            	completeTask(reverseSortedPositions, false);
-            }
-        }, 0, getString(R.string.complete_task), true, R.string.undo_title, true);
-        
+		final TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
+
+		final long[] taskIds = new long[reverseSortedPositions.length];
+		for (int i = 0; i < reverseSortedPositions.length; ++i) {
+			taskIds[i] = adapter.getItemId(reverseSortedPositions[i]);
+		}
+
+		completeTask(taskIds, true);
+		adapter.notifyDataSetChanged();
+
+		mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+			@Override
+			public void onActionClicked() {
+				completeTask(taskIds, false);
+				adapter.notifyDataSetChanged();
+			}
+		}, 0, getString(R.string.complete_task), true, R.string.undo_title,
+				true);
+
 	}
-	
-	private void completeTask(int[] reverseSortedPositions, boolean complete) {
-		TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
+
+	private void completeTask(long[] taskIds, boolean complete) {
 		int flag = 0;
 		if (complete) {
 			flag = 1;
 		}
-		for (int position : reverseSortedPositions) {
-			long id = adapter.getItemId(position);
+		for (long id : taskIds) {
 			ContentValues values = new ContentValues();
 			values.put(TaskConstract.Columns.FLAG_DONE, flag);
-			Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
-					id);
-			getActivity().getContentResolver()
-					.update(uri, values, null, null);
+			Uri uri = ContentUris.withAppendedId(
+					TaskConstract.CONTENT_ID_URI_BASE, id);
+			getActivity().getContentResolver().update(uri, values, null, null);
 		}
-		adapter.notifyDataSetChanged();
 	}
 
-	
 	/**
 	 * Start a pomodoro clock
+	 * 
 	 * @param title
 	 */
 	private void startClock(String title) {

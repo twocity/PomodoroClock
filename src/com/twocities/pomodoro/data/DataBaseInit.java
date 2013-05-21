@@ -50,16 +50,19 @@ public class DataBaseInit {
 			yesterday.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
 			helper.insertEvent(yesterday);
 			// today
-			ContentValues today = new ContentValues();
-			today.put(TaskConstract.Columns.TITLE, "today");
-			today.put(TaskConstract.Columns.DESCRIPTION, "This ia Task of today");
-			today.put(TaskConstract.Columns.CREATE_TIME, now - dayLength - 60*1000);
-			today.put(TaskConstract.Columns.REMINDER_TIME, now );
-			today.put(TaskConstract.Columns.DUE_TIME, now + 3000);
-			today.put(TaskConstract.Columns.FLAG_DONE, 0);
-			today.put(TaskConstract.Columns.FLAG_DEL, 0);
-			today.put(TaskConstract.Columns.FLAG_EMERGENCY, 1);
-			helper.insertEvent(today);
+			for (int i=0;i<30;++i) {
+				ContentValues today = new ContentValues();
+				today.put(TaskConstract.Columns.TITLE, "today" + i);
+				today.put(TaskConstract.Columns.DESCRIPTION, "This ia Task of today");
+				today.put(TaskConstract.Columns.CREATE_TIME, now - dayLength - 60*1000);
+				today.put(TaskConstract.Columns.REMINDER_TIME, now );
+				today.put(TaskConstract.Columns.DUE_TIME, now + 3000);
+				today.put(TaskConstract.Columns.FLAG_DONE, 0);
+				today.put(TaskConstract.Columns.FLAG_DEL, 0);
+				today.put(TaskConstract.Columns.FLAG_EMERGENCY, 1);
+				helper.insertEvent(today);
+			}
+
 			// tomorrow
 			ContentValues tomorrow = new ContentValues();
 			tomorrow.put(TaskConstract.Columns.TITLE, "tomorrow");

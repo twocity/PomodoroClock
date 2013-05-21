@@ -8,5 +8,7 @@
     android:divider="@null"
     android:dividerHeight="6dp"
     android:drawSelectorOnTop="false"
+    android:smoothScrollbar="true"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp" />
+    android:paddingRight="10dp"
+    android:scrollbars="none" />
