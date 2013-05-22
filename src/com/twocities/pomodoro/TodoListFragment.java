@@ -24,64 +24,77 @@ import android.widget.ListView;
 import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
+import com.twocities.pomodoro.widget.ActionableToastBar;
+import com.twocities.pomodoro.widget.swipeablelistview.SwipeableListView.OnItemSwipeListener;
 
-public class TodoListFragment extends SwipeListFragment implements OnItemClickListener, OnItemLongClickListener,
+public abstract class TodoListFragment extends SwipeListFragment implements
+		OnItemSwipeListener, OnItemClickListener, OnItemLongClickListener,
 		LoaderCallbacks<Cursor> {
 	protected Object mActionMode;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		TodoCursorAdapter adapter = new TodoCursorAdapter(getActivity(), R.layout.layout_swipe_todo_item, null, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-		getListView().setFastScrollEnabled(true);
-		getListView().setOnItemClickListener(this);
+		TodoCursorAdapter adapter = new TodoCursorAdapter(getActivity(),
+				R.layout.layout_swipe_todo_item, null,
+				CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		
+		setupListView();
 		setListAdapter(adapter);
 		getLoaderManager().initLoader(0, null, this);
 		final ListView listView = getListView();
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 
-		    @Override
-		    public void onItemCheckedStateChanged(ActionMode mode, int position,
-		                                          long id, boolean checked) {
-		        // Here you can do something when items are selected/de-selected,
-		        // such as update the title in the CAB
-//		    	listView.setItemChecked(position, checked);
-		    }
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode,
+					int position, long id, boolean checked) {
+				// Here you can do something when items are
+				// selected/de-selected,
+				// such as update the title in the CAB
+				// listView.setItemChecked(position, checked);
+			}
 
-		    @Override
-		    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		        // Respond to clicks on the actions in the CAB
-		        switch (item.getItemId()) {
-		            default:
-		                return false;
-		        }
-		    }
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				// Respond to clicks on the actions in the CAB
+				switch (item.getItemId()) {
+				default:
+					return false;
+				}
+			}
 
-		    @Override
-		    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		        // Inflate the menu for the CAB
-		        MenuInflater inflater = mode.getMenuInflater();
-		        inflater.inflate(R.menu.task_view, menu);
-		        return true;
-		    }
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// Inflate the menu for the CAB
+				MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.task_view, menu);
+				return true;
+			}
 
-		    @Override
-		    public void onDestroyActionMode(ActionMode mode) {
-		        // Here you can make any necessary updates to the activity when
-		        // the CAB is removed. By default, selected items are deselected/unchecked.
-		    }
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				// Here you can make any necessary updates to the activity when
+				// the CAB is removed. By default, selected items are
+				// deselected/unchecked.
+			}
 
-		    @Override
-		    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		        // Here you can perform updates to the CAB due to
-		        // an invalidate() request
-		        return false;
-		    }
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				// Here you can perform updates to the CAB due to
+				// an invalidate() request
+				return false;
+			}
 		});
 	}
 
-	
+	private void setupListView() {
+		getListView().setFastScrollEnabled(false);
+		getListView().setOnItemClickListener(this);
+		getListView().enableSwipe(true);
+		getListView().setOnItemSwipeListener(this);
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -103,16 +116,13 @@ public class TodoListFragment extends SwipeListFragment implements OnItemClickLi
 			}
 		}
 	}
-	
+
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-		        getUri(), 
-		        getProjection(),
-		        getSelection(),
-		        getSelectionArgs(),
-		        getSortOrder());
-		    return cursorLoader;
+		CursorLoader cursorLoader = new CursorLoader(getActivity(), getUri(),
+				getProjection(), getSelection(), getSelectionArgs(),
+				getSortOrder());
+		return cursorLoader;
 	}
 
 	@Override
@@ -124,50 +134,80 @@ public class TodoListFragment extends SwipeListFragment implements OnItemClickLi
 	public void onLoaderReset(Loader<Cursor> loader) {
 		getListAdapter().swapCursor(null);
 	}
-	
-	@Override
-	public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-		if (getListAdapter() instanceof TodoCursorAdapter) {
-			TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
-			for (int position : reverseSortedPositions) {
-				long id = adapter.getItemId(position);
-				ContentValues values = new ContentValues();
-				values.put(TaskConstract.Columns.FLAG_DONE, 1);
-				Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
-						id);
-				getActivity().getContentResolver()
-						.update(uri, values, null, null);
-			}
-			adapter.notifyDataSetChanged();
-		}
 
-	}
-	
+	// public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+	// if (getListAdapter() instanceof TodoCursorAdapter) {
+	// TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
+	// for (int position : reverseSortedPositions) {
+	// long id = adapter.getItemId(position);
+	// ContentValues values = new ContentValues();
+	// values.put(TaskConstract.Columns.FLAG_DONE, 1);
+	// Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+	// id);
+	// getActivity().getContentResolver()
+	// .update(uri, values, null, null);
+	// }
+	// adapter.notifyDataSetChanged();
+	// }
+	//
+	// }
+
 	protected Uri getUri() {
 		return TaskConstract.CONTENT_URI;
 	}
-	
+
 	protected String[] getProjection() {
 		return null;
 	}
-	
+
 	protected String getSelection() {
 		return null;
 	}
-	
+
 	protected String[] getSelectionArgs() {
 		return null;
 	}
-	
+
 	protected String getSortOrder() {
 		return null;
 	}
 
-
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-        return false;
+		return false;
+	}
+	
+	protected abstract ActionableToastBar getUndoBar();
+
+	@Override
+	public void onSwipe(View view) {
+		final long id = (Long) view.getTag();
+		completeTask(id, true);
+		ActionableToastBar mUndoBar = getUndoBar();
+		if (mUndoBar == null) {
+			return;
+		}
+		mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+			@Override
+			public void onActionClicked() {
+				completeTask(id, false);
+			}
+		}, 0, getString(R.string.complete_task), true, R.string.undo_title,
+				true);
+	}
+
+	protected void completeTask(long id, boolean complete) {
+		int flag = 0;
+		if (complete) {
+			flag = 1;
+		}
+		ContentValues values = new ContentValues();
+		values.put(TaskConstract.Columns.FLAG_DONE, flag);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				id);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
 	}
 
 }

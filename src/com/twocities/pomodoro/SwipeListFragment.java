@@ -12,10 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.twocities.pomodoro.adapters.SwipeAdapter;
-import com.twocities.pomodoro.widget.swipeablelistview.SwipeDismissListViewTouchListener;
-import com.twocities.pomodoro.widget.swipeablelistview.SwipeDismissListViewTouchListener.OnDismissCallback;
+import com.twocities.pomodoro.widget.swipeablelistview.SwipeableListView;
 
-public class SwipeListFragment extends Fragment implements OnDismissCallback {
+public class SwipeListFragment extends Fragment {
 	final private Handler mHandler = new Handler();
 
 	final private Runnable mRequestFocus = new Runnable() {
@@ -25,7 +24,7 @@ public class SwipeListFragment extends Fragment implements OnDismissCallback {
 	};
 
 	SwipeAdapter mAdapter;
-	ListView mList;
+	SwipeableListView mList;
 	View mEmptyView;
 	TextView mStandardEmptyView;
 	View mProgressContainer;
@@ -107,7 +106,7 @@ public class SwipeListFragment extends Fragment implements OnDismissCallback {
 	/**
 	 * Get the activity's list view widget.
 	 */
-	public ListView getListView() {
+	public SwipeableListView getListView() {
 		ensureList();
 		return mList;
 	}
@@ -237,7 +236,7 @@ public class SwipeListFragment extends Fragment implements OnDismissCallback {
 					"Content has view with id attribute 'R.id.swipe_list' "
 							+ "that is not a ListView class");
 		}
-		mList = (ListView) rawListView;
+		mList = (SwipeableListView) rawListView;
 		if (mList == null) {
 			throw new RuntimeException(
 					"Your content must have a ListView whose id attribute is "
@@ -250,10 +249,6 @@ public class SwipeListFragment extends Fragment implements OnDismissCallback {
 			mList.setEmptyView(mStandardEmptyView);
 		}
 		mListShown = true;
-		SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(
-				mList, this);
-		mList.setOnTouchListener(touchListener);
-		mList.setOnScrollListener(touchListener.makeScrollListener());
 
 		if (mAdapter != null) {
 			SwipeAdapter adapter = mAdapter;
@@ -267,10 +262,5 @@ public class SwipeListFragment extends Fragment implements OnDismissCallback {
 			}
 		}
 		mHandler.post(mRequestFocus);
-	}
-
-	@Override
-	public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-
 	}
 }

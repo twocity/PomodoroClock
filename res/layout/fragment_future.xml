@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/content_background"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <include
-        android:layout_gravity="top"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.0"
-        layout="@layout/swipe_list_content" />
+        android:layout_height="match_parent"
+        android:background="@color/content_background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/add_task"
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1.0"
+            layout="@layout/swipe_list_content" />
+
+        <RelativeLayout
+            android:id="@+id/add_task"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="@drawable/create_task_background"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/app_name"
+                android:padding="3dp"
+                android:src="@drawable/ic_menu_add" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.twocities.pomodoro.widget.ActionableToastBar
+        android:id="@+id/undo_bar"
+        style="@style/ToastBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="48dip"
         android:layout_gravity="bottom"
-        android:background="@drawable/create_task_background"
-        android:clickable="true" >
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/app_name"
-            android:padding="3dp"
-            android:src="@drawable/ic_menu_add" />
-    </RelativeLayout>
-
-</LinearLayout>
+</FrameLayout>

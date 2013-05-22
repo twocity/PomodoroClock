@@ -1,6 +1,7 @@
 package com.twocities.pomodoro;
 
 import com.twocities.pomodoro.provider.TaskConstract;
+import com.twocities.pomodoro.widget.ActionableToastBar;
 
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
@@ -14,11 +15,19 @@ import android.widget.ArrayAdapter;
 
 public class FutureTodoList extends TodoListFragment implements
 		OnNavigationListener {
+	
+	private ActionableToastBar mUndoBar;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup containder,
 			Bundle savedInstaceState) {
 		return inflater.inflate(R.layout.fragment_future, containder, false);
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mUndoBar = (ActionableToastBar) view.findViewById(R.id.undo_bar);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -69,5 +78,10 @@ public class FutureTodoList extends TodoListFragment implements
 		selectionArgs[0] = String.valueOf(1);
 		selectionArgs[1] = String.valueOf(1);
 		return selectionArgs;
+	}
+
+	@Override
+	protected ActionableToastBar getUndoBar() {
+		return this.mUndoBar;
 	}
 }
