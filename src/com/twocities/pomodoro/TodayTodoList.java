@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,9 @@ public class TodayTodoList extends TodoListFragment {
 	}
 	
 	private void addTask(String title) {
+		if (TextUtils.isEmpty(title)) {
+			return;
+		}
 		ContentValues values = new ContentValues();
 		long createTime = TimeUtils.getTimeNow();
 		values.put(TaskConstract.Columns.TITLE, title);
