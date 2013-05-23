@@ -1,6 +1,7 @@
 package com.twocities.pomodoro;
 
 import android.app.ActionBar;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -42,7 +43,8 @@ public class TodayTodoList extends TodoListFragment {
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					startClock(v.getText().toString());
+					addTask(v.getText().toString());
+//					startClock(v.getText().toString());
 					return true;
 				}
 				return false;
@@ -59,8 +61,7 @@ public class TodayTodoList extends TodoListFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		mQuickStart.clearFocus();
-		mQuickStart.setText("");
+		clearQuickAddBar();
 	}
 
 	private void setupActionBar() {
@@ -69,12 +70,26 @@ public class TodayTodoList extends TodoListFragment {
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle("Today");
 	}
+	
+	private void addTask(String title) {
+		ContentValues values = new ContentValues();
+		long createTime = TimeUtils.getTimeNow();
+		values.put(TaskConstract.Columns.TITLE, title);
+		values.put(TaskConstract.Columns.REMINDER_TIME, createTime);
+		values.put(TaskConstract.Columns.CREATE_TIME, createTime);
+		values.put(TaskConstract.Columns.FLAG_DONE, 0);
+		values.put(TaskConstract.Columns.FLAG_DEL, 0);
+		values.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
+		getActivity().getContentResolver().insert(TaskConstract.CONTENT_URI, values);
+		clearQuickAddBar();
+	}
 
 	/**
 	 * Start a pomodoro clock
 	 * 
 	 * @param title
 	 */
+	@SuppressWarnings("unused")
 	private void startClock(String title) {
 		SharedPreferences perfs = PreferenceManager
 				.getDefaultSharedPreferences(getActivity()
@@ -94,6 +109,11 @@ public class TodayTodoList extends TodoListFragment {
 			newClock.writeInSharedPerefs(perfs);
 			this.startActivity(i);
 		}
+	}
+	
+	private void clearQuickAddBar() {
+		mQuickStart.clearFocus();
+		mQuickStart.setText("");
 	}
 
 	@Override
