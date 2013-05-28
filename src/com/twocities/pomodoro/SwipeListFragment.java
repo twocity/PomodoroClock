@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.twocities.pomodoro.adapters.SwipeAdapter;
-import com.twocities.pomodoro.widget.swipeablelistview.SwipeableListView;
+import com.twocity.swipeablelistview.SwipeableListView;
 
 public class SwipeListFragment extends Fragment {
 	final private Handler mHandler = new Handler();

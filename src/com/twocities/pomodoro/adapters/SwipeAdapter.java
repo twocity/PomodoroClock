@@ -1,13 +1,17 @@
 package com.twocities.pomodoro.adapters;
 
+import com.twocity.swipeablelistview.SwipeableListView;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.CursorAdapter;
 
 public abstract class SwipeAdapter extends CursorAdapter {
+	private SwipeableListView mListView;
 	private int mLayoutId;
 	private Context mContext;
 	private LayoutInflater mInflater;
@@ -20,8 +24,12 @@ public abstract class SwipeAdapter extends CursorAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	public void setListView(SwipeableListView list) {
+		this.mListView = list;
+	}
+
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (!getCursor().moveToPosition(position)) {
 			throw new IllegalStateException("couldn't move cursor to position "
 					+ position);
@@ -42,6 +50,17 @@ public abstract class SwipeAdapter extends CursorAdapter {
 			}
 		}
 		v.setTag(getItemId(position));
+
+		v.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (mListView != null) {
+					mListView.onSwipeItemClick(position, v);
+				}
+			}
+		});
+
 		bindView(v, mContext, getCursor());
 		return v;
 	}

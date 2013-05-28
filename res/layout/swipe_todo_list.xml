@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.twocities.pomodoro.widget.swipeablelistview.SwipeableListView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.twocity.swipeablelistview.SwipeableListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
     android:id="@id/swipe_list"
     android:layout_width="match_parent"

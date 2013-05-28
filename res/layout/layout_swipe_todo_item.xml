@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.twocities.pomodoro.widget.swipeablelistview.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.twocity.swipeablelistview.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/todo_item_background"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</com.twocities.pomodoro.widget.swipeablelistview.SwipeLayout><!--
+</com.twocity.swipeablelistview.SwipeLayout><!--
 <FrameLayout
     
     android:layout_width="match_parent"

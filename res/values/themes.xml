@@ -14,11 +14,6 @@
 
         <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Pomodoro.Widget</item>
-        <!-- list -->
-        <!--
-        <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_light</item>
-        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_light</item>
-        -->
         <!-- spinner -->
         <item name="android:spinnerItemStyle">@style/SpinnerItem.Pomodoro</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem.Pomodoro</item>

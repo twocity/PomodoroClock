@@ -16,7 +16,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-        android:drawable="@android:color/transparent" />
+        android:drawable="@android:color/holo_blue_bright" />
     <item
          android:drawable="@drawable/card_background" />
 </selector>
