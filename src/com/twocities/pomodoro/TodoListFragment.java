@@ -9,7 +9,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.CursorAdapter;
 
 import com.twocities.pomodoro.adapters.TodoCursorAdapter;
@@ -30,7 +32,18 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		setupListView();
 		getLoaderManager().initLoader(0, null, this);
 	}
+	
+    @Override
+    public void onResume() {
+        super.onPause();
+        if (getUndoBar() != null) {
+            hideUndoBar(false, null);
+        }
+    }
 
+	/**
+	 * setup the SwipeableListView
+	 */
 	private void setupListView() {
 		TodoCursorAdapter adapter = new TodoCursorAdapter(getActivity(),
 				R.layout.layout_swipe_todo_item, null,
@@ -42,6 +55,14 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		getListView().setOnSwipeItemClickListener(this);
 		getListView().enableSwipe(true);
 		getListView().setOnItemSwipeListener(this);
+		getListView().setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				hideUndoBar(true, event);
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -79,44 +100,21 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		getListAdapter().swapCursor(null);
 	}
 
-	// public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-	// if (getListAdapter() instanceof TodoCursorAdapter) {
-	// TodoCursorAdapter adapter = (TodoCursorAdapter) getListAdapter();
-	// for (int position : reverseSortedPositions) {
-	// long id = adapter.getItemId(position);
-	// ContentValues values = new ContentValues();
-	// values.put(TaskConstract.Columns.FLAG_DONE, 1);
-	// Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
-	// id);
-	// getActivity().getContentResolver()
-	// .update(uri, values, null, null);
-	// }
-	// adapter.notifyDataSetChanged();
-	// }
-	//
-	// }
-
-	protected Uri getUri() {
-		return TaskConstract.CONTENT_URI;
-	}
-
-	protected String[] getProjection() {
-		return null;
-	}
-
-	protected String getSelection() {
-		return null;
-	}
-
-	protected String[] getSelectionArgs() {
-		return null;
-	}
-
-	protected String getSortOrder() {
-		return null;
-	}
-
 	protected abstract ActionableToastBar getUndoBar();
+
+	/**
+	 * Dismiss ActionableToastBar with animator
+	 */
+    private void hideUndoBar(boolean animate, MotionEvent event) {
+    	ActionableToastBar mUndoBar = getUndoBar();
+        if (mUndoBar != null) {
+            if (event != null && mUndoBar.isEventInToastBar(event)) {
+                // Avoid touches inside the undo bar.
+                return;
+            }
+            mUndoBar.hide(animate);
+        }
+    }
 
 	@Override
 	public void onSwipe(View view) {
@@ -146,6 +144,26 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 				id);
 		getActivity().getContentResolver().update(uri, values, null, null);
 		getListAdapter().notifyDataSetChanged();
+	}
+
+	protected Uri getUri() {
+		return TaskConstract.CONTENT_URI;
+	}
+
+	protected String[] getProjection() {
+		return null;
+	}
+
+	protected String getSelection() {
+		return null;
+	}
+
+	protected String[] getSelectionArgs() {
+		return null;
+	}
+
+	protected String getSortOrder() {
+		return null;
 	}
 
 }
