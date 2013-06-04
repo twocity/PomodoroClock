@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.ListView;
 
 import com.twocities.pomodoro.Utils.TimeUtils;
@@ -88,6 +89,10 @@ public class FutureTodoList extends TodoListFragment implements
 	public void onClick(int position, View view) {
 		if (mMutilSeletedMode && mActionMode != null) {
 			view.setSelected(!view.isSelected());
+			if (view instanceof Checkable) {
+				Checkable checkableView = ((Checkable) view);
+				checkableView.setChecked(!checkableView.isChecked());
+			}
 			mActionMode.setTitle(String.valueOf(getListView()
 					.getCheckedItemCount()));
 		} else {

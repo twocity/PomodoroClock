@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.twocity.swipeablelistview.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.twocities.pomodoro.widget.CheckedSwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/todo_item_background"
@@ -18,42 +18,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</com.twocity.swipeablelistview.SwipeLayout><!--
-<FrameLayout
-    
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    
-    <RelativeLayout
-        android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-	    android:padding="10dp"
-        android:background="@color/swipe_back_item_background_done"
-        android:tag="back" >
-
-        <ImageView android:id="@+id/todo_left_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/action_done" />
-
-        <ImageView android:id="@+id/todo_right_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/action_discard" />
-    </RelativeLayout>
-	
-
-
-</FrameLayout>
--->
+</com.twocities.pomodoro.widget.CheckedSwipeLayout>
