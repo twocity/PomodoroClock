@@ -21,13 +21,13 @@ public class CompleteFragment extends TodoListFragment implements
 
 	private void setupActionBar() {
 		ActionBar actionBar = getActivity().getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(
-				getActivity(), R.array.future_list_filter,
-				android.R.layout.simple_spinner_item);
-		list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		actionBar.setListNavigationCallbacks(list, this);
-		actionBar.setDisplayShowTitleEnabled(false);
+//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+//		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(
+//				getActivity(), R.array.future_list_filter,
+//				android.R.layout.simple_spinner_item);
+//		list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		actionBar.setListNavigationCallbacks(list, this);
+		actionBar.setDisplayShowTitleEnabled(true);
 	}
 
 	@Override

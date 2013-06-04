@@ -43,6 +43,11 @@ public final class TaskConstract {
 	 */
 	public static final Uri CONTENT_URI = Uri.parse(SCHEME + AUTHORITY
 			+ PATH_TASKS);
+	
+    /**
+     * The default sort order for this table
+     */
+    public static final String DEFAULT_SORT_ORDER = "create_time DESC";
 
 	/**
 	 * The Content URI base for a single note. Callers must

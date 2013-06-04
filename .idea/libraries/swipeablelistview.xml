@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="swipeablelistview">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../SwipeableListView/swipeablelistview" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../SwipeableListView/swipeablelistview/gen" />
+      <root url="file://$PROJECT_DIR$/../SwipeableListView/swipeablelistview/src" />
+    </SOURCES>
+  </library>
+</component>

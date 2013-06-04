@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -45,12 +46,13 @@ public class TodayTodoList extends TodoListFragment {
 					KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					addTask(v.getText().toString());
-//					startClock(v.getText().toString());
+					// startClock(v.getText().toString());
 					return true;
 				}
 				return false;
 			}
 		});
+		setupListView();
 	}
 
 	@Override
@@ -71,7 +73,30 @@ public class TodayTodoList extends TodoListFragment {
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle("Today");
 	}
-	
+
+	private void setupListView() {
+		View footerView = getActivity().getLayoutInflater().inflate(
+				R.layout.layout_task_picker, null);
+		getListView().addFooterView(footerView);
+		getListView().setFooterDividersEnabled(true);
+		footerView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "task picker", Toast.LENGTH_SHORT)
+						.show();
+				if (getActivity() instanceof HomeActivity) {
+					HomeActivity activity = (HomeActivity) getActivity();
+					FutureTodoList fragment = new FutureTodoList();
+					Bundle args = new Bundle();
+					args.putBoolean(FutureTodoList.EXTRA_SELECTED_MODE, true);
+					fragment.setArguments(args);
+					activity.switchContent(fragment, true);
+				}
+			}
+		});
+	}
+
 	private void addTask(String title) {
 		if (TextUtils.isEmpty(title)) {
 			return;
@@ -84,7 +109,8 @@ public class TodayTodoList extends TodoListFragment {
 		values.put(TaskConstract.Columns.FLAG_DONE, 0);
 		values.put(TaskConstract.Columns.FLAG_DEL, 0);
 		values.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
-		getActivity().getContentResolver().insert(TaskConstract.CONTENT_URI, values);
+		getActivity().getContentResolver().insert(TaskConstract.CONTENT_URI,
+				values);
 		clearQuickAddBar();
 	}
 
@@ -114,7 +140,7 @@ public class TodayTodoList extends TodoListFragment {
 			this.startActivity(i);
 		}
 	}
-	
+
 	private void clearQuickAddBar() {
 		mQuickStart.clearFocus();
 		mQuickStart.setText("");

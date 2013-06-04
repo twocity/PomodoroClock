@@ -48,4 +48,5 @@
     <!-- undo -->
     <string name="undo_title">UNDO</string>
     <string name="complete_task">task complete</string>
+    <string name="pick_task">Pick tasks</string>
 </resources>

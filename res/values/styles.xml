@@ -160,4 +160,13 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <!-- textview picker -->
+    <style name="task_picker">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/todo_title</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/task_picker_background</item>
+    </style>
+
 </resources>

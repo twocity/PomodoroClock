@@ -1,7 +1,5 @@
 package com.twocities.pomodoro.provider;
 
-import java.util.HashMap;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -11,9 +9,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.twocities.pomodoro.Utils.Log;
 import com.twocities.pomodoro.data.DataBaseHelper;
+
+import java.util.HashMap;
 
 public class TaskProvider extends ContentProvider {
 	private static final String TAG = "TaskProvider";
@@ -23,7 +24,7 @@ public class TaskProvider extends ContentProvider {
 	 */
 	public static final String[] READ_TASK_PROJECTION = new String[] {
 			TaskConstract.Columns._ID, TaskConstract.Columns.TITLE,
-			TaskConstract.Columns.DESCRIPTION, 
+			TaskConstract.Columns.DESCRIPTION,
 			TaskConstract.Columns.REMINDER_TIME, TaskConstract.Columns.DUE_TIME };
 
 	/**
@@ -108,7 +109,7 @@ public class TaskProvider extends ContentProvider {
 
 		switch (sUriMatcher.match(uri)) {
 		case TASKS:
-//			qb.setProjectionMap(sTasksProjectionMap);
+			// qb.setProjectionMap(sTasksProjectionMap);
 			break;
 		case TASK_ID:
 			qb.appendWhere(TaskConstract.Columns._ID + "="
@@ -119,6 +120,9 @@ public class TaskProvider extends ContentProvider {
 		}
 
 		SQLiteDatabase db = mOpenHelper.getReadable();
+		if (TextUtils.isEmpty(sortOrder)) {
+			sortOrder = TaskConstract.DEFAULT_SORT_ORDER;
+		}
 
 		/*
 		 * Performs the query. If no problems occur trying to read the database,
@@ -162,21 +166,25 @@ public class TaskProvider extends ContentProvider {
 		if (sUriMatcher.match(uri) != TASKS) {
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-//		values.con
+		// values.con
 		SQLiteDatabase db = mOpenHelper.getWritable();
 		long rowId = db.insert(TaskConstract.Columns.TASKS_TABLE, null, values);
-		
+
 		if (rowId > 0) {
-            // Creates a URI with the note ID pattern and the new row ID appended to it.
-            Uri noteUri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE, rowId);
+			// Creates a URI with the note ID pattern and the new row ID
+			// appended to it.
+			Uri noteUri = ContentUris.withAppendedId(
+					TaskConstract.CONTENT_ID_URI_BASE, rowId);
 
-            // Notifies observers registered against this provider that the data changed.
-            getContext().getContentResolver().notifyChange(noteUri, null);
-            return noteUri;
-        }
+			// Notifies observers registered against this provider that the data
+			// changed.
+			getContext().getContentResolver().notifyChange(noteUri, null);
+			return noteUri;
+		}
 
-        // If the insert didn't succeed, then the rowID is <= 0. Throws an exception.
-        throw new SQLException("Failed to insert row into " + uri);
+		// If the insert didn't succeed, then the rowID is <= 0. Throws an
+		// exception.
+		throw new SQLException("Failed to insert row into " + uri);
 	}
 
 	@Override
@@ -185,44 +193,49 @@ public class TaskProvider extends ContentProvider {
 		return 0;
 	}
 
-    /**
-     * This is called when a client calls
-     * {@link android.content.ContentResolver#update(Uri,ContentValues,String,String[])}
-     * Updates records in the database. The column names specified by the keys in the values map
-     * are updated with new data specified by the values in the map. If the incoming URI matches the
-     * note ID URI pattern, then the method updates the one record specified by the ID in the URI;
-     * otherwise, it updates a set of records. The record or records must match the input
-     * selection criteria specified by where and whereArgs.
-     * If rows were updated, then listeners are notified of the change.
-     *
-     * @param uri The URI pattern to match and update.
-     * @param values A map of column names (keys) and new values (values).
-     * @param where An SQL "WHERE" clause that selects records based on their column values. If this
-     * is null, then all records that match the URI pattern are selected.
-     * @param whereArgs An array of selection criteria. If the "where" param contains value
-     * placeholders ("?"), then each placeholder is replaced by the corresponding element in the
-     * array.
-     * @return The number of rows updated.
-     * @throws IllegalArgumentException if the incoming URI pattern is invalid.
-     */
+	/**
+	 * This is called when a client calls
+	 * {@link android.content.ContentResolver#update(Uri, ContentValues, String, String[])}
+	 * Updates records in the database. The column names specified by the keys
+	 * in the values map are updated with new data specified by the values in
+	 * the map. If the incoming URI matches the note ID URI pattern, then the
+	 * method updates the one record specified by the ID in the URI; otherwise,
+	 * it updates a set of records. The record or records must match the input
+	 * selection criteria specified by where and whereArgs. If rows were
+	 * updated, then listeners are notified of the change.
+	 * 
+	 * @param uri
+	 *            The URI pattern to match and update.
+	 * @param values
+	 *            A map of column names (keys) and new values (values).
+	 * @param selection
+	 *            An SQL "WHERE" clause that selects records based on their
+	 *            column values. If this is null, then all records that match
+	 *            the URI pattern are selected.
+	 * @param selectionArgs
+	 *            An array of selection criteria. If the "where" param contains
+	 *            value placeholders ("?"), then each placeholder is replaced by
+	 *            the corresponding element in the array.
+	 * @return The number of rows updated.
+	 * @throws IllegalArgumentException
+	 *             if the incoming URI pattern is invalid.
+	 */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
 		SQLiteDatabase db = mOpenHelper.getWritable();
-		
+
 		if (sUriMatcher.match(uri) != TASK_ID) {
 			throw new IllegalArgumentException("Unknow Uri " + uri);
 		}
 		String taskId = uri.getLastPathSegment();
-		String finalSelection = 
-				TaskConstract.Columns._ID +
-				" = " +
-				taskId;
+		String finalSelection = TaskConstract.Columns._ID + " = " + taskId;
 		if (selection != null) {
 			finalSelection = finalSelection + " AND " + selection;
 		}
-		
-		int count = db.update(TaskConstract.Columns.TASKS_TABLE, values, finalSelection, selectionArgs);
+
+		int count = db.update(TaskConstract.Columns.TASKS_TABLE, values,
+				finalSelection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return count;
 	}
