@@ -20,12 +20,16 @@ public class HomeActivity extends Activity {
 	private ListView mMenuList;
 	private ActionBarDrawerToggle mDrawerToggle;
 
+	private CharSequence mDrawerTitle;
+	private CharSequence mTitle;
 	private String[] mMenuTitles;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		mTitle = mDrawerTitle = getTitle();
 		initViews();
 		switchContent(new TodayTodoList(), 0);
 	}
@@ -34,7 +38,7 @@ public class HomeActivity extends Activity {
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
+
 		mMenuTitles = getResources().getStringArray(R.array.menu_list);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mMenuList = (ListView) findViewById(R.id.left_drawer);
@@ -58,11 +62,13 @@ public class HomeActivity extends Activity {
 			public void onDrawerClosed(View view) {
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
+				getActionBar().setTitle(mTitle);
 			}
 
 			public void onDrawerOpened(View drawerView) {
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
+				getActionBar().setTitle(mDrawerTitle);
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -76,6 +82,7 @@ public class HomeActivity extends Activity {
 
 		// update selected item and title, then close the drawer
 		mMenuList.setItemChecked(position, true);
+		setTitle(mMenuTitles[position]);
 		mDrawerLayout.closeDrawer(mMenuList);
 	}
 
@@ -113,20 +120,19 @@ public class HomeActivity extends Activity {
 	}
 
 	@Override
+	public void setTitle(CharSequence title) {
+		mTitle = title;
+		getActionBar().setTitle(mTitle);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// The action bar home/up action should open or close the drawer.
+		// ActionBarDrawerToggle will take care of this.
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			return true;
-//		case R.id.action_settings:
-//			Intent i = new Intent(this, SettingActivity.class);
-//			this.startActivity(i);
-//			return true;
-		default:
-			return false;
-		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**

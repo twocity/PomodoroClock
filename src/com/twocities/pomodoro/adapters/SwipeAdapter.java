@@ -1,14 +1,14 @@
 package com.twocities.pomodoro.adapters;
 
-import com.twocity.swipeablelistview.SwipeableListView;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+
+import com.twocity.swipeablelistview.SwipeableListView;
 
 public abstract class SwipeAdapter extends CursorAdapter {
 	private SwipeableListView mListView;

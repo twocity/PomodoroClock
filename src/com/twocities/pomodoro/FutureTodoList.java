@@ -1,6 +1,5 @@
 package com.twocities.pomodoro;
 
-import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +40,6 @@ public class FutureTodoList extends TodoListFragment implements
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setupActionBar();
 
 		getActivity().findViewById(R.id.add_task).setOnClickListener(
 				new OnClickListener() {
@@ -57,17 +55,6 @@ public class FutureTodoList extends TodoListFragment implements
 		}
 		setupListView();
 		handleMultiMode();
-	}
-
-	private void setupActionBar() {
-		ActionBar actionBar = getActivity().getActionBar();
-		// actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		// ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(
-		// getActivity(), R.array.future_list_filter,
-		// android.R.layout.simple_spinner_item);
-		// list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// actionBar.setListNavigationCallbacks(list, this);
-		actionBar.setDisplayShowTitleEnabled(false);
 	}
 
 	private void setupListView() {

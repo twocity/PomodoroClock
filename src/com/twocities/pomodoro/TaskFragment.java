@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.twocities.pomodoro.data.PomodoroClock;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
 
@@ -48,6 +51,33 @@ public class TaskFragment extends Fragment {
 				throw new IllegalArgumentException("Task from Bundle is null!");
 			}
 			updateViewWithData(mTask);
+		}
+	}
+	
+	/**
+	 * Start a pomodoro clock
+	 * 
+	 * @param title
+	 */
+	@SuppressWarnings("unused")
+	private void startClock(String title) {
+		SharedPreferences perfs = PreferenceManager
+				.getDefaultSharedPreferences(getActivity()
+						.getApplicationContext());
+		PomodoroClock clock = new PomodoroClock();
+		clock.readFromSharedPerefs(perfs);
+		if (clock.isRunning()) {
+			Toast.makeText(getActivity().getApplicationContext(),
+					"There is a Clock running.", Toast.LENGTH_LONG).show();
+			clock.clearSharedPerefs(perfs);
+		} else {
+			Intent i = new Intent(getActivity(), ScreenAlarmActivity.class);
+			PomodoroClock newClock = new PomodoroClock(
+					PomodoroClock.DEFAULT_LENGTH);
+			newClock.updateTitle(title);
+			i.putExtra(PomodoroClock.EXTRA_POMODORO, newClock);
+			newClock.writeInSharedPerefs(perfs);
+			this.startActivity(i);
 		}
 	}
 

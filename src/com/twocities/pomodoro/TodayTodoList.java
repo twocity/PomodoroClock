@@ -1,11 +1,8 @@
 package com.twocities.pomodoro;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -13,13 +10,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.twocities.pomodoro.Utils.TimeUtils;
-import com.twocities.pomodoro.data.PomodoroClock;
 import com.twocities.pomodoro.provider.TaskConstract;
 import com.twocities.pomodoro.widget.ActionableToastBar;
 
@@ -36,6 +34,21 @@ public class TodayTodoList extends TodoListFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		setupViews(view);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		clearQuickAddBar();
+	}
+
+	private void setupViews(View view) {
 		mUndoBar = (ActionableToastBar) view.findViewById(R.id.undo_bar);
 		mQuickStart = (EditText) view.findViewById(R.id.quick_add_pomodoro);
 
@@ -52,34 +65,8 @@ public class TodayTodoList extends TodoListFragment {
 				return false;
 			}
 		});
-		setupListView();
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		setupActionBar();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		clearQuickAddBar();
-	}
-
-	private void setupActionBar() {
-		ActionBar actionBar = getActivity().getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle("Today");
-	}
-
-	private void setupListView() {
-		View footerView = getActivity().getLayoutInflater().inflate(
-				R.layout.layout_task_picker, null);
-		getListView().addFooterView(footerView);
-		getListView().setFooterDividersEnabled(true);
-		footerView.setOnClickListener(new OnClickListener() {
+		Button pickerButton = (Button) view.findViewById(R.id.task_picker);
+		pickerButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -114,34 +101,10 @@ public class TodayTodoList extends TodoListFragment {
 		clearQuickAddBar();
 	}
 
-	/**
-	 * Start a pomodoro clock
-	 * 
-	 * @param title
-	 */
-	@SuppressWarnings("unused")
-	private void startClock(String title) {
-		SharedPreferences perfs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity()
-						.getApplicationContext());
-		PomodoroClock clock = new PomodoroClock();
-		clock.readFromSharedPerefs(perfs);
-		if (clock.isRunning()) {
-			Toast.makeText(getActivity().getApplicationContext(),
-					"There is a Clock running.", Toast.LENGTH_LONG).show();
-			clock.clearSharedPerefs(perfs);
-		} else {
-			Intent i = new Intent(getActivity(), ScreenAlarmActivity.class);
-			PomodoroClock newClock = new PomodoroClock(
-					PomodoroClock.DEFAULT_LENGTH);
-			newClock.updateTitle(title);
-			i.putExtra(PomodoroClock.EXTRA_POMODORO, newClock);
-			newClock.writeInSharedPerefs(perfs);
-			this.startActivity(i);
-		}
-	}
-
 	private void clearQuickAddBar() {
+		InputMethodManager imm = (InputMethodManager) getActivity()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(mQuickStart.getWindowToken(), 0);
 		mQuickStart.clearFocus();
 		mQuickStart.setText("");
 	}
