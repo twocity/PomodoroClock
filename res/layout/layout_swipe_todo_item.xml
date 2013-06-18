@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.twocities.pomodoro.widget.CheckedSwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.twocity.swipeablelistview.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/todo_item_background"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/text_todo_title"
         style="@style/todo_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/text_todo_description"
         style="@style/todo_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
-</com.twocities.pomodoro.widget.CheckedSwipeLayout>
+</com.twocity.swipeablelistview.SwipeLayout>

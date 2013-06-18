@@ -9,20 +9,29 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
+
 import com.twocities.pomodoro.adapters.TodoCursorAdapter;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
 import com.twocities.pomodoro.widget.ActionableToastBar;
+import com.twocity.swipeablelistview.SwipeableListView;
 import com.twocity.swipeablelistview.SwipeableListView.OnItemSwipeListener;
 import com.twocity.swipeablelistview.SwipeableListView.OnSwipeItemClickListener;
 
 public abstract class TodoListFragment extends SwipeListFragment implements
-		OnItemSwipeListener, OnSwipeItemClickListener, LoaderCallbacks<Cursor> {
-	protected Object mActionMode;
+		OnItemSwipeListener, OnSwipeItemClickListener, LoaderCallbacks<Cursor>,
+		Callback, View.OnLongClickListener {
+	private static final String TAG = TodoListFragment.class.getSimpleName();
+	protected ActionMode mActionMode;
+	private SwipeableListView mListView;
+	private TodoCursorAdapter mAdapter;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -31,31 +40,35 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		setupListView();
 		getLoaderManager().initLoader(0, null, this);
 	}
-	
-    @Override
-    public void onResume() {
-        super.onPause();
-        if (getUndoBar() != null) {
-            hideUndoBar(false, null);
-        }
-    }
+
+	@Override
+	public void onResume() {
+		super.onPause();
+		if (getUndoBar() != null) {
+			hideUndoBar(false, null);
+		}
+	}
 
 	/**
 	 * setup the SwipeableListView
 	 */
 	private void setupListView() {
-		TodoCursorAdapter adapter = new TodoCursorAdapter(getActivity(),
+		mAdapter = new TodoCursorAdapter(getActivity(),
 				R.layout.layout_swipe_todo_item, null,
 				CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-		adapter.setListView(getListView());
-		setListAdapter(adapter);
-		getListView().setFastScrollEnabled(false);
-		getListView().setOnSwipeItemClickListener(this);
-		getListView().enableSwipe(true);
-		getListView().setOnItemSwipeListener(this);
-		getListView().setOnTouchListener(new OnTouchListener() {
-			
+		mAdapter.setListView(getListView());
+		mAdapter.setLongClickListener(this);
+		setListAdapter(mAdapter);
+
+		mListView = getListView();
+		mListView.setFastScrollEnabled(false);
+		mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		mListView.setOnSwipeItemClickListener(this);
+		mListView.enableSwipe(true);
+		mListView.setOnItemSwipeListener(this);
+		mListView.setOnTouchListener(new OnTouchListener() {
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				hideUndoBar(true, event);
@@ -66,6 +79,10 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 
 	@Override
 	public void onClick(int position, View view) {
+		if (mActionMode != null) {
+			onLongClick(view);
+			return;
+		}
 		Activity home = getActivity();
 		if (home instanceof HomeActivity) {
 			TaskFragment fragment = new TaskFragment();
@@ -79,6 +96,36 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 			fragment.setArguments(bundle);
 			((HomeActivity) home).switchContent(fragment, true);
 		}
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		mAdapter.toggleSelectState(v);
+		mAdapter.notifyDataSetChanged();
+		updateActionMode();
+		return true;
+	}
+
+	protected void updateActionMode() {
+		int selectedNum = mAdapter.getSelectedItemsNum();
+		if (mActionMode == null && selectedNum > 0) {
+			// Start the action mode
+			mActionMode = getActivity().startActionMode(this);
+			setActionModeTitle(selectedNum);
+		} else if (mActionMode != null) {
+			if (selectedNum > 0) {
+				// Update the number of selected items in the title
+				setActionModeTitle(selectedNum);
+			} else {
+				// No selected items. close the action mode
+				mActionMode.finish();
+				mActionMode = null;
+			}
+		}
+	}
+
+	protected void setActionModeTitle(int number) {
+		mActionMode.setTitle(String.valueOf(number));
 	}
 
 	@Override
@@ -104,16 +151,16 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 	/**
 	 * Dismiss ActionableToastBar with animator
 	 */
-    private void hideUndoBar(boolean animate, MotionEvent event) {
-    	ActionableToastBar mUndoBar = getUndoBar();
-        if (mUndoBar != null) {
-            if (event != null && mUndoBar.isEventInToastBar(event)) {
-                // Avoid touches inside the undo bar.
-                return;
-            }
-            mUndoBar.hide(animate);
-        }
-    }
+	private void hideUndoBar(boolean animate, MotionEvent event) {
+		ActionableToastBar mUndoBar = getUndoBar();
+		if (mUndoBar != null) {
+			if (event != null && mUndoBar.isEventInToastBar(event)) {
+				// Avoid touches inside the undo bar.
+				return;
+			}
+			mUndoBar.hide(animate);
+		}
+	}
 
 	@Override
 	public void onSwipe(View view) {
@@ -143,6 +190,14 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 				id);
 		getActivity().getContentResolver().update(uri, values, null, null);
 		getListAdapter().notifyDataSetChanged();
+	}
+	
+	@Override
+	public void onDestroyActionMode(ActionMode mode) {
+		if (mAdapter != null) {
+			mAdapter.clearSelectedItems();
+		}
+		mActionMode = null;
 	}
 
 	protected Uri getUri() {

@@ -4,8 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -132,5 +136,30 @@ public class TodayTodoList extends TodoListFragment {
 	@Override
 	protected ActionableToastBar getUndoBar() {
 		return this.mUndoBar;
+	}
+
+	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		MenuInflater inflater = mode.getMenuInflater();
+		inflater.inflate(R.menu.bulk_edit, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onDestroyActionMode(ActionMode mode) {
+		super.onDestroyActionMode(mode);
+		
 	}
 }

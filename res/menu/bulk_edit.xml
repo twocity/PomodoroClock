@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/m_edit"
+        android:icon="@drawable/ic_menu_edit_holo_dark"
+        android:showAsAction="always"
+        android:title="@string/edit"/>
+    <item
+        android:id="@+id/m_delete"
+        android:icon="@drawable/ic_menu_delete_holo_dark"
+        android:showAsAction="always"
+        android:title="@string/delete"/>
+    <item
+        android:id="@+id/m_share"
+        android:icon="@drawable/ic_menu_share_holo_dark"
+        android:showAsAction="always"
+        android:title="@string/share"/>
+
+</menu>

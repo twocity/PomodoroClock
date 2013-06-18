@@ -12,14 +12,17 @@
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
-     limitations under the License.
+     limitations under the License.
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:drawable="@android:color/holo_blue_light" android:state_activated="true"/>
     <item android:drawable="@android:color/holo_blue_dark" android:state_pressed="true" android:state_selected="true"/>
     <item android:drawable="@android:color/holo_blue_bright" android:state_pressed="true"/>
     <item android:drawable="@android:color/holo_blue_light" android:state_selected="true"/>
     <item android:drawable="@drawable/card_background"/>
 
+    <!-- 
+     -->
 </selector>

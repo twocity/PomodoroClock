@@ -2,6 +2,10 @@ package com.twocities.pomodoro;
 
 import android.app.ActionBar.OnNavigationListener;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.twocities.pomodoro.provider.TaskConstract;
 import com.twocities.pomodoro.widget.ActionableToastBar;
@@ -36,5 +40,30 @@ public class CompleteFragment extends TodoListFragment implements
 	@Override
 	protected ActionableToastBar getUndoBar() {
 		return null;
+	}
+
+	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		MenuInflater inflater = mode.getMenuInflater();
+		inflater.inflate(R.menu.bulk_edit, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onDestroyActionMode(ActionMode mode) {
+		super.onDestroyActionMode(mode);
+		
 	}
 }
