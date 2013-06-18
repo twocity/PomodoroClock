@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,16 @@ public class TaskFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mTitle = (TextView) view.findViewById(R.id.task_title);
 		mDescription = (TextView) view.findViewById(R.id.task_description);
+		Button startButton = (Button) view.findViewById(R.id.button_start);
+		startButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				com.twocities.pomodoro.Utils.Utils.startClock(getActivity(),
+						mTask.getTitle());
+				
+			}
+		});
 		setHasOptionsMenu(true);
 	}
 
