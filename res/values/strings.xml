@@ -29,7 +29,7 @@
     <string name="create_new_task">New Task</string>
     <string name="today_title">"Today"</string>
     <string name="future_title">"Next"</string>
-    <string name="complete_title">Complete</string>
+    <string name="complete_title">Done</string>
     <string name="setting_title">"Settings"</string>
     
     <!-- tasks  -->

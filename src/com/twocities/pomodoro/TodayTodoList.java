@@ -44,6 +44,7 @@ public class TodayTodoList extends TodoListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		getActivity().getActionBar().setTitle(R.string.today_title);
 	}
 
 	@Override

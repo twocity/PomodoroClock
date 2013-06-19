@@ -38,7 +38,7 @@ public class FutureTodoList extends TodoListFragment implements
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
+		getActivity().getActionBar().setTitle(R.string.future_title);
 		getActivity().findViewById(R.id.add_task).setOnClickListener(
 				new OnClickListener() {
 
