@@ -74,6 +74,10 @@ public class TodoCursorAdapter extends SwipeAdapter {
 
 		}
 	}
+	
+	public Long[] getSelectedItemsId() {
+		return mSelectedItems.toArray(new Long[]{});
+	}
 
 	public int getSelectedItemsNum() {
 		return mSelectedItems.size();

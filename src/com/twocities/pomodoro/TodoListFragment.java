@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -115,6 +117,7 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		} else if (mActionMode != null) {
 			if (selectedNum > 0) {
 				// Update the number of selected items in the title
+				// mActionMode.invalidate();
 				setActionModeTitle(selectedNum);
 			} else {
 				// No selected items. close the action mode
@@ -192,6 +195,63 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 		getListAdapter().notifyDataSetChanged();
 	}
 	
+	protected void deleteTask(long id, boolean delete) {
+		int flag = 0;
+		if (delete) {
+			flag = 1;
+		}
+		ContentValues values = new ContentValues();
+		values.put(TaskConstract.Columns.FLAG_DEL, flag);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				id);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
+	}
+
+	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+		return false;
+	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// int selectedNum = mAdapter.getSelectedItemsNum();
+		// menu.findItem(R.id.m_edit).setVisible(selectedNum == 1);
+		// menu.findItem(R.id.m_share).setVisible(selectedNum == 1);
+		// return true;
+		return false;
+	}
+
+	@Override
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.m_done:
+			for (long id : mAdapter.getSelectedItemsId()) {
+				completeTask(id, true);
+			}
+			break;
+		case R.id.m_undone:
+			for (long id : mAdapter.getSelectedItemsId()) {
+				completeTask(id, false);
+			}
+			break;
+		case R.id.m_delete:
+			for (long id : mAdapter.getSelectedItemsId()) {
+				deleteTask(id, true);
+			}
+			break;
+		case R.id.m_add_to_today:
+			break;
+		default:
+			break;
+		}
+		mAdapter.clearSelectedItems();
+		mActionMode.finish();
+		mActionMode = null;
+		return true;
+	}
+
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		if (mAdapter != null) {

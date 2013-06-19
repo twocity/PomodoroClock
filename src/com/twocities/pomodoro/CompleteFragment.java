@@ -27,13 +27,16 @@ public class CompleteFragment extends TodoListFragment implements
 
 	@Override
 	protected String getSelection() {
-		return " ( " + TaskConstract.Columns.FLAG_DONE + " = " + "?" + " ) ";
+		return " ( " + TaskConstract.Columns.FLAG_DONE + " = " + "?"
+				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
+				+ " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[1];
+		String[] selectionArgs = new String[2];
 		selectionArgs[0] = String.valueOf(1);
+		selectionArgs[1] = String.valueOf(1);
 		return selectionArgs;
 	}
 
@@ -45,25 +48,7 @@ public class CompleteFragment extends TodoListFragment implements
 	@Override
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		MenuInflater inflater = mode.getMenuInflater();
-		inflater.inflate(R.menu.bulk_edit, menu);
+		inflater.inflate(R.menu.bulk_edit_done, menu);
 		return true;
-	}
-
-	@Override
-	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onDestroyActionMode(ActionMode mode) {
-		super.onDestroyActionMode(mode);
-		
 	}
 }

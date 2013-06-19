@@ -44,6 +44,9 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="chooser_title">"Share via"</string>
+    <string name="done">Done</string>
+    <string name="undone">Undone</string>
+    <string name="add_to_today">Add to today</string>
     
     <!-- undo -->
     <string name="undo_title">UNDO</string>
