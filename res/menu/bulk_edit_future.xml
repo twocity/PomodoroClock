@@ -2,25 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/m_edit"
-        android:icon="@drawable/ic_menu_edit_holo_dark"
-        android:showAsAction="always"
-        android:title="@string/edit"/>
-    <item
-        android:id="@+id/m_share"
-        android:icon="@drawable/ic_menu_share_holo_dark"
-        android:showAsAction="collapseActionView"
-        android:title="@string/share"/>
-    <item
         android:id="@+id/m_done"
         android:icon="@drawable/ic_menu_done_holo_dark"
         android:showAsAction="always"
         android:title="@string/done"/>
-    <item
-        android:id="@+id/m_undone"
-        android:icon="@drawable/content_undo"
-        android:showAsAction="always"
-        android:title="@string/undone"/>
     <item
         android:id="@+id/m_add_to_today"
         android:icon="@drawable/ic_menu_content_split"
@@ -29,7 +14,7 @@
     <item
         android:id="@+id/m_delete"
         android:icon="@drawable/ic_menu_delete_holo_dark"
-        android:showAsAction="collapseActionView"
+        android:showAsAction="always"
         android:title="@string/delete"/>
 
 </menu>

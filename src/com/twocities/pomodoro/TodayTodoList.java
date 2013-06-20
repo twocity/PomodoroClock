@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -138,29 +137,12 @@ public class TodayTodoList extends TodoListFragment {
 	protected ActionableToastBar getUndoBar() {
 		return this.mUndoBar;
 	}
-
+	
 	@Override
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		MenuInflater inflater = mode.getMenuInflater();
-		inflater.inflate(R.menu.bulk_edit, menu);
+		inflater.inflate(R.menu.bulk_edit_today, menu);
 		return true;
 	}
 
-	@Override
-	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onDestroyActionMode(ActionMode mode) {
-		super.onDestroyActionMode(mode);
-		
-	}
 }
