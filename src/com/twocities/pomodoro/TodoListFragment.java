@@ -182,47 +182,6 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 				true);
 	}
 
-	protected void completeTask(long id, boolean complete) {
-		int flag = 0;
-		if (complete) {
-			flag = 1;
-		}
-		ContentValues values = new ContentValues();
-		values.put(TaskConstract.Columns.FLAG_DONE, flag);
-		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
-				id);
-		getActivity().getContentResolver().update(uri, values, null, null);
-		getListAdapter().notifyDataSetChanged();
-	}
-	
-	protected void deleteTask(long id, boolean delete) {
-		int flag = 0;
-		if (delete) {
-			flag = 1;
-		}
-		ContentValues values = new ContentValues();
-		values.put(TaskConstract.Columns.FLAG_DEL, flag);
-		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
-				id);
-		getActivity().getContentResolver().update(uri, values, null, null);
-		getListAdapter().notifyDataSetChanged();
-	}
-
-	@Override
-	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-		return false;
-	}
-
-	@Override
-	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		// int selectedNum = mAdapter.getSelectedItemsNum();
-		// menu.findItem(R.id.m_edit).setVisible(selectedNum == 1);
-		// menu.findItem(R.id.m_share).setVisible(selectedNum == 1);
-		// return true;
-		return false;
-	}
-
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 		switch (item.getItemId()) {
@@ -258,6 +217,85 @@ public abstract class TodoListFragment extends SwipeListFragment implements
 			mAdapter.clearSelectedItems();
 		}
 		mActionMode = null;
+	}
+
+	/**
+	 * Task operations
+	 */
+
+	/**
+	 * Mark the task's {@code TaskConstract.Columns.FLAG_DONE}
+	 * 
+	 * @param id
+	 *            id of task
+	 * @param complete
+	 */
+	protected void completeTask(long id, boolean complete) {
+		int flag = 0;
+		if (complete) {
+			flag = 1;
+		}
+		ContentValues values = new ContentValues();
+		values.put(TaskConstract.Columns.FLAG_DONE, flag);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				id);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
+	}
+	
+	protected void completeTask(long[] taskIds, boolean complete) {
+		for (long id : taskIds) {
+			completeTask(id, complete);
+		}
+	}
+
+	/**
+	 * Mark Task's FLAG_DEL
+	 * @param id
+	 * @param delete
+	 */
+	protected void deleteTask(long id, boolean delete) {
+		int flag = 0;
+		if (delete) {
+			flag = 1;
+		}
+		ContentValues values = new ContentValues();
+		values.put(TaskConstract.Columns.FLAG_DEL, flag);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				id);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
+	}
+	
+	protected void deleteTask(long[] taskIds, boolean delete) {
+		for (long id: taskIds) {
+			deleteTask(id, delete);
+		}
+	}
+	
+	protected void moveToToday(long id, boolean toToday) {
+		int flag = toToday ? 1 : 0;
+		ContentValues values = new ContentValues();
+		values.put(TaskConstract.Columns.FLAG_TODAY, flag);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				id);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
+	}
+	
+	protected void moveToToday(long[] taskIds, boolean toToday) {
+		for (long id : taskIds) {
+			moveToToday(id, toToday);
+		}
+	}
+	
+	private void updateTask(long taskId, String key, String value) {
+		ContentValues values = new ContentValues();
+		values.put(key, value);
+		Uri uri = ContentUris.withAppendedId(TaskConstract.CONTENT_ID_URI_BASE,
+				taskId);
+		getActivity().getContentResolver().update(uri, values, null, null);
+		getListAdapter().notifyDataSetChanged();
 	}
 
 	protected Uri getUri() {

@@ -77,7 +77,7 @@ public class TaskEditActivity extends Activity {
 				mTask.setReminderTime(start);
 			}
 		}
-		
+
 		// set due time
 		Object endObj = dueDateButton.getTag();
 		if (endObj != null) {
@@ -95,6 +95,7 @@ public class TaskEditActivity extends Activity {
 			values.put(TaskConstract.Columns.FLAG_DONE, 0);
 			values.put(TaskConstract.Columns.FLAG_DEL, 0);
 			values.put(TaskConstract.Columns.FLAG_EMERGENCY, 0);
+			values.put(TaskConstract.Columns.FLAG_TODAY, 0);
 		} else {
 			// update current task
 			mTask.setTitle(title);

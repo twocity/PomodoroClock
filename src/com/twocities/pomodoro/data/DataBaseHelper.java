@@ -26,7 +26,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 			+ TaskConstract.Columns.COMPLETE_TIME + " INTEGER, "
 			+ TaskConstract.Columns.FLAG_DONE + " INTEGER, "
 			+ TaskConstract.Columns.FLAG_DEL + " INTEGER, "
-			+ TaskConstract.Columns.FLAG_EMERGENCY + " INTEGER"
+			+ TaskConstract.Columns.FLAG_EMERGENCY + " INTEGER, "
+			+ TaskConstract.Columns.FLAG_TODAY + " INTEGER "
 			+ ");";
 
 	public DataBaseHelper(final Context context) {

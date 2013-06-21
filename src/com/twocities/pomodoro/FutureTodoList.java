@@ -74,21 +74,38 @@ public class FutureTodoList extends TodoListFragment implements
 
 	@Override
 	protected String getSelection() {
-		return " ( " + TaskConstract.Columns.FLAG_DEL + " != " + "?" + " AND "
-				+ TaskConstract.Columns.FLAG_DONE + " != " + "?" + " AND "
-				+ " ( " + TaskConstract.Columns.REMINDER_TIME + " < " + "?"
-				+ " OR " + TaskConstract.Columns.REMINDER_TIME + " > " + "?"
-				+ " ) " + " ) ";
+		StringBuffer sb = new StringBuffer();
+		sb.append(TaskConstract.Columns.FLAG_DEL).append(" != ").append("?");
+		sb.append(" AND ");
+		sb.append(TaskConstract.Columns.FLAG_DONE).append(" != ").append("?");
+		sb.append(" AND ");
+		sb.append(TaskConstract.Columns.FLAG_TODAY).append(" != ").append("?");
+		sb.append(" AND ");
+		sb.append(" ( ");
+		sb.append(TaskConstract.Columns.REMINDER_TIME).append(" IS NULL ");
+		sb.append(" OR ");
+		sb.append(TaskConstract.Columns.REMINDER_TIME).append(" < ").append("?");
+		sb.append(" OR ");
+		sb.append(TaskConstract.Columns.REMINDER_TIME).append(" > ").append("?");
+		sb.append(" ) ");
+		return sb.toString();
+		
+//		return " ( " + TaskConstract.Columns.FLAG_DEL + " != " + "?" + " AND "
+//				+ TaskConstract.Columns.FLAG_DONE + " != " + "?" + " AND "
+//				+ " ( " + TaskConstract.Columns.REMINDER_TIME + " < " + "?"
+//				+ " OR " + TaskConstract.Columns.REMINDER_TIME + " > " + "?"
+//				+ " ) " + " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[4];
+		String[] selectionArgs = new String[5];
 		String[] timeSelection = TimeUtils.rangeOfToday();
 		selectionArgs[0] = String.valueOf(1);
 		selectionArgs[1] = String.valueOf(1);
-		selectionArgs[2] = timeSelection[0];
-		selectionArgs[3] = timeSelection[1];
+		selectionArgs[2] = String.valueOf(1);
+		selectionArgs[3] = timeSelection[0];
+		selectionArgs[4] = timeSelection[1];
 		return selectionArgs;
 	}
 

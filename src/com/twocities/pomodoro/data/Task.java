@@ -20,16 +20,21 @@ public class Task implements Parcelable {
 	 * 1 means done
 	 */
 	private int flagDone;
-	
+
 	/**
 	 * 1 means deleted
 	 */
 	private int flagDel;
-	
+
 	/**
 	 * 1 means is emergency
 	 */
 	private int flagEmergency;
+
+	/**
+	 * 1 means task showing in today list
+	 */
+	private int flagInToday;
 
 	public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
 		@Override
@@ -59,6 +64,7 @@ public class Task implements Parcelable {
 		this.flagDone = 0;
 		this.flagDel = 0;
 		this.flagEmergency = 0;
+		this.flagInToday = 0;
 	}
 
 	public Task(Parcel p) {
@@ -72,6 +78,7 @@ public class Task implements Parcelable {
 		this.flagDone = p.readInt();
 		this.flagDel = p.readInt();
 		this.flagEmergency = p.readInt();
+		this.flagInToday = p.readInt();
 	}
 
 	@Override
@@ -86,10 +93,12 @@ public class Task implements Parcelable {
 		dest.writeInt(flagDone);
 		dest.writeInt(flagDel);
 		dest.writeInt(flagEmergency);
+		dest.writeInt(flagInToday);
 	}
 
 	/**
 	 * Read task info from cursor
+	 * 
 	 * @param cursor
 	 * @return
 	 */
@@ -100,17 +109,26 @@ public class Task implements Parcelable {
 		}
 		task.setId(cursor.getInt(TaskConstract.Columns.TASK_ID_INDEX));
 		task.setTitle(cursor.getString(TaskConstract.Columns.TASK_TITLE_INDEX));
-		task.setDescription(cursor.getString(TaskConstract.Columns.TASK_DESCRIPTION_INDEX));
-		task.setCreateTime(cursor.getLong(TaskConstract.Columns.TASK_CREATE_TIME_INDEX));
-		task.setReminderTime(cursor.getLong(TaskConstract.Columns.TASK_REMINDER_TIME_INDEX));
-		task.setDueTime(cursor.getLong(TaskConstract.Columns.TASK_DUE_TIME_INDEX));
-		task.setCompleteTime(cursor.getLong(TaskConstract.Columns.TASK_COMPLETE_TIME_INDEX));
-		task.setFlagDone(cursor.getInt(TaskConstract.Columns.TASK_FLAG_DONE_INDEX));
-		task.setFlagDel(cursor.getInt(TaskConstract.Columns.TASK_FLAG_DONE_INDEX));
-		task.setFlagEmergency(cursor.getInt(TaskConstract.Columns.TASK_FLAG_EMER_INDEX));
+		task.setDescription(cursor
+				.getString(TaskConstract.Columns.TASK_DESCRIPTION_INDEX));
+		task.setCreateTime(cursor
+				.getLong(TaskConstract.Columns.TASK_CREATE_TIME_INDEX));
+		task.setReminderTime(cursor
+				.getLong(TaskConstract.Columns.TASK_REMINDER_TIME_INDEX));
+		task.setDueTime(cursor
+				.getLong(TaskConstract.Columns.TASK_DUE_TIME_INDEX));
+		task.setCompleteTime(cursor
+				.getLong(TaskConstract.Columns.TASK_COMPLETE_TIME_INDEX));
+		task.setFlagDone(cursor
+				.getInt(TaskConstract.Columns.TASK_FLAG_DONE_INDEX));
+		task.setFlagDel(cursor
+				.getInt(TaskConstract.Columns.TASK_FLAG_DONE_INDEX));
+		task.setFlagEmergency(cursor
+				.getInt(TaskConstract.Columns.TASK_FLAG_EMER_INDEX));
+		task.setFlagToday(cursor.getInt(TaskConstract.Columns.TASK_FLAG_TODAY));
 		return task;
 	}
-	
+
 	public ContentValues createContentValues() {
 		ContentValues values = new ContentValues();
 		return values;
@@ -194,6 +212,14 @@ public class Task implements Parcelable {
 
 	public void setFlagEmergency(int flagEmergency) {
 		this.flagEmergency = flagEmergency;
+	}
+
+	public int getFlagToday() {
+		return this.flagInToday;
+	}
+
+	public void setFlagToday(int flagToday) {
+		this.flagInToday = flagToday;
 	}
 
 	public static Parcelable.Creator<Task> getCreator() {

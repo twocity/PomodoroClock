@@ -113,23 +113,52 @@ public class TodayTodoList extends TodoListFragment {
 		mQuickStart.setText("");
 	}
 
+	/**
+	 * (
+	 * 	(reminder time <= begin AND reminder time >= end time)
+	 * 	OR (flag today == 1)
+	 * )
+	 * AND
+	 * ( flag del != 1)
+	 * AND
+	 * ( flag done != 1)
+	 * 
+	 */
 	@Override
 	protected String getSelection() {
-		return " ( " + TaskConstract.Columns.REMINDER_TIME + " >= " + "?"
-				+ " AND " + TaskConstract.Columns.REMINDER_TIME + " <= " + "?"
-				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
-				+ " AND " + TaskConstract.Columns.FLAG_DONE + " != " + "?"
-				+ " ) ";
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(" ( ");
+		sb.append(" ( ");
+		sb.append(TaskConstract.Columns.REMINDER_TIME ).append(" >= ").append("?");
+		sb.append(" AND ");
+		sb.append(TaskConstract.Columns.REMINDER_TIME ).append(" <= ").append("?");
+		sb.append(" ) ");
+		sb.append(" OR ");
+		sb.append(TaskConstract.Columns.FLAG_TODAY).append(" == ").append("?");
+		sb.append(" ) ");
+		sb.append(" AND ");
+		sb.append(TaskConstract.Columns.FLAG_DEL).append(" != ").append("?");
+		sb.append(" AND ");
+		sb.append(TaskConstract.Columns.FLAG_DONE).append(" != ").append("?");
+		return sb.toString();
+		
+//		return " ( " + TaskConstract.Columns.REMINDER_TIME + " >= " + "?"
+//				+ " AND " + TaskConstract.Columns.REMINDER_TIME + " <= " + "?"
+//				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
+//				+ " AND " + TaskConstract.Columns.FLAG_DONE + " != " + "?"
+//				+ " ) ";
 	}
 
 	@Override
 	protected String[] getSelectionArgs() {
-		String[] selectionArgs = new String[4];
+		String[] selectionArgs = new String[5];
 		String[] timeSelection = TimeUtils.rangeOfToday();
 		selectionArgs[0] = timeSelection[0];
 		selectionArgs[1] = timeSelection[1];
 		selectionArgs[2] = String.valueOf(1);
 		selectionArgs[3] = String.valueOf(1);
+		selectionArgs[4] = String.valueOf(1);
 		return selectionArgs;
 	}
 

@@ -43,36 +43,35 @@ public final class TaskConstract {
 	 */
 	public static final Uri CONTENT_URI = Uri.parse(SCHEME + AUTHORITY
 			+ PATH_TASKS);
-	
-    /**
-     * The default sort order for this table
-     */
-    public static final String DEFAULT_SORT_ORDER = "create_time DESC";
 
 	/**
-	 * The Content URI base for a single note. Callers must
-	 * append a numberic task id to this Uri to retrieve a task
+	 * The default sort order for this table
+	 */
+	public static final String DEFAULT_SORT_ORDER = "create_time DESC";
+
+	/**
+	 * The Content URI base for a single note. Callers must append a numberic
+	 * task id to this Uri to retrieve a task
 	 */
 	public static final Uri CONTENT_ID_URI_BASE = Uri.parse(SCHEME + AUTHORITY
 			+ PATH_TASKS_ID);
 
-    /**
-     * The content URI match pattern for a single task, specified by its ID. Use this to match
-     * incoming URIs or to construct an Intent.
-     */
+	/**
+	 * The content URI match pattern for a single task, specified by its ID. Use
+	 * this to match incoming URIs or to construct an Intent.
+	 */
 	public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
 			+ AUTHORITY + PATH_TASKS_ID + "/#");
-	
-	/**
-     * The MIME type of {@link #CONTENT_URI} providing a directory of tasks.
-     */
-    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.com.twocities.pomodoro.provider.task";
 
-    /**
-     * The MIME type of a {@link #CONTENT_URI} sub-directory of a single
-     * task.
-     */
-    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.com.twocities.pomodoro.provider.task";
+	/**
+	 * The MIME type of {@link #CONTENT_URI} providing a directory of tasks.
+	 */
+	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.com.twocities.pomodoro.provider.task";
+
+	/**
+	 * The MIME type of a {@link #CONTENT_URI} sub-directory of a single task.
+	 */
+	public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.com.twocities.pomodoro.provider.task";
 
 	public static final class Columns implements BaseColumns {
 
@@ -112,8 +111,8 @@ public final class TaskConstract {
 		 * Type: TEXT
 		 * <p>
 		 */
-//		public static final String TAGS = "tags";
-		
+		// public static final String TAGS = "tags";
+
 		/**
 		 * Column name for the create time of the task
 		 * <p>
@@ -134,34 +133,39 @@ public final class TaskConstract {
 		 * Type: INTEGER (long)
 		 */
 		public static final String DUE_TIME = "due_time";
-		
+
 		/**
 		 * Column name for the complete time of the task(in milliseconds)
 		 * <p>
 		 * Type: INTEGER (long)
 		 */
 		public static final String COMPLETE_TIME = "complete_time";
-		
+
 		/**
-		 * Column name for the done flag  of the task(in milliseconds)
+		 * Column name for the done flag of the task(in milliseconds)
 		 * <p>
 		 * Type: INTEGER (0/1)
 		 */
 		public static final String FLAG_DONE = "flag_done";
-		
+
 		/**
 		 * Column name for the delete flag of the task(in milliseconds)
 		 * <p>
 		 * Type: INTEGER (0/1)
 		 */
 		public static final String FLAG_DEL = "flag_delete";
-		
+
 		/**
 		 * Column name for the emergency flag of the task(in milliseconds)
 		 * <p>
 		 * Type: INTEGER (0/1)
 		 */
 		public static final String FLAG_EMERGENCY = "flag_emergency";
+		
+		/**
+		 * Type: INTEGER (0/1)
+		 */
+		public static final String FLAG_TODAY = "flag_today";
 
 		/**
 		 * These save calls to cursor.getColumnIndexOrThrow() THEY MUST BE KEPT
@@ -177,5 +181,6 @@ public final class TaskConstract {
 		public static final int TASK_FLAG_DONE_INDEX = 7;
 		public static final int TASK_FLAG_DEL_INDEX = 8;
 		public static final int TASK_FLAG_EMER_INDEX = 9;
+		public static final int TASK_FLAG_TODAY = 10;
 	}
 }
