@@ -121,4 +121,10 @@ public class FutureTodoList extends TodoListFragment implements
 		return true;
 	}
 
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

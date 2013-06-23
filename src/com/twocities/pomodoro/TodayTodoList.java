@@ -143,11 +143,6 @@ public class TodayTodoList extends TodoListFragment {
 		sb.append(TaskConstract.Columns.FLAG_DONE).append(" != ").append("?");
 		return sb.toString();
 		
-//		return " ( " + TaskConstract.Columns.REMINDER_TIME + " >= " + "?"
-//				+ " AND " + TaskConstract.Columns.REMINDER_TIME + " <= " + "?"
-//				+ " AND " + TaskConstract.Columns.FLAG_DEL + " != " + "?"
-//				+ " AND " + TaskConstract.Columns.FLAG_DONE + " != " + "?"
-//				+ " ) ";
 	}
 
 	@Override
@@ -172,6 +167,12 @@ public class TodayTodoList extends TodoListFragment {
 		MenuInflater inflater = mode.getMenuInflater();
 		inflater.inflate(R.menu.bulk_edit_today, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

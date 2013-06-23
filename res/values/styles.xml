@@ -108,7 +108,7 @@
     <style name="task_detail_description">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <!-- parent="@android:style/Widget.Holo.Light.ActionButton" -->

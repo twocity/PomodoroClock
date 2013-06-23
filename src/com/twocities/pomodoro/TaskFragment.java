@@ -20,14 +20,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.twocities.pomodoro.Utils.Log;
 import com.twocities.pomodoro.data.PomodoroClock;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
+import com.twocities.pomodoro.widget.DigitalClock;
 
 public class TaskFragment extends Fragment {
 	private static final int REQUEST_EDIT_TASK = 1;
+	private DigitalClock mContentView;
 	private TextView mTitle;
 	private TextView mDescription;
+
+//	private PomodoroClock mClock;
+//	private SharedPreferences mPrefs;
 	private Task mTask;
 
 	@Override
@@ -41,16 +47,23 @@ public class TaskFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mTitle = (TextView) view.findViewById(R.id.task_title);
 		mDescription = (TextView) view.findViewById(R.id.task_description);
-		Button startButton = (Button) view.findViewById(R.id.button_start);
-		startButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				com.twocities.pomodoro.Utils.Utils.startClock(getActivity(),
-						mTask.getTitle());
-				
-			}
-		});
+		
+//		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//		mClock = getIntent().getParcelableExtra(PomodoroClock.EXTRA_POMODORO);
+//		mClock.writeInSharedPerefs(mPrefs);
+//		Log.v("AlarmActivity: " + mClock.toString());
+		mContentView = (DigitalClock) view.findViewById(R.id.digital_clock);
+		mContentView.updateTime(PomodoroClock.DEFAULT_LENGTH);
+		// Button startButton = (Button) view.findViewById(R.id.button_start);
+		// startButton.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// com.twocities.pomodoro.Utils.Utils.startClock(getActivity(),
+		// mTask.getTitle());
+		//
+		// }
+		// });
 		setHasOptionsMenu(true);
 	}
 
@@ -65,7 +78,7 @@ public class TaskFragment extends Fragment {
 			updateViewWithData(mTask);
 		}
 	}
-	
+
 	/**
 	 * Start a pomodoro clock
 	 * 

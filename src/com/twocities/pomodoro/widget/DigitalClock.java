@@ -62,7 +62,7 @@ public class DigitalClock extends LinearLayout {
 		return this.mLeft;
 	}
 	
-	private void updateTime(long left) {
+	public void updateTime(long left) {
 		String minute = TimeUtils.getMinutesLeft(left);
 		String second = TimeUtils.getSeconds(left);
 		mTimeMinutes.setText(minute + ":");

@@ -51,4 +51,10 @@ public class CompleteFragment extends TodoListFragment implements
 		inflater.inflate(R.menu.bulk_edit_done, menu);
 		return true;
 	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
