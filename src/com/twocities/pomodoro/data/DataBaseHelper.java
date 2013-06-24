@@ -14,6 +14,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	private static final String NAME = "pomodoro.db";
 	private static final int VERSION = 1;
 	public static final String TASKS_TABLE = TaskConstract.Columns.TASKS_TABLE;
+	public static final String CLOCKS_TABLE = PomodoroClock.Columns.TABLE_NAME;
+	
 	private static final String CREATE_TASKS_TABLE = "CREATE TABLE "
 			+ TASKS_TABLE + " ( " 
 			+ TaskConstract.Columns._ID
@@ -29,6 +31,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 			+ TaskConstract.Columns.FLAG_EMERGENCY + " INTEGER, "
 			+ TaskConstract.Columns.FLAG_TODAY + " INTEGER "
 			+ ");";
+	
+	private static final String CREATE_CLOCKS_TABLE = "CREATE TABLE "
+			+ PomodoroClock.Columns.TABLE_NAME + " ( "
+			+ PomodoroClock.Columns._ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			+ PomodoroClock.Columns.CLOCK_TASK_ID
+			+ " INTEGER NOT NULL, "
+			+ PomodoroClock.Columns.CLOCK_START_TIME
+			+ " INTEGER, "
+			+ PomodoroClock.Columns.CLOCK_END_TIME
+			+ " INTEGER, "
+			+ PomodoroClock.Columns.CLOCK_EXPECTED_TIME
+			+ " INTEGER, "
+			+ PomodoroClock.Columns.CLOCK_LENGTH
+			+ " INTEGER, "
+			+ PomodoroClock.Columns.CLOCK_TIME_LEFT
+			+ " INTEGER, "
+			+ PomodoroClock.Columns.CLOCK_STATUS
+			+ " INTEGER "
+			+ ");"
+			;
 
 	public DataBaseHelper(final Context context) {
 		super(context, NAME, null, VERSION);
@@ -37,11 +60,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TASKS_TABLE);
+		db.execSQL(CREATE_CLOCKS_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TASKS_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + CLOCKS_TABLE);
 		onCreate(db);
 	}
 

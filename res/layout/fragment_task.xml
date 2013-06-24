@@ -7,15 +7,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="200dp"
-        android:background="@android:color/darker_gray"
-        android:layout_gravity="top" >
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1.0"
+        android:background="@android:color/white" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:minHeight="200dp"
             android:orientation="vertical"
             android:padding="15dip" >
 
@@ -23,42 +24,58 @@
                 android:id="@+id/task_title"
                 style="@style/task_detail_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:textIsSelectable="false" />
 
             <TextView
                 android:id="@+id/task_description"
                 style="@style/task_detail_description"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:textIsSelectable="true" />
         </LinearLayout>
     </ScrollView>
 
-    <com.twocities.pomodoro.widget.DigitalClock
-        android:id="@+id/digital_clock"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="240dp"
-        android:background="@android:color/holo_blue_light"
-        android:gravity="center" >
+        android:measureAllChildren="true" >
 
-        <TextView
-            android:id="@+id/digital_clock_minute"
-            style="@style/big_bold"
+        <com.twocities.pomodoro.widget.DigitalClock
+            android:id="@+id/digital_clock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light"
+            android:gravity="center"
+            android:minHeight="240dp" >
+
+            <TextView
+                android:id="@+id/digital_clock_minute"
+                style="@style/big_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:singleLine="true"
+                android:textColor="@color/screen_alarm_text_color" />
+
+            <TextView
+                android:id="@+id/digital_clock_second"
+                style="@style/big_thin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:ellipsize="none"
+                android:singleLine="true"
+                android:textColor="@color/screen_alarm_text_color" />
+        </com.twocities.pomodoro.widget.DigitalClock>
+
+        <Button
+            android:id="@+id/button_clock_control"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="none"
-            android:singleLine="true"
-            android:textColor="@color/screen_alarm_text_color" />
-
-        <TextView
-            android:id="@+id/digital_clock_second"
-            style="@style/big_thin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:ellipsize="none"
-            android:singleLine="true"
-            android:textColor="@color/screen_alarm_text_color" />
-    </com.twocities.pomodoro.widget.DigitalClock>
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="clockController"
+            android:text="@string/start" />
+    </FrameLayout>
 
 </LinearLayout>

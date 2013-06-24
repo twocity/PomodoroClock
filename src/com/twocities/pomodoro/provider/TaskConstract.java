@@ -12,7 +12,7 @@ import android.provider.BaseColumns;
  */
 
 public final class TaskConstract {
-	public static final String AUTHORITY = "com.twocities.pomodoro.provider.Tasks";
+	public static final String AUTHORITY = "com.twocities.pomodoro.provider.tasks";
 
 	private TaskConstract() {
 	}

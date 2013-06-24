@@ -20,7 +20,7 @@ public class TodoCursorAdapter extends SwipeAdapter {
 	public TodoCursorAdapter(Context context, int layout, Cursor c, int flags) {
 		super(context, layout, c, flags);
 		mSelectedBackgroundColor = context.getResources().getColor(
-				android.R.color.holo_blue_dark);
+				android.R.color.holo_blue_light);
 	}
 
 	private HashSet<Long> mSelectedItems = new HashSet<Long>();

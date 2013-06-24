@@ -4,41 +4,38 @@
     <string name="app_name">Present</string>
     <string name="action_settings">设置</string>
     <string name="introducation">"番茄工具"</string>
-    
     <string name="styled_12_hour_clock">h:mmaa MM dd</string>
     <string name="styled_24_hour_clock">k:mm MM dd</string>
-    
-    
+
     <!-- pomodoro activity -->
     <string name="start_pomodoro_clock">"开始一个番茄"</string>
-    
-    
+
     <!-- settings prefrences -->
     <string name="basic_setting">"基本设置"</string>
     <string name="pomodoro_clock_period">"番茄钟长"</string>
     <string name="summary_pomodoro_clock_period">"设置一个番茄钟的长度"</string>
     <string name="choose_clock_title">"番茄钟长度"</string>
-    
+    <string name="start">Start</string>
     <string name="stop">"Stop"</string>
     <string name="have_break">"Have a break"</string>
     <string name="complete">Complete</string>
     <string name="quick_start_hint">"add an item to start"</string>
     <string name="create_task_hint">"add a task"</string>
-    
+
     <!-- menu drawer -->
     <string name="create_new_task">New Task</string>
     <string name="today_title">"Today"</string>
     <string name="future_title">"Next"</string>
     <string name="complete_title">Done</string>
     <string name="setting_title">"Settings"</string>
-    
-    <!-- tasks  -->
+
+    <!-- tasks -->
     <string name="title_default">title</string>
     <string name="description_default">description</string>
     <string name="start_pomodoro">"Start Pomodoro"</string>
     <string name="save_label">DONE</string>
     <string name="discard_label">CANCEL</string>
-    
+
     <!-- menu -->
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -47,9 +44,10 @@
     <string name="done">Done</string>
     <string name="undone">Undone</string>
     <string name="add_to_today">Add to today</string>
-    
+
     <!-- undo -->
     <string name="undo_title">UNDO</string>
     <string name="complete_task">task complete</string>
     <string name="pick_task">Pick tasks</string>
+
 </resources>

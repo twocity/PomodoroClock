@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.twocities.pomodoro.Utils.Log;
+import com.twocities.pomodoro.Utils.TimeUtils;
 import com.twocities.pomodoro.data.PomodoroClock;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
@@ -31,10 +31,11 @@ public class TaskFragment extends Fragment {
 	private DigitalClock mContentView;
 	private TextView mTitle;
 	private TextView mDescription;
+	private Button mClockController;
 
-//	private PomodoroClock mClock;
-//	private SharedPreferences mPrefs;
+	private PomodoroClock mClock;
 	private Task mTask;
+	private SharedPreferences mPrefs;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,29 +48,25 @@ public class TaskFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mTitle = (TextView) view.findViewById(R.id.task_title);
 		mDescription = (TextView) view.findViewById(R.id.task_description);
-		
-//		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//		mClock = getIntent().getParcelableExtra(PomodoroClock.EXTRA_POMODORO);
-//		mClock.writeInSharedPerefs(mPrefs);
-//		Log.v("AlarmActivity: " + mClock.toString());
+		mClockController = (Button) view
+				.findViewById(R.id.button_clock_control);
+
 		mContentView = (DigitalClock) view.findViewById(R.id.digital_clock);
-		mContentView.updateTime(PomodoroClock.DEFAULT_LENGTH);
-		// Button startButton = (Button) view.findViewById(R.id.button_start);
-		// startButton.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// com.twocities.pomodoro.Utils.Utils.startClock(getActivity(),
-		// mTask.getTitle());
-		//
-		// }
-		// });
+		mClockController.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startClock(mTask.getTitle());
+			}
+		});
 		setHasOptionsMenu(true);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity()
+				.getApplicationContext());
 		if (getArguments() != null) {
 			mTask = getArguments().getParcelable(Task.EXTRA_TASK_DATA);
 			if (mTask == null) {
@@ -77,6 +74,8 @@ public class TaskFragment extends Fragment {
 			}
 			updateViewWithData(mTask);
 		}
+		mClock = new PomodoroClock();
+		updateClockState();
 	}
 
 	/**
@@ -84,25 +83,46 @@ public class TaskFragment extends Fragment {
 	 * 
 	 * @param title
 	 */
-	@SuppressWarnings("unused")
 	private void startClock(String title) {
-		SharedPreferences perfs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity()
-						.getApplicationContext());
-		PomodoroClock clock = new PomodoroClock();
-		clock.readFromSharedPerefs(perfs);
-		if (clock.isRunning()) {
-			Toast.makeText(getActivity().getApplicationContext(),
-					"There is a Clock running.", Toast.LENGTH_LONG).show();
-			clock.clearSharedPerefs(perfs);
+		PomodoroClock newClock = new PomodoroClock(PomodoroClock.DEFAULT_LENGTH);
+		newClock.updateTitle(title);
+		newClock.writeInSharedPerefs(mPrefs);
+		mContentView.start(PomodoroClock.DEFAULT_LENGTH);
+		mClock = newClock;
+	}
+
+	private void stopClock() {
+		mClock.clearSharedPerefs(mPrefs);
+		updateClockState();
+	}
+
+	private void updateClockState() {
+		mClock.readFromSharedPerefs(mPrefs);
+		if (mClock.isRunning()) {
+			mClock.mTimeLeft = mClock.mExpectedEndTime - TimeUtils.getTimeNow();
+			mContentView.start(mClock.mTimeLeft);
 		} else {
-			Intent i = new Intent(getActivity(), ScreenAlarmActivity.class);
-			PomodoroClock newClock = new PomodoroClock(
-					PomodoroClock.DEFAULT_LENGTH);
-			newClock.updateTitle(title);
-			i.putExtra(PomodoroClock.EXTRA_POMODORO, newClock);
-			newClock.writeInSharedPerefs(perfs);
-			this.startActivity(i);
+			mContentView.updateTime(PomodoroClock.DEFAULT_LENGTH);
+		}
+		updateClockController(mClock.isRunning());
+	}
+
+	private void updateClockController(boolean isRunning) {
+		if (isRunning) {
+			mClockController.setText(R.string.stop);
+		} else {
+			mClockController.setText(R.string.start);
+		}
+	}
+
+	public void clockController(View view) {
+		if (view.getId() != R.id.button_clock_control) {
+			return;
+		}
+		if (mClock.isRunning()) {
+			stopClock();
+		} else {
+			startClock(mTask.getTitle());
 		}
 	}
 
