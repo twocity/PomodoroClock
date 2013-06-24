@@ -2,6 +2,7 @@ package com.twocities.pomodoro.data;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
@@ -55,6 +56,8 @@ public class PomodoroClock implements Parcelable {
 
 	public static final class Columns implements BaseColumns {
 		public static final String TABLE_NAME = "clocks";
+		public static final Uri CONTENT_URI = Uri
+				.parse("content://com.twocities.pomodoro/clocks");
 		/**
 		 * The task id which this clock belongs to
 		 * <P>

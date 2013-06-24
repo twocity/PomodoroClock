@@ -74,7 +74,13 @@
 
         <provider
             android:name="com.twocities.pomodoro.provider.TaskProvider"
-            android:authorities="com.twocities.pomodoro.provider.Tasks"
+            android:authorities="com.twocities.pomodoro.provider.tasks"
+            android:exported="false" >
+            <grant-uri-permission android:pathPattern=".*" />
+        </provider>
+        <provider
+            android:name="com.twocities.pomodoro.provider.ClockProvider"
+            android:authorities="com.twocities.pomodoro.provider.clocks"
             android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>

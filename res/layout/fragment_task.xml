@@ -47,7 +47,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_light"
             android:gravity="center"
-            android:minHeight="240dp" >
+            android:minHeight="240dp"
+            >
 
             <TextView
                 android:id="@+id/digital_clock_minute"
