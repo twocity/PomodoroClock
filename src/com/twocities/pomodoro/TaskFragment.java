@@ -2,13 +2,9 @@ package com.twocities.pomodoro;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,29 +12,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.twocities.pomodoro.Utils.Log;
-import com.twocities.pomodoro.Utils.TimeUtils;
-import com.twocities.pomodoro.data.PomodoroClock;
 import com.twocities.pomodoro.data.Task;
 import com.twocities.pomodoro.provider.TaskConstract;
-import com.twocities.pomodoro.widget.DigitalClock;
 
-public class TaskFragment extends Fragment implements LoaderCallbacks<Cursor> {
+public class TaskFragment extends Fragment {
 	private static final int REQUEST_EDIT_TASK = 1;
-	private DigitalClock mContentView;
 	private TextView mTitle;
 	private TextView mDescription;
-	private Button mClockController;
+	private ClockTickFragment mClockFragment = null;
 
-	private PomodoroClock mClock;
-	private Task mTask;
-	private String mSelection = "WHERE task_id == ? AND clock_state == ?";
+	private Task mTask = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,16 +38,6 @@ public class TaskFragment extends Fragment implements LoaderCallbacks<Cursor> {
 		super.onViewCreated(view, savedInstanceState);
 		mTitle = (TextView) view.findViewById(R.id.task_title);
 		mDescription = (TextView) view.findViewById(R.id.task_description);
-		mClockController = (Button) view
-				.findViewById(R.id.button_clock_control);
-
-		mContentView = (DigitalClock) view.findViewById(R.id.digital_clock);
-		mClockController.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startClock(mTask.getTitle());
-			}
-		});
 		setHasOptionsMenu(true);
 	}
 
@@ -73,43 +50,19 @@ public class TaskFragment extends Fragment implements LoaderCallbacks<Cursor> {
 			if (mTask == null) {
 				throw new IllegalArgumentException("Task from Bundle is null!");
 			}
-			// start load manager
-			getLoaderManager().initLoader(0, null, this);
+
+			initClockFragment(mTask.getId());
 			updateViewWithData(mTask);
 		}
 	}
 
-	/**
-	 * Start a pomodoro clock
-	 * 
-	 * @param title
-	 */
-	private void startClock(String title) {
-	}
-
-	private void stopClock() {
-	}
-
-	private void updateClockState() {
-		if (mClock.isRunning()) {
-			updateClockController(false);
-			mClock.mTimeLeft = mClock.mExpectedEndTime - TimeUtils.getTimeNow();
-			mContentView.start(mClock.mTimeLeft);
-		} else {
-			updateClockController(true);
-			mContentView.updateTime(mClock.mTimeLeft);
-		}
-	}
-
-	private void updateClockController(boolean init) {
-		if (!init) {
-			mClockController.setText(R.string.stop);
-		} else {
-			mClockController.setText(R.string.start);
-		}
-	}
-
-	public void clockController(View view) {
+	private void initClockFragment(int taskId) {
+		Bundle args = new Bundle();
+		args.putInt("start_id", taskId);
+		mClockFragment = new ClockTickFragment();
+		mClockFragment.setArguments(args);
+		getChildFragmentManager().beginTransaction()
+				.replace(R.id.fragment_clock_ticker, mClockFragment).commit();
 	}
 
 	/**
@@ -202,35 +155,4 @@ public class TaskFragment extends Fragment implements LoaderCallbacks<Cursor> {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		int running = PomodoroClock.Status.RUNNING;
-		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-				PomodoroClock.Columns.CONTENT_URI, null, mSelection,
-				new String[] { String.valueOf(mTask.getId()),
-						String.valueOf(running) }, null);
-		return cursorLoader;
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		if (data != null) {
-			// there is a clock is running
-			data.moveToFirst();
-			mClock = new PomodoroClock(data);
-			Log.v(mClock.toString());
-		} else {
-			// no clock is running
-			mClock = new PomodoroClock(PomodoroClock.DEFAULT_LENGTH);
-			mClock.mTaskId = mTask.getId();
-		}
-		View parent = (View) mContentView.getParent();
-		parent.setVisibility(View.VISIBLE);
-		updateClockState();
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> loader) {
-
-	}
 }

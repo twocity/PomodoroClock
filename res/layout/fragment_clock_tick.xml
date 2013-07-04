@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <com.twocities.pomodoro.widget.DigitalClock
+        android:id="@+id/digital_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+        android:gravity="center"
+        android:minHeight="240dp" >
+
+        <TextView
+            android:id="@+id/digital_clock_minute"
+            style="@style/big_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/screen_alarm_text_color" />
+
+        <TextView
+            android:id="@+id/digital_clock_second"
+            style="@style/big_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/screen_alarm_text_color" />
+    </com.twocities.pomodoro.widget.DigitalClock>
+
+    <Button
+        android:id="@+id/button_clock_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:text="@string/start" />
+
+</FrameLayout>

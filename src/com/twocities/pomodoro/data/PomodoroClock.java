@@ -1,5 +1,6 @@
 package com.twocities.pomodoro.data;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,7 +20,7 @@ public class PomodoroClock implements Parcelable {
 	public static final String CLOCK_LENGTH = "pomodoro_clock_length";
 	public static final String SHOW_NOTIF = "action_show_notification";
 	public static final String KILL_NOTIF = "action_kill_notification";
-	public static final long DEFAULT_LENGTH = 25 * 60 * 1000;
+	public static final long DEFAULT_LENGTH = 60 * 1000;
 
 	public static final String KEY_TIME_LEFT = "key_time_left";
 
@@ -193,6 +194,16 @@ public class PomodoroClock implements Parcelable {
 		init(0);
 	}
 
+	public PomodoroClock(long length, int taskId) {
+		this.mTaskId = taskId;
+		this.mId = (int) TimeUtils.getTimeNow();
+		this.mClockLength = length;
+		this.mTimeLeft = length;
+		this.mStartTime = TimeUtils.getTimeNow();
+		this.mExpectedEndTime = mStartTime + mClockLength;
+		this.mStatus = Status.PENDING;
+	}
+
 	public void writeInSharedPerefs(SharedPreferences perfs) {
 		SharedPreferences.Editor editor = perfs.edit();
 		editor.putInt(PREF_ID, this.mId);
@@ -237,6 +248,26 @@ public class PomodoroClock implements Parcelable {
 		this.mStatus = Status.PENDING;
 	}
 
+	public void start(long length) {
+		this.mId = (int) TimeUtils.getTimeNow();
+		this.mClockLength = length;
+		this.mTimeLeft = length;
+		this.mStartTime = TimeUtils.getTimeNow();
+		this.mExpectedEndTime = mStartTime + mClockLength;
+		this.mStatus = Status.RUNNING;
+	}
+
+	public void updateStatus(int status) {
+		if (status < Status.PENDING || status > Status.FINISH) {
+			throw new IllegalArgumentException("Wrong status: " + status);
+		}
+		this.mStatus = status;
+	}
+
+	public long getClockLength() {
+		return this.mClockLength;
+	}
+
 	public void updateDescription(String description) {
 	}
 
@@ -245,6 +276,18 @@ public class PomodoroClock implements Parcelable {
 
 	public boolean isRunning() {
 		return this.mStatus == Status.RUNNING;
+	}
+
+	public ContentValues toContentValues() {
+		ContentValues values = new ContentValues();
+		values.put(Columns.CLOCK_TASK_ID, mTaskId);
+		values.put(Columns.CLOCK_START_TIME, mStartTime);
+		values.put(Columns.CLOCK_END_TIME, mEndTime);
+		values.put(Columns.CLOCK_LENGTH, mClockLength);
+		values.put(Columns.CLOCK_EXPECTED_TIME, mExpectedEndTime);
+		values.put(Columns.CLOCK_TIME_LEFT, mTimeLeft);
+		values.put(Columns.CLOCK_STATUS, mStatus);
+		return values;
 	}
 
 }

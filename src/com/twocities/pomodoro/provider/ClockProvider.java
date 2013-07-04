@@ -21,6 +21,40 @@ public class ClockProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.twocities.pomodoro.provider.clocks";
 
+	/** URI definitions **/
+
+	/**
+	 * The scheme part for this provider's URI
+	 */
+	private static final String SCHEME = "content://";
+
+	/**
+	 * Path parts for the URIs
+	 */
+
+	/**
+	 * Path part for the Notes URI
+	 */
+	private static final String PATH_CLOCKS = "/clocks";
+
+	/**
+	 * Path part for the Note ID URI
+	 */
+	private static final String PATH_CLOCKS_ID = "/clocks/";
+
+	/**
+	 * The content:// style URL for this table
+	 */
+	public static final Uri CONTENT_URI = Uri.parse(SCHEME + AUTHORITY
+			+ PATH_CLOCKS);
+
+	/**
+	 * The Content URI base for a single note. Callers must append a numberic
+	 * task id to this Uri to retrieve a task
+	 */
+	public static final Uri CONTENT_ID_URI_BASE = Uri.parse(SCHEME + AUTHORITY
+			+ PATH_CLOCKS_ID);
+
 	/**
 	 * The MIME type of {@link #CONTENT_URI} providing a directory of tasks.
 	 */
@@ -37,8 +71,8 @@ public class ClockProvider extends ContentProvider {
 			UriMatcher.NO_MATCH);
 
 	static {
-		sURLMatcher.addURI(AUTHORITY, "clock", CLOCKS);
-		sURLMatcher.addURI(AUTHORITY, "clock/#", CLOCKS_ID);
+		sURLMatcher.addURI(AUTHORITY, "clocks", CLOCKS);
+		sURLMatcher.addURI(AUTHORITY, "clocks/#", CLOCKS_ID);
 	}
 
 	public ClockProvider() {
@@ -144,14 +178,14 @@ public class ClockProvider extends ContentProvider {
 	public int delete(Uri url, String where, String[] whereArgs) {
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		int count;
-//		long rowId = 0;
+		// long rowId = 0;
 		switch (sURLMatcher.match(url)) {
 		case CLOCKS:
 			count = db.delete("alarms", where, whereArgs);
 			break;
 		case CLOCKS_ID:
 			String segment = url.getPathSegments().get(1);
-//			rowId = Long.parseLong(segment);
+			// rowId = Long.parseLong(segment);
 			if (TextUtils.isEmpty(where)) {
 				where = "_id=" + segment;
 			} else {
